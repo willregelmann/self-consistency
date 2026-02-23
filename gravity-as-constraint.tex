@@ -154,6 +154,33 @@ We note that a fully rigorous Schauder argument requires specifying the convex c
 
 The analysis fails when $R \sim \ell_P$: the contraction constant $\kappa$ approaches 1, and neither the perturbative nor the Schauder argument applies. The Planck scale emerges as the natural boundary of the framework's validity---not imposed by hand, but derived from the mathematics of fixed-point convergence.
 
+\subsection{Effective Initial Value Formulation}
+\label{sec:ivp}
+
+Axiom~3 states that the triple $(\mathcal{M}, g_{\mu\nu}, |\Psi\rangle)$ is solved as a fixed-point problem over the entire manifold. Practical physics---numerical relativity, gravitational-wave template generation, cosmological perturbation theory---requires a local formulation: specifying initial data on a Cauchy surface $\Sigma$ and evolving forward. We now show that the global fixed point is reducible, in the perturbative regime $\kappa \ll 1$, to order-reduced semiclassical Cauchy evolution with Hadamard initial data. The argument has three components.
+
+\subsubsection{Perturbative iteration as Cauchy evolution {\normalfont (rigorous)}}
+
+The Banach contraction of Section~3.3 constructs the fixed point $g^*$ as the limit of the iterative sequence $g_{n+1} = \mathcal{F}(g_n)$ starting from a classical solution $\bar{g}$. Each iteration step consists of: (a)~computing the renormalized stress-energy $\langle \hat{T}_{\mu\nu} \rangle_{g_n,\text{ren}}$ on the geometry $g_n$, and (b)~solving the Einstein equation $G_{\mu\nu}[g_{n+1}] = 8\pi G \langle \hat{T}_{\mu\nu} \rangle_{g_n}$ for $g_{n+1}$. Step~(b) is a well-posed initial value problem by the Choquet-Bruhat theorem~\cite{choquet_bruhat}. Step~(a) is well-defined for any globally hyperbolic $(g_n, |\Psi_{g_n}\rangle)$ with $|\Psi_{g_n}\rangle$ satisfying the Hadamard condition~\cite{radzikowski}.
+
+At first order, $g_1 = \bar{g} + \delta g_1$ where $\delta g_1$ satisfies the linearized Einstein equation with source $8\pi G \langle \hat{T}_{\mu\nu} \rangle^{(\text{quantum})}_{\bar{g}}$---precisely the standard semiclassical backreaction calculation. At order $n$, $g_n = \bar{g} + \sum_{k=1}^n \delta g_k$ with each correction satisfying a linearized equation sourced by the stress-energy response to the previous corrections. Since $\kappa \ll 1$, the corrections decrease geometrically: $\|\delta g_n\| \leq \kappa^n \|\delta g_1\|$.
+
+The global fixed point is therefore constructible order-by-order via Cauchy evolution. The initial data for the coupled system on a surface $\Sigma$ consists of the induced metric $h_{ij}$, extrinsic curvature $K_{ij}$, and a Hadamard state $|\Psi_\Sigma\rangle$ for the matter fields, subject to the semiclassical constraint equations $G_{0\mu}[h, K] = 8\pi G \langle \hat{T}_{0\mu} \rangle_\Sigma$. The resulting evolution agrees with the global fixed point to $\mathcal{O}(\kappa^{n+1})$ at $n$-th iteration order.
+
+\subsubsection{Causal structure and patching {\normalfont (rigorous)}}
+
+The fixed-point map $\mathcal{F}$ respects the causal structure of the underlying spacetime. The key input is the locality of the Hadamard condition: Radzikowski~\cite{radzikowski} showed that the Hadamard property of a quantum state is equivalent to a microlocal spectrum condition---a constraint on the wavefront set of the two-point function that is determined by the local light-cone structure. Fulling, Sweeny, and Wald~\cite{fulling_sweeny_wald} proved that if the two-point function has Hadamard singularity structure in a neighborhood of a Cauchy surface $\Sigma$, it has this structure throughout the globally hyperbolic development $D(\Sigma)$.
+
+These two results together imply that the renormalized stress-energy $\langle \hat{T}_{\mu\nu}(x) \rangle_{\text{ren}}$ at a point $x$ is determined by the geometry and quantum state in the causal past $J^-(x)$, up to the finite local ambiguities parameterized by renormalization constants. The fixed-point map $\mathcal{F}$ restricted to $D(\Sigma)$ therefore depends only on initial data on $\Sigma$, and the global fixed-point problem decomposes into local problems on causal patches that can be solved independently and stitched together---exactly as in classical general relativity. (The causal structure itself converges across iterations: since $\|g_n - g^*\|_{H^s} \leq \kappa^n \|\delta g_1\|_{H^s}$, the light cones of $g_n$ converge to those of $g^*$, ensuring $D_{g_n}(\Sigma) \to D_{g^*}(\Sigma)$.)
+
+\subsubsection{Order reduction and spurious modes {\normalfont (sketch)}}
+
+The renormalized stress-energy $\langle \hat{T}_{\mu\nu} \rangle_{\text{ren}}$ contains terms with up to fourth-order derivatives of the metric, arising from the trace anomaly and the regularization procedure. Naively, this promotes the semiclassical Einstein equation from a second-order to a fourth-order PDE, requiring additional initial data (third and fourth time derivatives of the metric on $\Sigma$) and admitting spurious runaway solutions.
+
+Parker and Simon~\cite{parker_simon} showed that the physically relevant solutions---those continuously connected to classical general relativity in the $\hbar \to 0$ limit---satisfy \emph{reduced} second-order equations obtained by perturbatively eliminating the higher-derivative terms. The spurious fourth-order modes grow on timescales $\sim t_P$ (the Planck time), precisely the regime where $\kappa \to 1$ and the framework reaches its validity boundary (Section~3.5). Order reduction is therefore not an ad hoc truncation but a consequence of restricting to the basin of attraction of the Banach contraction: solutions with $\kappa \sim 1$ lie outside this basin and are correctly excluded.
+
+The order-reduced semiclassical Einstein equation is a second-order hyperbolic system requiring the same initial data $(h_{ij}, K_{ij}, |\Psi_\Sigma\rangle)$ as in Section~3.6.1, with no additional boundary conditions. This has been made rigorous in cosmological spacetimes by Pinamonti and Siemssen~\cite{pinamonti_siemssen}, who proved global existence and uniqueness of solutions of the semiclassical Einstein equation for FRW geometries using Banach fixed-point methods---the same mathematical structure as Section~3.3. Ju\'arez-Aubry \textit{et al.}~\cite{juarez_aubry} have formulated the initial value problem for general globally hyperbolic spacetimes using surface Hadamard states and conjectured well-posedness; a proof remains open.
+
 %======================================================================
 \section{Gravitational Decoherence from Self-Consistent Fluctuations}
 \label{sec:decoherence}
@@ -491,7 +518,7 @@ The key discriminator between this framework and Di\'osi--Penrose is the tempora
 %======================================================================
 
 \begin{enumerate}
-\item \textbf{Effective initial value formulation.} Axiom~3 states that the solution is global. Practical physics needs a local formulation---solving on patches and stitching together.
+\item \textbf{Non-perturbative initial value formulation.} Section~\ref{sec:ivp} derives an effective Cauchy formulation valid order-by-order in $\kappa$, with order reduction from fourth-order to second-order equations at the sketch level (Section~3.6.3). The remaining gap is non-perturbative well-posedness: proving that the order-reduced semiclassical Einstein equation with Hadamard initial data is well-posed on general globally hyperbolic spacetimes without symmetry assumptions. This has been achieved for cosmological spacetimes~\cite{pinamonti_siemssen} and conjectured in general~\cite{juarez_aubry}.
 
 \item \textbf{Rigorous Schauder application.} The non-perturbative existence argument requires specifying the convex compact $\mathcal{F}$-invariant subset, including gauge fixing in Lorentzian signature.
 
@@ -571,6 +598,14 @@ The framework is falsifiable: observation of BMV entanglement at the quantum gra
 \bibitem{wheeler_biconformal} S.~T.~Spencer and J.~T.~Wheeler, The existence of time, \textit{Int.\ J.\ Geom.\ Methods Mod.\ Phys.}\ \textbf{8}, 273 (2011); arXiv:1512.01729.
 
 \bibitem{maqro} R.~Kaltenbaek \textit{et al.}, Macroscopic quantum resonators (MAQRO), \textit{Exp.\ Astron.}\ \textbf{34}, 123 (2012).
+
+\bibitem{parker_simon} L.~Parker and J.~Z.~Simon, Einstein equation with quantum corrections reduced to second order, \textit{Phys.\ Rev.\ D}\ \textbf{47}, 1339 (1993).
+
+\bibitem{fulling_sweeny_wald} S.~A.~Fulling, M.~Sweeny, and R.~M.~Wald, Singularity structure of the two-point function in quantum field theory in curved spacetime, \textit{Commun.\ Math.\ Phys.}\ \textbf{63}, 257 (1978).
+
+\bibitem{pinamonti_siemssen} N.~Pinamonti and D.~Siemssen, Global existence of solutions of the semiclassical Einstein equation for cosmological spacetimes, \textit{Commun.\ Math.\ Phys.}\ \textbf{334}, 171 (2015).
+
+\bibitem{juarez_aubry} B.~A.~Ju\'arez-Aubry, B.~S.~Kay, T.~Miramontes, and D.~Sudarsky, On the initial value problem for semiclassical gravity without and with quantum state collapses, \textit{J.\ Cosmol.\ Astropart.\ Phys.}\ \textbf{2023}(01), 040 (2023).
 
 \end{thebibliography}
 
