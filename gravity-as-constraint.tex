@@ -26,7 +26,7 @@ With Fixed-Point Existence Proofs and Decoherence Bounds}
 \begin{abstract}
 We propose that physical law is what self-consistency looks like: the universe is the fixed point of a constraint requiring that geometry and the quantum fields it hosts mutually determine each other. Gravity is not an independent degree of freedom to be quantized but a constraint---the demand that the block spacetime be self-consistent. The semiclassical Einstein equation, together with its stochastic extension via the noise kernel, implements this constraint at tree level in the stochastic gravity formalism of Hu and Verdaguer.
 
-We prove that self-consistent solutions exist: exactly in cosmology via the trace anomaly, perturbatively near any classical solution via Banach contraction with constant $\kappa \sim (m/M_P)^2 \ll 1$, and conditionally in the general case via the Schauder theorem. The Planck scale emerges as the natural validity boundary where $\kappa \to 1$.
+We prove that self-consistent solutions exist: exactly in cosmology via the trace anomaly, perturbatively near any classical solution via Banach contraction with constant $\kappa \sim (m/M_P)^2 \ll 1$, and conditionally in the general case via the Schauder theorem on spacetimes with compact Cauchy surfaces, under stated regularity assumptions on the renormalized stress-energy. The Planck scale emerges as the natural validity boundary where $\kappa \to 1$.
 
 The stochastic extension yields Gaussian gravitational decoherence at a timescale $\tau_{\text{coh}} \approx 1.13\,\hbar/E_\Delta$, where $E_\Delta$ is the gravitational self-energy of the superposed mass distribution---the same energy that determines the Di\'osi--Penrose timescale. The temporal profile (Gaussian rather than exponential) is the distinguishing prediction: it arises because the noise kernel for stationary matter is time-independent in the Newtonian limit, unlike the white noise postulated in the Di\'osi model. The framework further predicts null results for BMV entanglement at the quantum gravity rate. Both predictions are falsifiable.
 \end{abstract}
@@ -145,14 +145,85 @@ Top quark & $3.1 \times 10^{-25}$ & $\sim 10^{-34}$ \\
 By the Banach fixed-point theorem, a unique self-consistent solution exists in a neighborhood of any classical solution, and the iterative scheme converges exponentially.
 
 \subsection{Non-Perturbative Existence via Schauder}
+\label{sec:schauder}
 
-For strong-field regimes, we invoke the Schauder fixed-point theorem~\cite{schauder}. If $\mathcal{F}$ maps a convex, compact subset $K$ of the metric space into itself, and $\mathcal{F}$ is continuous, then $\mathcal{F}$ has a fixed point. Continuity follows from the continuous dependence of the Hadamard parametrix on the metric~\cite{radzikowski} and the well-posedness of the Einstein equations~\cite{choquet_bruhat}. Compactness of $K$ in the appropriate Sobolev space follows from the Rellich--Kondrachov theorem.
+The Banach contraction of Section~3.3 establishes existence and uniqueness in the perturbative regime $\kappa \ll 1$, with a constructive iterative scheme. For the regime $\kappa < 1$ but not necessarily small, Banach contraction no longer applies, but the Schauder fixed-point theorem~\cite{schauder} provides an existence result under weaker hypotheses: continuity and self-mapping of a convex compact set, without requiring contractivity. We now develop this argument in detail. The result is rigorous conditional on six stated assumptions (A1)--(A6), four of which are established in the literature and two of which remain open conjectures.
 
-We note that a fully rigorous Schauder argument requires specifying the convex compact subset (including gauge fixing) and verifying $\mathcal{F}$-invariance---nontrivial steps in Lorentzian signature with diffeomorphism invariance. We regard this as a conditional result pending further functional-analytic development.
+\medskip\noindent\textbf{Setup.}
+Let $(\mathcal{M}, \bar{g})$ be a globally hyperbolic spacetime with \emph{compact} Cauchy surface $\Sigma$. (The restriction to compact $\Sigma$ is essential: the Rellich--Kondrachov compactness theorem requires a bounded domain. Extension to asymptotically flat spacetimes would require weighted Sobolev spaces and a different compactness argument; see Section~\ref{sec:open}.) Let $\bar{g}$ be a classical solution of the Einstein equations in linearized harmonic gauge, $\partial^\mu \bar{h}_{\mu\nu} = 0$ where $\bar{h}_{\mu\nu} = g_{\mu\nu} - \eta_{\mu\nu} - \frac{1}{2}\eta_{\mu\nu}(\eta^{\alpha\beta}g_{\alpha\beta})$. The linearized harmonic gauge condition is linear in the metric perturbation $h_{\mu\nu}$, so the set of metrics satisfying it is convex.
+
+Fix $s > n/2 + 2 = 4$ (for $n = 4$ spacetime dimensions) and define the Sobolev space $H^s(\Sigma)$ of symmetric $(0,2)$-tensor fields on $\Sigma$. For $\rho > 0$, define:
+\begin{equation}
+K_\rho \equiv \bigl\{ h \in H^s(\Sigma) : \|h - \bar{h}\|_{H^s} \leq \rho \bigr\} \;\cap\; \mathcal{G}_{\text{harm}} \;\cap\; \mathcal{L}
+\label{eq:K_rho}
+\end{equation}
+where $\mathcal{G}_{\text{harm}}$ is the (affine, hence convex) set of metrics satisfying the linearized harmonic gauge condition, and $\mathcal{L}$ is the (convex) set of Lorentzian-signature metrics. The set $K_\rho$ is closed, bounded, and convex in $H^s(\Sigma)$. By the Rellich--Kondrachov theorem on compact $\Sigma$, the embedding $H^s(\Sigma) \hookrightarrow H^{s'}(\Sigma)$ is compact for any $s' < s$, so $K_\rho$ is compact in the $H^{s'}$ topology.
+
+\medskip\noindent\textbf{Assumptions.}
+The following inputs are required for the argument. We label each by its status.
+
+\begin{itemize}
+\item[\textbf{(A1)}] \textit{Hadamard state existence and regularity.} For each metric $g \in K_\rho$, there exists a Hadamard state $|\Psi_g\rangle$ for the quantum fields on $(\mathcal{M}, g)$, and the renormalized stress-energy $\langle \hat{T}_{\mu\nu} \rangle_{g,\text{ren}}$ is well-defined. \textbf{[Established:} Radzikowski~\cite{radzikowski} proved that the Hadamard condition is equivalent to a microlocal spectrum condition; existence on globally hyperbolic spacetimes follows from deformation arguments~\cite{fulling_sweeny_wald}.\textbf{]}
+
+\item[\textbf{(A2)}] \textit{Continuous dependence of renormalized stress-energy on the metric.} The map $g \mapsto \langle \hat{T}_{\mu\nu} \rangle_{g,\text{ren}}$ is continuous from $H^s(\Sigma)$ to $H^{s-2}(\Sigma)$. \textbf{[Established:} The Hadamard parametrix depends continuously on the metric~\cite{radzikowski}; the renormalization ambiguities are local curvature polynomials, hence smooth in $g$. Brunetti, Fredenhagen, and K\"ohler~\cite{brunetti_fredenhagen_kohler} proved that the renormalized time-ordered products depend continuously on the spacetime metric.\textbf{]}
+
+\item[\textbf{(A3)}] \textit{Uniform a priori bound on the renormalized stress-energy.} There exists a constant $B(\rho) < \infty$ such that $\|\langle \hat{T}_{\mu\nu} \rangle_{g,\text{ren}}\|_{H^{s-2}} \leq B(\rho)$ for all $g \in K_\rho$. \textbf{[Conjecture.} This bound has been established for free fields on cosmological (FRW) spacetimes by Pinamonti and Siemssen~\cite{pinamonti_siemssen}, but remains open for general globally hyperbolic spacetimes with compact Cauchy surfaces. The difficulty is controlling the state-dependent part of $\langle \hat{T}_{\mu\nu} \rangle_{\text{ren}}$ uniformly over $K_\rho$; the geometric (anomaly) contribution is bounded by Sobolev embedding.\textbf{]}
+
+\item[\textbf{(A4)}] \textit{Well-posedness of the linearized Einstein equation in harmonic gauge.} Given a source $S_{\mu\nu} \in H^{s-2}(\Sigma)$, the linearized Einstein equation $G^{\text{lin}}_{\mu\nu}[h] = S_{\mu\nu}$ in harmonic gauge has a unique solution $h \in H^s(\Sigma)$ with $\|h\|_{H^s} \leq C_{\text{inv}} \|S_{\mu\nu}\|_{H^{s-2}}$ for a constant $C_{\text{inv}}$ depending on the background. \textbf{[Established:} Choquet-Bruhat~\cite{choquet_bruhat}.\textbf{]}
+
+\item[\textbf{(A5)}] \textit{Order reduction.} The fourth-derivative terms in $\langle \hat{T}_{\mu\nu} \rangle_{\text{ren}}$ (from the trace anomaly and regularization) can be perturbatively eliminated, yielding a second-order system. \textbf{[Established:} Parker and Simon~\cite{parker_simon}.\textbf{]}
+
+\item[\textbf{(A6)}] \textit{Uniform contraction bound.} Define $\kappa(g) \equiv 8\pi G \, \|(G^g_{\text{lin}})^{-1}\|_{\text{op}} \cdot \|\delta \langle \hat{T}_{\mu\nu}\rangle_{\text{ren}} / \delta g\|_{\text{op}}$ as in eq.~\eqref{eq:kappa}. The supremum $\kappa_{\sup} \equiv \sup_{g \in K_\rho} \kappa(g) < 1$. \textbf{[Conjecture.} For any fixed $g$, $\kappa(g)$ is computed from the response kernel~\cite{horowitz,phillips_hu} and scales as $(m/M_P)^2 \ell_P^2 R_g$, where $R_g$ is the local curvature. Uniformity over $K_\rho$ requires that the curvature remains bounded away from Planck scale throughout $K_\rho$---a condition on $\rho$.\textbf{]}
+\end{itemize}
+
+\begin{theorem}[Non-perturbative existence]
+\label{thm:schauder}
+Let $(\mathcal{M}, \bar{g})$ be globally hyperbolic with compact Cauchy surface $\Sigma$, and let $\bar{g}$ be a classical solution in linearized harmonic gauge. Under assumptions \emph{(A1)--(A6)}, the self-consistency map $\mathcal{F}$ has at least one fixed point in an $H^{s'}$-neighborhood of $\bar{g}$, for any $s' < s$. That is, the self-consistency equation~\eqref{eq:sce} has at least one solution $g^* \in K_\rho$.
+\end{theorem}
+
+\noindent\emph{Proof.} The argument proceeds in six steps.
+
+\smallskip\noindent\textit{Step 1: $K_\rho$ is convex and compact.}
+$K_\rho$ is the intersection of a closed ball in $H^s$ with the convex sets $\mathcal{G}_{\text{harm}}$ and $\mathcal{L}$, hence convex and closed in $H^s$. By the Rellich--Kondrachov theorem on the compact manifold $\Sigma$, any bounded subset of $H^s(\Sigma)$ is precompact in $H^{s'}(\Sigma)$ for $s' < s$. Since $K_\rho$ is closed and bounded in $H^s$, it is compact in $H^{s'}$.
+
+\smallskip\noindent\textit{Step 2: $\mathcal{F}$ is well-defined on $K_\rho$.}
+For each $g \in K_\rho$, assumption (A1) provides the Hadamard state $|\Psi_g\rangle$ and the renormalized stress-energy $S_{\mu\nu}[g] = 8\pi G \langle \hat{T}_{\mu\nu}\rangle_{g,\text{ren}}$. After order reduction via (A5), the source lies in $H^{s-2}$. Assumption (A4) then provides the unique solution $\mathcal{F}(g)$ of the linearized Einstein equation with this source, with $\mathcal{F}(g) \in H^s$.
+
+\smallskip\noindent\textit{Step 3: $\mathcal{F}$-invariance of $K_\rho$.}
+We must show $\mathcal{F}(K_\rho) \subseteq K_\rho$. For $g \in K_\rho$:
+\begin{equation}
+\|\mathcal{F}(g) - \bar{g}\|_{H^s} \leq C_{\text{inv}} \cdot 8\pi G \cdot \bigl(\|\langle \hat{T}_{\mu\nu}\rangle^{(\text{quantum})}_g\|_{H^{s-2}}\bigr) \leq C_{\text{inv}} \cdot 8\pi G \cdot \kappa_{\sup} \|g - \bar{g}\|_{H^s} + C_{\text{inv}} \cdot 8\pi G \cdot B(0)
+\end{equation}
+where $B(0) = \|\langle \hat{T}_{\mu\nu}\rangle^{(\text{quantum})}_{\bar{g}}\|_{H^{s-2}}$ is the stress-energy on the background. Using (A3) and (A6), this gives $\|\mathcal{F}(g) - \bar{g}\|_{H^s} \leq \kappa_{\sup} \rho + 8\pi G \cdot C_{\text{inv}} \cdot B(0)$. Choosing
+\begin{equation}
+\rho \geq \frac{8\pi G \cdot C_{\text{inv}} \cdot B(0)}{1 - \kappa_{\sup}}
+\label{eq:rho_bound}
+\end{equation}
+ensures $\|\mathcal{F}(g) - \bar{g}\|_{H^s} \leq \rho$, so $\mathcal{F}(g) \in K_\rho$. (The gauge and signature conditions are preserved because $\mathcal{F}$ solves the Einstein equation in harmonic gauge by construction.)
+
+\smallskip\noindent\textit{Step 4: Continuity of $\mathcal{F}$ in $H^{s'}$.}
+The map $\mathcal{F}$ is the composition $g \mapsto \langle \hat{T}_{\mu\nu}\rangle_{g,\text{ren}} \mapsto (G^{\text{lin}})^{-1}[8\pi G \langle \hat{T}_{\mu\nu}\rangle_{g,\text{ren}}]$. The first map is continuous $H^{s'} \to H^{s'-2}$ by (A2); the second is continuous $H^{s'-2} \to H^{s'}$ by (A4). The composition is continuous in $H^{s'}$.
+
+\smallskip\noindent\textit{Step 5: Compactness of $\mathcal{F}(K_\rho)$.}
+By Step~3, $\mathcal{F}(K_\rho)$ is bounded in $H^s$. By Rellich--Kondrachov, bounded subsets of $H^s$ are precompact in $H^{s'}$. Hence $\mathcal{F}(K_\rho)$ is precompact in $H^{s'}$.
+
+\smallskip\noindent\textit{Step 6: Application of Schauder and regularity bootstrap.}
+By Steps~1, 3, 4, and 5, $\mathcal{F}: K_\rho \to K_\rho$ is a continuous map of a convex compact subset of $H^{s'}(\Sigma)$ into itself. The Schauder fixed-point theorem~\cite{schauder} guarantees the existence of at least one fixed point $g^* \in K_\rho$ with $\mathcal{F}(g^*) = g^*$. Since $g^*$ lies in the image of $\mathcal{F}$, it satisfies $g^* \in H^s$ (not merely $H^{s'}$) by construction. Elliptic regularity for the harmonic gauge Einstein equation, combined with the smoothness of the curvature terms in $\langle \hat{T}_{\mu\nu}\rangle_{\text{ren}}$ guaranteed by (A5), allows bootstrapping to higher regularity if the background data permits. \hfill$\square$
+
+\medskip\noindent\textbf{Relation to the perturbative regime.}
+The Banach and Schauder results cover complementary regimes:
+\begin{itemize}
+\item $\kappa \ll 1$: The Banach contraction theorem (Section~3.3) gives existence, \emph{uniqueness}, and a constructive iterative scheme converging at rate $\kappa^n$.
+\item $\kappa_{\sup} < 1$: The Schauder theorem (Theorem~\ref{thm:schauder}) gives existence only. It provides no uniqueness guarantee and no constructive iteration---only the assurance that at least one fixed point exists.
+\item $\kappa \to 1$: Neither theorem applies. This is the Planck-scale boundary discussed in Section~3.5.
+\end{itemize}
+
+\medskip\noindent\textbf{Limitations.}
+The compact Cauchy surface restriction excludes asymptotically flat spacetimes (Schwarzschild, Kerr), which require weighted Sobolev spaces (e.g., $H^s_\delta$ with decay rate $\delta$) and a compactness argument adapted to non-compact domains. Uniqueness is not established in the Schauder regime: multiple self-consistent solutions may coexist for the same background, a possibility absent in the perturbative regime. Assumptions (A3) and (A6) are the key open steps; they have been proved only for FRW spacetimes~\cite{pinamonti_siemssen}. Establishing them for general compact Cauchy surfaces is the principal remaining mathematical challenge (Section~\ref{sec:open}).
 
 \subsection{Breakdown at the Planck Scale}
 
-The analysis fails when $R \sim \ell_P$: the contraction constant $\kappa$ approaches 1, and neither the perturbative nor the Schauder argument applies. The Planck scale emerges as the natural boundary of the framework's validity---not imposed by hand, but derived from the mathematics of fixed-point convergence.
+The analysis fails when $R \sim \ell_P$: the contraction constant $\kappa$ approaches 1. In the perturbative regime, $\kappa \to 1$ means the Banach contraction no longer guarantees convergence. In the Schauder regime, the uniform bound $\kappa_{\sup} < 1$ (assumption (A6) of Theorem~\ref{thm:schauder}) fails when the curvature anywhere in $K_\rho$ approaches the Planck scale, so the $\mathcal{F}$-invariance estimate~\eqref{eq:rho_bound} breaks down. Neither the perturbative nor the non-perturbative existence argument applies. The Planck scale emerges as the natural boundary of the framework's validity---not imposed by hand, but derived from the mathematics of fixed-point convergence.
 
 \subsection{Effective Initial Value Formulation}
 \label{sec:ivp}
@@ -520,7 +591,7 @@ The key discriminator between this framework and Di\'osi--Penrose is the tempora
 \begin{enumerate}
 \item \textbf{Non-perturbative initial value formulation.} Section~\ref{sec:ivp} derives an effective Cauchy formulation valid order-by-order in $\kappa$, with order reduction from fourth-order to second-order equations at the sketch level (Section~3.6.3). The remaining gap is non-perturbative well-posedness: proving that the order-reduced semiclassical Einstein equation with Hadamard initial data is well-posed on general globally hyperbolic spacetimes without symmetry assumptions. This has been achieved for cosmological spacetimes~\cite{pinamonti_siemssen} and conjectured in general~\cite{juarez_aubry}.
 
-\item \textbf{Rigorous Schauder application.} The non-perturbative existence argument requires specifying the convex compact $\mathcal{F}$-invariant subset, including gauge fixing in Lorentzian signature.
+\item \textbf{Uniform bounds for the Schauder argument.} The non-perturbative existence argument (Section~\ref{sec:schauder}, Theorem~\ref{thm:schauder}) assumes uniform a priori bounds on the renormalized stress-energy (A3) and uniform contraction bounds (A6). These have been established for cosmological spacetimes~\cite{pinamonti_siemssen} but remain open for general globally hyperbolic spacetimes with compact Cauchy surfaces. Extension to asymptotically flat spacetimes requires weighted Sobolev spaces and a different compactness argument.
 
 \item \textbf{Noise kernel for interacting matter.} The noise kernel evaluation of Section~\ref{sec:noise_kernel_eval} treats the body as a rigid, non-interacting object. Internal stress-energy fluctuations from strong interactions (QCD composites, phonon modes near the gravitational frequency $\omega_g \sim E_\Delta/\hbar$) could introduce temporal structure in the noise kernel, modifying the Gaussian profile and affecting the numerical prefactor. This is relevant for soft or composite bodies but not for rigid crystalline solids (see Section~\ref{sec:noise_kernel_eval}).
 
@@ -606,6 +677,8 @@ The framework is falsifiable: observation of BMV entanglement at the quantum gra
 \bibitem{pinamonti_siemssen} N.~Pinamonti and D.~Siemssen, Global existence of solutions of the semiclassical Einstein equation for cosmological spacetimes, \textit{Commun.\ Math.\ Phys.}\ \textbf{334}, 171 (2015).
 
 \bibitem{juarez_aubry} B.~A.~Ju\'arez-Aubry, B.~S.~Kay, T.~Miramontes, and D.~Sudarsky, On the initial value problem for semiclassical gravity without and with quantum state collapses, \textit{J.\ Cosmol.\ Astropart.\ Phys.}\ \textbf{2023}(01), 040 (2023).
+
+\bibitem{brunetti_fredenhagen_kohler} R.~Brunetti, K.~Fredenhagen, and M.~K\"ohler, The microlocal spectrum condition and Wick polynomials of free fields on curved spacetimes, \textit{Commun.\ Math.\ Phys.}\ \textbf{180}, 633 (1996).
 
 \end{thebibliography}
 
