@@ -26,7 +26,7 @@ With Fixed-Point Existence Proofs and Decoherence Bounds}
 \begin{abstract}
 We propose that physical law is what self-consistency looks like: the universe is the fixed point of a constraint requiring that geometry and the quantum fields it hosts mutually determine each other. Gravity is not an independent degree of freedom to be quantized but a constraint---the demand that the block spacetime be self-consistent. The semiclassical Einstein equation, together with its stochastic extension via the noise kernel, implements this constraint at tree level in the stochastic gravity formalism of Hu and Verdaguer.
 
-We prove that self-consistent solutions exist: exactly in cosmology via the trace anomaly, perturbatively near any classical solution via Banach contraction with constant $\kappa \sim (m/M_P)^2 \ll 1$, and conditionally in the general case via the Schauder theorem on spacetimes with compact Cauchy surfaces, under stated regularity assumptions on the renormalized stress-energy. The Planck scale emerges as the natural validity boundary where $\kappa \to 1$.
+We prove that self-consistent solutions exist: exactly in cosmology via the trace anomaly, perturbatively near any classical solution via Banach contraction with constant $\kappa \sim (m/M_P)^2 \ll 1$, and conditionally in the general case via the Schauder theorem on spacetimes with compact Cauchy surfaces, under stated regularity and contraction assumptions on the renormalized stress-energy. The Planck scale emerges as the natural validity boundary where $\kappa \to 1$.
 
 The stochastic extension yields Gaussian gravitational decoherence at a timescale $\tau_{\text{coh}} \approx 1.13\,\hbar/E_\Delta$, where $E_\Delta$ is the gravitational self-energy of the superposed mass distribution---the same energy that determines the Di\'osi--Penrose timescale. The temporal profile (Gaussian rather than exponential) is the distinguishing prediction: it arises because the noise kernel for stationary matter is time-independent in the Newtonian limit, unlike the white noise postulated in the Di\'osi model. The framework further predicts null results for BMV entanglement at the quantum gravity rate. Both predictions are falsifiable.
 \end{abstract}
@@ -157,7 +157,7 @@ Fix $s > n/2 + 2 = 4$ (for $n = 4$ spacetime dimensions) and define the Sobolev 
 K_\rho \equiv \bigl\{ h \in H^s(\Sigma) : \|h - \bar{h}\|_{H^s} \leq \rho \bigr\} \;\cap\; \mathcal{G}_{\text{harm}} \;\cap\; \mathcal{L}
 \label{eq:K_rho}
 \end{equation}
-where $\mathcal{G}_{\text{harm}}$ is the (affine, hence convex) set of metrics satisfying the linearized harmonic gauge condition, and $\mathcal{L}$ is the (convex) set of Lorentzian-signature metrics. The set $K_\rho$ is closed, bounded, and convex in $H^s(\Sigma)$. By the Rellich--Kondrachov theorem on compact $\Sigma$, the embedding $H^s(\Sigma) \hookrightarrow H^{s'}(\Sigma)$ is compact for any $s' < s$, so $K_\rho$ is compact in the $H^{s'}$ topology.
+where $\mathcal{G}_{\text{harm}}$ is the (affine, hence convex) set of metrics satisfying the linearized harmonic gauge condition, and $\mathcal{L}$ is the set of Lorentzian-signature metrics (convex in a sufficiently small $H^s$ neighborhood of any Lorentzian metric, since Lorentzian signature is an open condition under $C^0$, hence under $H^s$ with $s > n/2$, perturbations). The set $K_\rho$ is closed, bounded, and convex in $H^s(\Sigma)$. By the Rellich--Kondrachov theorem on compact $\Sigma$, the embedding $H^s(\Sigma) \hookrightarrow H^{s'}(\Sigma)$ is compact for any $s' < s$, so $K_\rho$ is compact in the $H^{s'}$ topology.
 
 \medskip\noindent\textbf{Assumptions.}
 The following inputs are required for the argument. We label each by its status.
@@ -165,7 +165,7 @@ The following inputs are required for the argument. We label each by its status.
 \begin{itemize}
 \item[\textbf{(A1)}] \textit{Hadamard state existence and regularity.} For each metric $g \in K_\rho$, there exists a Hadamard state $|\Psi_g\rangle$ for the quantum fields on $(\mathcal{M}, g)$, and the renormalized stress-energy $\langle \hat{T}_{\mu\nu} \rangle_{g,\text{ren}}$ is well-defined. \textbf{[Established:} Radzikowski~\cite{radzikowski} proved that the Hadamard condition is equivalent to a microlocal spectrum condition; existence on globally hyperbolic spacetimes follows from deformation arguments~\cite{fulling_sweeny_wald}.\textbf{]}
 
-\item[\textbf{(A2)}] \textit{Continuous dependence of renormalized stress-energy on the metric.} The map $g \mapsto \langle \hat{T}_{\mu\nu} \rangle_{g,\text{ren}}$ is continuous from $H^s(\Sigma)$ to $H^{s-2}(\Sigma)$. \textbf{[Established:} The Hadamard parametrix depends continuously on the metric~\cite{radzikowski}; the renormalization ambiguities are local curvature polynomials, hence smooth in $g$. Brunetti, Fredenhagen, and K\"ohler~\cite{brunetti_fredenhagen_kohler} proved that the renormalized time-ordered products depend continuously on the spacetime metric.\textbf{]}
+\item[\textbf{(A2)}] \textit{Continuous dependence of renormalized stress-energy on the metric.} The map $g \mapsto \langle \hat{T}_{\mu\nu} \rangle_{g,\text{ren}}$ is continuous from $H^s(\Sigma)$ to $H^{s-2}(\Sigma)$. \textbf{[Established:} The Hadamard parametrix depends continuously on the metric~\cite{radzikowski}; the renormalization ambiguities are local curvature polynomials, hence smooth in $g$. Hollands and Wald~\cite{hollands_wald_wick} imposed continuity under metric variations as a renormalization axiom and proved existence of renormalized Wick polynomials and time-ordered products satisfying it.\textbf{]}
 
 \item[\textbf{(A3)}] \textit{Uniform a priori bound on the renormalized stress-energy.} There exists a constant $B(\rho) < \infty$ such that $\|\langle \hat{T}_{\mu\nu} \rangle_{g,\text{ren}}\|_{H^{s-2}} \leq B(\rho)$ for all $g \in K_\rho$. \textbf{[Conjecture.} This bound has been established for free fields on cosmological (FRW) spacetimes by Pinamonti and Siemssen~\cite{pinamonti_siemssen}, but remains open for general globally hyperbolic spacetimes with compact Cauchy surfaces. The difficulty is controlling the state-dependent part of $\langle \hat{T}_{\mu\nu} \rangle_{\text{ren}}$ uniformly over $K_\rho$; the geometric (anomaly) contribution is bounded by Sobolev embedding.\textbf{]}
 
@@ -173,7 +173,7 @@ The following inputs are required for the argument. We label each by its status.
 
 \item[\textbf{(A5)}] \textit{Order reduction.} The fourth-derivative terms in $\langle \hat{T}_{\mu\nu} \rangle_{\text{ren}}$ (from the trace anomaly and regularization) can be perturbatively eliminated, yielding a second-order system. \textbf{[Established:} Parker and Simon~\cite{parker_simon}.\textbf{]}
 
-\item[\textbf{(A6)}] \textit{Uniform contraction bound.} Define $\kappa(g) \equiv 8\pi G \, \|(G^g_{\text{lin}})^{-1}\|_{\text{op}} \cdot \|\delta \langle \hat{T}_{\mu\nu}\rangle_{\text{ren}} / \delta g\|_{\text{op}}$ as in eq.~\eqref{eq:kappa}. The supremum $\kappa_{\sup} \equiv \sup_{g \in K_\rho} \kappa(g) < 1$. \textbf{[Conjecture.} For any fixed $g$, $\kappa(g)$ is computed from the response kernel~\cite{horowitz,phillips_hu} and scales as $(m/M_P)^2 \ell_P^2 R_g$, where $R_g$ is the local curvature. Uniformity over $K_\rho$ requires that the curvature remains bounded away from Planck scale throughout $K_\rho$---a condition on $\rho$.\textbf{]}
+\item[\textbf{(A6)}] \textit{Uniform contraction bound.} Define $\kappa_{\sup} \equiv 8\pi G \, C_{\text{inv}} \cdot \sup_{g \in K_\rho} \|\delta \langle \hat{T}_{\mu\nu}\rangle_{\text{ren}} / \delta g\|_{\text{op}} < 1$, where $C_{\text{inv}}$ is the background inverse operator norm from (A4). This generalizes the perturbative $\kappa$ of eq.~\eqref{eq:kappa} to a uniform bound over $K_\rho$. \textbf{[Conjecture.} For any fixed $g$, the response kernel~\cite{horowitz,phillips_hu} scales as $(m/M_P)^2 \ell_P^2 R_g$, where $R_g$ is the local curvature. Uniformity over $K_\rho$ requires that the curvature remains bounded away from Planck scale throughout $K_\rho$---a condition on $\rho$.\textbf{]}
 \end{itemize}
 
 \begin{theorem}[Non-perturbative existence]
@@ -208,7 +208,7 @@ The map $\mathcal{F}$ is the composition $g \mapsto \langle \hat{T}_{\mu\nu}\ran
 By Step~3, $\mathcal{F}(K_\rho)$ is bounded in $H^s$. By Rellich--Kondrachov, bounded subsets of $H^s$ are precompact in $H^{s'}$. Hence $\mathcal{F}(K_\rho)$ is precompact in $H^{s'}$.
 
 \smallskip\noindent\textit{Step 6: Application of Schauder and regularity bootstrap.}
-By Steps~1, 3, 4, and 5, $\mathcal{F}: K_\rho \to K_\rho$ is a continuous map of a convex compact subset of $H^{s'}(\Sigma)$ into itself. The Schauder fixed-point theorem~\cite{schauder} guarantees the existence of at least one fixed point $g^* \in K_\rho$ with $\mathcal{F}(g^*) = g^*$. Since $g^*$ lies in the image of $\mathcal{F}$, it satisfies $g^* \in H^s$ (not merely $H^{s'}$) by construction. Elliptic regularity for the harmonic gauge Einstein equation, combined with the smoothness of the curvature terms in $\langle \hat{T}_{\mu\nu}\rangle_{\text{ren}}$ guaranteed by (A5), allows bootstrapping to higher regularity if the background data permits. \hfill$\square$
+By Steps~1, 3, 4, and 5, $\mathcal{F}: K_\rho \to K_\rho$ is a continuous map of a convex compact subset of $H^{s'}(\Sigma)$ into itself. The Schauder fixed-point theorem~\cite{schauder} guarantees the existence of at least one fixed point $g^* \in K_\rho$ with $\mathcal{F}(g^*) = g^*$. Since $g^*$ lies in the image of $\mathcal{F}$, it satisfies $g^* \in H^s$ (not merely $H^{s'}$) by construction (Step~2). \hfill$\square$
 
 \medskip\noindent\textbf{Relation to the perturbative regime.}
 The Banach and Schauder results cover complementary regimes:
@@ -678,7 +678,7 @@ The framework is falsifiable: observation of BMV entanglement at the quantum gra
 
 \bibitem{juarez_aubry} B.~A.~Ju\'arez-Aubry, B.~S.~Kay, T.~Miramontes, and D.~Sudarsky, On the initial value problem for semiclassical gravity without and with quantum state collapses, \textit{J.\ Cosmol.\ Astropart.\ Phys.}\ \textbf{2023}(01), 040 (2023).
 
-\bibitem{brunetti_fredenhagen_kohler} R.~Brunetti, K.~Fredenhagen, and M.~K\"ohler, The microlocal spectrum condition and Wick polynomials of free fields on curved spacetimes, \textit{Commun.\ Math.\ Phys.}\ \textbf{180}, 633 (1996).
+\bibitem{hollands_wald_wick} S.~Hollands and R.~M.~Wald, Local Wick polynomials and time ordered products of quantum fields in curved spacetime, \textit{Commun.\ Math.\ Phys.}\ \textbf{223}, 289 (2001).
 
 \end{thebibliography}
 
