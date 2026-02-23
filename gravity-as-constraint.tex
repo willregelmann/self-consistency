@@ -157,7 +157,7 @@ The analysis fails when $R \sim \ell_P$: the contraction constant $\kappa$ appro
 \subsection{Effective Initial Value Formulation}
 \label{sec:ivp}
 
-Axiom~3 states that the triple $(\mathcal{M}, g_{\mu\nu}, |\Psi\rangle)$ is solved as a fixed-point problem over the entire manifold. Practical physics---numerical relativity, gravitational-wave template generation, cosmological perturbation theory---requires a local formulation: specifying initial data on a Cauchy surface $\Sigma$ and evolving forward. We now show that the global fixed point is equivalent, in the perturbative regime $\kappa \ll 1$, to order-reduced semiclassical Cauchy evolution with Hadamard initial data. The argument has three components.
+Axiom~3 states that the triple $(\mathcal{M}, g_{\mu\nu}, |\Psi\rangle)$ is solved as a fixed-point problem over the entire manifold. Practical physics---numerical relativity, gravitational-wave template generation, cosmological perturbation theory---requires a local formulation: specifying initial data on a Cauchy surface $\Sigma$ and evolving forward. We now show that the global fixed point is reducible, in the perturbative regime $\kappa \ll 1$, to order-reduced semiclassical Cauchy evolution with Hadamard initial data. The argument has three components.
 
 \subsubsection{Perturbative iteration as Cauchy evolution {\normalfont (rigorous)}}
 
@@ -171,7 +171,7 @@ The global fixed point is therefore constructible order-by-order via Cauchy evol
 
 The fixed-point map $\mathcal{F}$ respects the causal structure of the underlying spacetime. The key input is the locality of the Hadamard condition: Radzikowski~\cite{radzikowski} showed that the Hadamard property of a quantum state is equivalent to a microlocal spectrum condition---a constraint on the wavefront set of the two-point function that is determined by the local light-cone structure. Fulling, Sweeny, and Wald~\cite{fulling_sweeny_wald} proved that if the two-point function has Hadamard singularity structure in a neighborhood of a Cauchy surface $\Sigma$, it has this structure throughout the globally hyperbolic development $D(\Sigma)$.
 
-These two results together imply that the renormalized stress-energy $\langle \hat{T}_{\mu\nu}(x) \rangle_{\text{ren}}$ at a point $x$ is determined by the geometry and quantum state in the causal past $J^-(x)$, up to the finite local ambiguities parameterized by renormalization constants. The fixed-point map $\mathcal{F}$ restricted to $D(\Sigma)$ therefore depends only on initial data on $\Sigma$, and the global fixed-point problem decomposes into local problems on causal patches that can be solved independently and stitched together---exactly as in classical general relativity.
+These two results together imply that the renormalized stress-energy $\langle \hat{T}_{\mu\nu}(x) \rangle_{\text{ren}}$ at a point $x$ is determined by the geometry and quantum state in the causal past $J^-(x)$, up to the finite local ambiguities parameterized by renormalization constants. The fixed-point map $\mathcal{F}$ restricted to $D(\Sigma)$ therefore depends only on initial data on $\Sigma$, and the global fixed-point problem decomposes into local problems on causal patches that can be solved independently and stitched together---exactly as in classical general relativity. (The causal structure itself converges across iterations: since $\|g_n - g^*\|_{H^s} \leq \kappa^n \|\delta g_1\|_{H^s}$, the light cones of $g_n$ converge to those of $g^*$, ensuring $D_{g_n}(\Sigma) \to D_{g^*}(\Sigma)$.)
 
 \subsubsection{Order reduction and spurious modes {\normalfont (sketch)}}
 
@@ -518,7 +518,7 @@ The key discriminator between this framework and Di\'osi--Penrose is the tempora
 %======================================================================
 
 \begin{enumerate}
-\item \textbf{Non-perturbative initial value formulation.} Section~\ref{sec:ivp} derives an effective Cauchy formulation valid order-by-order in $\kappa$. The remaining gap is non-perturbative well-posedness: proving that the order-reduced semiclassical Einstein equation with Hadamard initial data is well-posed on general globally hyperbolic spacetimes without symmetry assumptions. This has been achieved for cosmological spacetimes~\cite{pinamonti_siemssen} and conjectured in general~\cite{juarez_aubry}.
+\item \textbf{Non-perturbative initial value formulation.} Section~\ref{sec:ivp} derives an effective Cauchy formulation valid order-by-order in $\kappa$, with order reduction from fourth-order to second-order equations at the sketch level (Section~3.6.3). The remaining gap is non-perturbative well-posedness: proving that the order-reduced semiclassical Einstein equation with Hadamard initial data is well-posed on general globally hyperbolic spacetimes without symmetry assumptions. This has been achieved for cosmological spacetimes~\cite{pinamonti_siemssen} and conjectured in general~\cite{juarez_aubry}.
 
 \item \textbf{Rigorous Schauder application.} The non-perturbative existence argument requires specifying the convex compact $\mathcal{F}$-invariant subset, including gauge fixing in Lorentzian signature.
 
