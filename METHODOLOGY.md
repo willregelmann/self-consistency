@@ -47,6 +47,27 @@ Two tiers:
 
 If an agent gets stuck or discovers the approach won't work, it comments on the issue explaining why and what it learned. Negative results are valuable — they narrow the search space.
 
+## Version Tags
+
+Tags mark stable states of the paper where all self-checks pass and the content is internally consistent. Not every merge gets a tag — only milestones where the paper stands on its own.
+
+**Scheme:** `vMAJOR.MINOR` following the paper's lifecycle.
+
+- **v0.x** — pre-submission drafts. Tag when a major section, derivation, or prediction set is complete and merged (e.g., `v0.1` fixed-point proof, `v0.2` decoherence rates, `v0.3` experimental predictions).
+- **v1.0** — first public release (arXiv submission).
+- **v1.x** — revisions in response to referee reports or community feedback.
+- **v2.0** — major revision that changes the argument structure or adds significant new results.
+
+**When to tag.** The human author creates tags after merging work that completes a logical milestone. A tag means: the paper compiles, all derivations have passed self-checks at the stated rigor level, and no known internal contradictions exist.
+
+**Tag annotations.** Use annotated tags (`git tag -a`) with a message summarizing what the paper contains at that point. This serves as a changelog entry.
+
+**Using tags in the workflow.**
+
+- Adversarial reviews can be scoped to changes since the last tag.
+- Issues and PR descriptions can reference tagged versions for context (e.g., "this addresses a gap in the v0.2 decoherence derivation").
+- External references to the paper should cite a specific tag when possible.
+
 ## Guarding Against Known Failure Modes
 
 **Hallucinated results.** The self-check and adversarial review requirements exist specifically for this. Additionally, agents must show work — a PR that states a result without the derivation is incomplete regardless of whether the result is correct.
