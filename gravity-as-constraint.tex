@@ -223,7 +223,7 @@ For a non-relativistic body in a stationary center-of-mass superposition, the no
 with characteristic coherence timescale
 \begin{equation}
 \tau_{\text{coh}} = \frac{\hbar\sqrt{2}}{\sqrt{C_V(0)}}
-\label{eq:gamma_sc}
+\label{eq:tau_coh_def}
 \end{equation}
 
 For a point particle with superposition size $d$, dimensional analysis gives $C_V(0) \sim G^2 m^4 / d^2$, and therefore
@@ -243,12 +243,12 @@ The distinction from the Di\'osi--Penrose prediction is qualitative, not paramet
 System & Mass (kg) & $d$ & $\tau_{\text{coh}}$ (Gaussian) & $\tau_{DP} = \hbar / E_\Delta$ \\
 \midrule
 Electron & $9.1 \times 10^{-31}$ & 1 nm & $\sim 2 \times 10^{27}$ s & $\sim 2 \times 10^{27}$ s \\
-Microdiamond & $10^{-14}$ & 100 $\mu$m & $\sim 1.5$ ms$^\dagger$ & $\sim 1.3$ ms$^\dagger$ \\
+Microdiamond & $10^{-14}$ & 100 $\mu$m & $\sim 1.3$ ms$^\dagger$ & $\sim 1.2$ ms$^\dagger$ \\
 Planck mass & $2.2 \times 10^{-8}$ & 1 $\mu$m & $\sim 4 \times 10^{-15}$ s & $\sim 3 \times 10^{-15}$ s \\
 \bottomrule
 \end{tabular}
 \end{center}
-{\footnotesize $^\dagger$Extended-body $E_\Delta = G(6m^2/(5R) - m^2/d)$ with $R = 90$~nm; see Section~\ref{sec:noise_kernel_eval}.}
+{\footnotesize $^\dagger$Extended-body $E_\Delta = G(6m^2/(5R) - m^2/d)$ with $R = 90$~nm, $d = 100\;\mu$m (illustrative); see Section~\ref{sec:noise_kernel_eval} for BMV parameters ($d = 250\;\mu$m).}
 
 \medskip
 The self-consistent coherence timescale $\tau_{\text{coh}}$ is the same order as the Di\'osi--Penrose timescale across all mass scales, differing only by an $\mathcal{O}(1)$ prefactor (the ratio is $4\sqrt{2}/5 \approx 1.13$ in the $d \gg R$ limit; see eq.~\ref{eq:tau_coh_exact} below). The two timescales coincide at the Planck mass ($M_P = 2.18 \times 10^{-8}$~kg), where $\kappa \sim 1$ and the framework reaches its validity boundary.
@@ -345,7 +345,7 @@ The rigid-body scaling ($m_{\text{total}}^2$) is appropriate for the center-of-m
 
 \subsubsection{Numerical evaluation {\normalfont (rigorous numerics, sketch for $\Gamma_{\text{sc}}$)}}
 
-We evaluate $E_\Delta$ and the resulting timescales for three experimental platforms. For each, we compute both the Di\'osi--Penrose timescale $\tau_{DP} = \hbar/E_\Delta$ using the extended-body self-energy~\eqref{eq:E_delta} and the self-consistent Gaussian coherence timescale $\tau_{\text{coh}} = 4\sqrt{2}\,\hbar / (5\,E_\Delta)$ from eqs.~\eqref{eq:gamma_sc} and~\eqref{eq:tau_coh_exact}.
+We evaluate $E_\Delta$ and the resulting timescales for three experimental platforms. For each, we compute both the Di\'osi--Penrose timescale $\tau_{DP} = \hbar/E_\Delta$ using the extended-body self-energy~\eqref{eq:E_delta} and the self-consistent Gaussian coherence timescale $\tau_{\text{coh}} = 4\sqrt{2}\,\hbar / (5\,E_\Delta)$ from eqs.~\eqref{eq:tau_coh_def} and~\eqref{eq:tau_coh_exact}.
 
 \medskip
 \begin{center}
@@ -355,10 +355,12 @@ Platform & $m$ (kg) & $R$ & $d$ & $d/R$ & $\tau_{DP}$ & $\tau_{\text{coh}}$ & Pr
 \midrule
 Microdiamond (BMV) & $10^{-14}$ & 90 nm & 250 $\mu$m & 2{,}800 & 1.2 ms & 1.3 ms & Gaussian \\
 Nanosphere (levitated) & $5 \times 10^{-18}$ & 100 nm & 500 nm & 5 & 6{,}300 s & 7{,}100 s & Gaussian \\
-MAQRO test mass & $1.7 \times 10^{-17}$ & 200 nm & 100 nm & 0.5 & 10{,}700 s & 12{,}100 s & Gaussian \\
+MAQRO test mass$^*$ & $1.7 \times 10^{-17}$ & 200 nm & 100 nm & 0.5 & 10{,}700 s & 12{,}100 s & Gaussian \\
 \bottomrule
 \end{tabular}
 \end{center}
+{\footnotesize $^*$For MAQRO ($d/R = 0.5$, overlapping bodies), $E_\Delta$ is computed via the Fourier integral~\eqref{eq:E_delta_fourier} rather than the closed-form expression~\eqref{eq:E_delta}, which assumes $d > 2R$.}
+
 \medskip
 
 \noindent Several features are notable:
@@ -379,16 +381,16 @@ From~\eqref{eq:dV_variance} and the evaluation for a uniform sphere:
 \begin{equation}
 C_V(0) = \frac{G^2 m^2}{4}\!\left(\frac{3m}{R} - \frac{2m}{d}\right)^{\!2} = \frac{25}{16}\,E_\Delta^2\!\left(1 + \mathcal{O}(R/d)\right)
 \end{equation}
-The Gaussian coherence timescale~\eqref{eq:gamma_sc} is therefore:
+The Gaussian coherence timescale~\eqref{eq:tau_coh_def} is therefore:
 \begin{equation}
 \tau_{\text{coh}} = \frac{\hbar\sqrt{2}}{\sqrt{C_V(0)}} = \frac{4\sqrt{2}}{5}\,\frac{\hbar}{E_\Delta}\!\left(1 + \mathcal{O}(R/d)\right) \approx 1.13\,\tau_{DP}
 \label{eq:tau_coh_exact}
 \end{equation}
-The self-consistent coherence timescale exceeds $\tau_{DP}$ by a factor of $4\sqrt{2}/5$, independent of mass, radius, or separation.
+The self-consistent coherence timescale exceeds $\tau_{DP}$ by a factor of $4\sqrt{2}/5$ in the $d \gg R$ limit, independent of mass, radius, or separation. For $d \sim R$, the exact ratio depends on geometry and must be computed from the full $C_V(0)$.
 
-This result resolves the temporal structure of the decoherence: it is Gaussian, not exponential, and the timescale is set by the gravitational self-energy $E_\Delta$ of the difference mass distribution---the same quantity that determines the Di\'osi--Penrose timescale. The $G^2$ structure of the variance $C_V(0)$ is real (it reflects the two-step noise propagation chain), but the Gaussian formula $\tau_{\text{coh}} \propto 1/\sqrt{C_V} \propto 1/G$ removes one power of $G$, yielding the same $G$-scaling as $\tau_{DP}$.
+This result resolves the temporal structure of the decoherence: it is Gaussian, not exponential, and the timescale is set by the gravitational self-energy $E_\Delta$ of the difference mass distribution---the same quantity that determines the Di\'osi--Penrose timescale. The $G^2$ structure of the variance $C_V(0)$ is real (it reflects the two-step noise propagation chain), but the Gaussian formula $\tau_{\text{coh}} \propto 1/\sqrt{C_V} \propto 1/G$ removes one power of $G$, yielding the same $G$-scaling as $\tau_{DP}$. This is the leading-order result in the Einstein--Langevin formalism: the noise kernel is evaluated on the semiclassical background, and backreaction of the decoherence on the noise kernel (which enters at next order) is neglected. This approximation is standard and shared by all competing models~\cite{hu_verdaguer}.
 
-\medskip\noindent\textit{Robustness {\normalfont (sketch)}.} The static-noise result ($C_V(\tau) = C_V(0)$) holds as long as two conditions are satisfied: (a)~the wavepacket spreading time $M\sigma^2/\hbar$ exceeds the decoherence timescale, and (b)~internal degrees of freedom (phonons, rotational modes) do not introduce temporal correlations in the noise kernel at the relevant frequency scale $\sim 1/\tau_{\text{coh}}$. Condition~(a) is satisfied for all macroscopic bodies: for the microdiamond, $M\sigma^2/\hbar \sim 10^6$~s $\gg \tau_{\text{coh}} \sim 10^{-3}$~s. Condition~(b) is satisfied when the internal excitation spectrum has no modes at the gravitational frequency $\omega_g \sim E_\Delta/\hbar \sim 10^3$~rad/s; for rigid crystalline solids, the lowest acoustic phonon frequencies ($\sim 10^9$~Hz) are far above $\omega_g$, so internal dynamics decouple. If condition~(b) were violated---for instance, by a soft body with vibrational modes near $\omega_g$---the noise kernel would acquire temporal structure and the decoherence could transition from Gaussian toward exponential. This would require detailed modeling of the body's internal stress-energy fluctuations, a calculation beyond the rigid-body approximation used here.
+\medskip\noindent\textit{Robustness {\normalfont (sketch)}.} The static-noise result ($C_V(\tau) = C_V(0)$) holds as long as two conditions are satisfied: (a)~the wavepacket spreading time $M\sigma^2/\hbar$ exceeds the decoherence timescale, and (b)~internal degrees of freedom (phonons, rotational modes) do not introduce temporal correlations in the noise kernel at the relevant frequency scale $\sim 1/\tau_{\text{coh}}$. Condition~(a) is satisfied for all macroscopic bodies: for the microdiamond, $M\sigma^2/\hbar \sim 10^6$~s $\gg \tau_{\text{coh}} \sim 10^{-3}$~s. Condition~(b) is satisfied when the internal excitation spectrum has no modes at the gravitational frequency $\omega_g \sim E_\Delta/\hbar \sim 10^3$~rad/s; for rigid crystalline solids, the minimum nonzero acoustic phonon frequency ($c_s/L \sim 10^{10}$~Hz for a nanoscale crystal of size $L$ and sound speed $c_s$) is far above $\omega_g$, so internal dynamics decouple. If condition~(b) were violated---for instance, by a soft body with vibrational modes near $\omega_g$---the noise kernel would acquire temporal structure and the decoherence could transition from Gaussian toward exponential. This would require detailed modeling of the body's internal stress-energy fluctuations, a calculation beyond the rigid-body approximation used here.
 
 %======================================================================
 \section{Relation to the Di\'osi--Penrose Prediction}
