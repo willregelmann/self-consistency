@@ -9,7 +9,7 @@ A physics paper: "Gravity as Constraint: Self-Consistency as Physical Law." The 
 ## Build
 
 ```bash
-pdflatex gravity-as-constraint.tex
+pdflatex src/gravity-as-constraint.tex
 ```
 
 The bibliography uses `\begin{thebibliography}` (no separate .bib file), so no bibtex step is needed.
