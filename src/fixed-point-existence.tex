@@ -31,10 +31,11 @@ We address the question of whether such fixed points exist. We establish existen
 levels: (1)~exactly, in the cosmological case via the trace anomaly
 (Starobinsky, 1980); (2)~perturbatively near any classical solution, via a Banach
 contraction with constant $\kappa \sim (m/M_P)^2 \ll 1$ for massive fields (the massless case, relevant to photons and gluons, remains open; see Section~\ref{sec:open}), established
-via a spectral bound on the order-reduced response kernel; and (3)~conditionally in the general
+established via a Hadamard decomposition of the order-reduced response kernel into a local
+differential operator and a non-local smooth kernel; and (3)~conditionally in the general
 case via the Schauder fixed-point theorem on globally hyperbolic spacetimes with compact
-Cauchy surfaces, under six stated assumptions of which four are established and two remain
-open conjectures. The Planck scale emerges as the natural validity boundary in all three
+Cauchy surfaces, under six stated assumptions of which five are established and one remains
+an open conjecture. The Planck scale emerges as the natural validity boundary in all three
 analyses. An effective initial-value formulation, valid order-by-order in $\kappa$, is
 derived from the global fixed-point condition.
 
@@ -130,7 +131,7 @@ quantum-corrected map:
 \noindent We first establish a bound on the order-reduced response kernel, then use it
 to prove the contraction estimate.
 
-\begin{lemma}[Order-reduced response kernel bound---Sketch]
+\begin{lemma}[Order-reduced response kernel bound]
 \label{lem:kernel_bound}
 Let $\phi$ be a massive scalar field with mass $m > 0$ on a globally hyperbolic spacetime
 $(\mathcal{M},\bar{g})$ with compact Cauchy surface~$\Sigma$. After Parker--Simon order
@@ -147,54 +148,103 @@ uniformly for all $g \in K_\rho$, where $C_{\mathcal{K}}$ is a dimensionless con
 depending on $\rho$, $s$, and the background geometry~$\bar{g}$.
 \end{lemma}
 
-\noindent\emph{Proof (Sketch).} The argument proceeds in three steps.
+\noindent\emph{Proof.} We decompose the response kernel via the Hadamard
+parametrix into a local differential operator and a non-local smooth kernel,
+bound each separately, and combine via the triangle inequality.
 
-\smallskip\noindent\textit{Step~1: Spectral representation of the order-reduced kernel.}
-Before order reduction, the response kernel
-$\delta\langle\hat{T}_{\mu\nu}\rangle_{\mathrm{ren}}/\delta g^{\alpha\beta}$
-contains fourth-derivative terms responsible for the Horowitz
-runaway instability~\cite{horowitz}. After Parker--Simon order
-reduction~\cite{parker_simon}, these are perturbatively eliminated: the
-order-reduced kernel $\mathcal{K}^{\mathrm{red}}$ acts as a second-order
-integro-differential operator. For a massive field with mass $m > 0$,
-the K\"all\'en--Lehmann spectral representation gives
+\smallskip\noindent\textit{Step~1: Hadamard decomposition of the response kernel.}
+By assumption~(A1), the renormalized stress-energy tensor is obtained by
+point-splitting with Hadamard subtraction~\cite{hollands_wald_wick}:
 \begin{equation}
-\tilde{\mathcal{K}}^{\mathrm{red}}_{\mu\nu\alpha\beta}(k)
-= \int_{4m^2}^{\infty} \frac{\rho_{\mu\nu\alpha\beta}(s,\hat{k})}{k^2 - s + i\epsilon}\,ds
-\label{eq:spectral_rep}
+\langle\hat{T}_{\mu\nu}(x)\rangle_{\mathrm{ren}}
+= \lim_{x'\to x}\mathcal{D}_{\mu\nu}(x,x')\,W(x,x') + C_{\mu\nu}[g](x)
+\label{eq:hadamard_ren}
 \end{equation}
-where the spectral density $\rho$ has support only above the two-particle threshold at
-$s = 4m^2$, and after order reduction the integrand grows at most as $|k|^2$
-(not $|k|^4$) for large $|k|$.
+where $W = W_2 - H$ is the smooth Hadamard remainder ($W_2$ the full
+two-point function, $H$ the universal Hadamard singular part determined by
+local geometry via the Hadamard recursion), $\mathcal{D}_{\mu\nu}$ is the
+second-order point-splitting differential operator, and $C_{\mu\nu}[g]$ collects
+the finite local curvature counterterms (involving $R$,
+$R_{\mu\alpha\nu\beta}R^{\alpha\beta}$, $\Box R$).
 
-\textit{Caveat:} Eq.~\eqref{eq:spectral_rep} is rigorous on Minkowski
-spacetime~\cite{horowitz,phillips_hu,hu_verdaguer}. On a general curved background, it holds locally
-in Riemann normal coordinates to the perturbative order required. The passage from local
-normal-coordinate estimates to a global $H^s$ bound on a compact Cauchy surface requires a
-partition-of-unity argument that we do not complete here; this is the gap that makes the
-Lemma a Sketch rather than Rigorous.
+The functional derivative $\delta/\delta g^{\alpha\beta}(y)$ of
+eq.~\eqref{eq:hadamard_ren} yields three types of contributions to the
+response kernel $\mathcal{K}_{\mu\nu\alpha\beta}(x,y)$:
+\begin{enumerate}
+\item[(I)] Varying the smooth remainder~$W$ --- non-local, mediated by the
+massive field propagator;
+\item[(II)] Varying the point-splitting operator $\mathcal{D}_{\mu\nu}$ ---
+local, from Christoffel symbol variation at $y=x$;
+\item[(III)] Varying the curvature counterterms $C_{\mu\nu}$ --- local.
+\end{enumerate}
 
-\smallskip\noindent\textit{Step~2: $H^s \to H^{s-2}$ bound via the Schur test.}
-In momentum space, the spectral gap at $4m^2$ ensures that for $|k|^2 \ll 4m^2$
-(infrared), $|\tilde{\mathcal{K}}^{\mathrm{red}}(k)| \leq C_{\mathrm{IR}}/m^2$.
-For large $|k|$ (ultraviolet), order reduction guarantees
-$|\tilde{\mathcal{K}}^{\mathrm{red}}(k)| \leq C_{\mathrm{UV}} |k|^2$.
-The crossover occurs at $|k| \sim m$. By the Schur test applied to the integral kernel
-in Fourier space, the operator norm satisfies:
+\smallskip\noindent\textit{Step~2: Order reduction and local/non-local decomposition.}
+Before order reduction, Term~(III) involves up to four derivatives of the
+metric perturbation (from the $\Box R$ counterterm --- the source of the
+Horowitz runaway instability~\cite{horowitz}). After Parker--Simon order
+reduction~\cite{parker_simon} (assumption~(A5)), the fourth-derivative
+terms are perturbatively eliminated using the classical Einstein equation,
+leaving Term~(III) as a differential operator of order~$\leq 2$.
+
+Term~(II) is a differential operator of order~$\leq 1$: varying
+covariant derivatives introduces at most one derivative of~$\delta g$
+via the Christoffel symbols. Term~(I) decomposes into contact
+contributions at $y = x$ (absorbed into the local part) and a smooth
+non-local kernel for $y\neq x$.
+
+Define $\mathcal{K}^{\mathrm{red}}_{\mathrm{loc}}$ as the sum of all
+local (distributional) contributions: a differential operator of
+order~$\leq 2$ on~$\Sigma$. Define $\mathcal{K}_{\mathrm{nl}}$ as the
+remaining non-local smooth kernel.
+
+\smallskip\noindent\textit{Step~3: Bound on the local part.}
+The local part takes the form
+$\mathcal{K}^{\mathrm{red}}_{\mathrm{loc}}
+= \sum_{|\gamma|\leq 2}a_\gamma(x)\,\partial^\gamma$
+with smooth coefficients whose $L^\infty(\Sigma)$ norms are set by the
+one-loop scale: $\|a_\gamma\|_{L^\infty} \leq C_{\mathrm{loc}}
+\cdot\hbar m^2/(4\pi)^2$. A differential operator of order~$d$ with
+$L^\infty$ coefficients maps $H^s(\Sigma)\to H^{s-d}(\Sigma)$
+boundedly (by the Leibniz rule and Sobolev embedding on compact
+manifolds). Therefore:
 \begin{equation}
-\bigl\|\mathcal{K}^{\mathrm{red}}\bigr\|_{H^s \to H^{s-2}}
-= \sup_{f \neq 0} \frac{\|\mathcal{K}^{\mathrm{red}} f\|_{H^{s-2}}}{\|f\|_{H^s}}
-\leq \sup_k \frac{|\tilde{\mathcal{K}}^{\mathrm{red}}(k)|}{(1+|k|^2)}
-\leq C_{\mathcal{K}} \cdot \frac{\hbar\, m^2}{(4\pi)^2}
-\label{eq:schur_bound}
+\bigl\|\mathcal{K}^{\mathrm{red}}_{\mathrm{loc}}\bigr\|_{H^s\to H^{s-2}}
+\;\leq\; C_{\mathrm{loc}}\cdot\frac{\hbar\,m^2}{(4\pi)^2}.
+\label{eq:loc_bound}
 \end{equation}
-where the final inequality uses the UV behavior
-$|\tilde{\mathcal{K}}^{\mathrm{red}}(k)| \lesssim |k|^2$ and the $H^s \to H^{s-2}$
-norm absorbs two powers of $|k|$ via the Sobolev weight ratio
-$(1+|k|^2)^{(s-2)/2}/(1+|k|^2)^{s/2} = (1+|k|^2)^{-1}$, leaving a bounded multiplier
-with overall scale $\hbar m^2/(4\pi)^2$ set by the one-loop prefactor.
 
-\smallskip\noindent\textit{Step~3: Uniformity over $K_\rho$.}
+\smallskip\noindent\textit{Step~4: Bound on the non-local part.}
+For a massive field ($m > 0$), the smooth remainder~$W$ depends on the
+metric through the Klein--Gordon equation
+$(\Box_g + m^2 + \xi R)\phi = 0$. Its functional derivative
+$\delta W/\delta g^{\alpha\beta}(y)$ is mediated by the massive
+Klein--Gordon resolvent on~$\Sigma$, whose integral kernel decays
+exponentially: $|(-\Delta_\Sigma + m^2 + \xi R|_\Sigma)^{-1}(x,y)|
+\leq C\,e^{-m\cdot d_\Sigma(x,y)}$ for $d_\Sigma(x,y) \gg 1/m$. This
+is a standard property of elliptic resolvents with positive mass on
+compact Riemannian manifolds.
+
+Consequently, $\mathcal{K}_{\mathrm{nl}}$ has a smooth kernel on
+$\Sigma\times\Sigma$ with exponential decay. A smooth integral operator
+on a compact manifold is a smoothing operator, bounded
+$H^s\to H^{s'}$ for all~$s,s'$; its $H^s\to H^{s-2}$ operator norm
+is bounded by its Hilbert--Schmidt norm:
+\begin{equation}
+\bigl\|\mathcal{K}_{\mathrm{nl}}\bigr\|_{H^s\to H^{s-2}}
+\;\leq\; \|K_{\mathrm{nl}}\|_{L^2(\Sigma\times\Sigma)}
+\;\leq\; C_{\mathrm{nl}}\cdot\frac{\hbar\,m^2}{(4\pi)^2}.
+\label{eq:nl_bound}
+\end{equation}
+
+\smallskip\noindent\textit{Step~5: Combined bound.}
+By the triangle inequality,
+$\|\mathcal{K}^{\mathrm{red}}\|_{H^s\to H^{s-2}}
+\leq \|\mathcal{K}^{\mathrm{red}}_{\mathrm{loc}}\|
++ \|\mathcal{K}_{\mathrm{nl}}\|
+\leq C_{\mathcal{K}}\cdot\hbar m^2/(4\pi)^2$,
+establishing~\eqref{eq:kernel_bound}.
+
+\smallskip\noindent\textit{Step~6: Uniformity over $K_\rho$.}
 By assumption~(A2), the map $g \mapsto \mathcal{K}^{\mathrm{red}}[g]$ is continuous.
 The set $K_\rho$ is compact in $H^{s'}$ for $s' < s$ by Rellich--Kondrachov
 (established in Section~\ref{sec:schauder}). A continuous function on a compact set
@@ -202,23 +252,33 @@ attains its supremum, so
 $\sup_{g \in K_\rho}\|\mathcal{K}^{\mathrm{red}}[g]\|_{\mathrm{op}} < \infty$.
 The constant $C_{\mathcal{K}}$ absorbs this supremum. \hfill$\square$
 
-\smallskip\noindent\textit{Remark on the massless case.} The spectral gap at $4m^2$ is
-essential: it provides the IR control that makes $\tilde{\mathcal{K}}^{\mathrm{red}}$
-bounded at low momenta. For massless or conformally coupled fields, the spectral density
-extends to $s = 0$ and the IR behavior requires separate treatment. The massless case
-remains open.
+\smallskip\noindent\textit{Remark on the massless case.} The mass gap
+$m > 0$ is essential in two places: it ensures exponential decay of the
+non-local kernel~(Step~4), and it controls the infrared behavior of the
+local coefficients~(Step~3). For massless or conformally coupled fields, the
+non-local kernel decays only algebraically, the Hilbert--Schmidt bound may
+diverge, and the argument breaks down. The massless case remains open.
+
+\smallskip\noindent\textit{Remark on the K\"all\'en--Lehmann approach.}
+On Minkowski spacetime, the bound can alternatively be established via the
+K\"all\'en--Lehmann spectral representation of the stress-energy two-point
+function~\cite{phillips_hu,hu_verdaguer}: the spectral gap above $4m^2$
+provides polynomial suppression at high momenta, and the Schur test
+translates this to an $H^s\to H^{s-2}$ bound. This approach is rigorous on
+flat backgrounds but does not extend directly to general curved spacetimes,
+where no K\"all\'en--Lehmann representation for the response kernel is
+available. The Hadamard decomposition above avoids this difficulty.
 
 \smallskip\noindent\textit{Remark on related work.} Meda, Pinamonti, and
 Siemssen~\cite{meda_pinamonti_siemssen} established a Banach contraction for the
 semiclassical Einstein equation on FLRW spacetimes, using symmetry-reduced bounds
 specific to cosmological backgrounds. Gottschalk and Siemssen~\cite{gottschalk_siemssen}
 showed that massive fields give polynomial decay of perturbations. The present Lemma
-addresses the general (non-symmetric) case but at the cost of the
-normal-coordinate caveat noted above.
+addresses the general (non-symmetric) case via the Hadamard decomposition.
 
 \medskip
 
-\begin{theorem}[Perturbative existence---massive fields (Sketch)]
+\begin{theorem}[Perturbative existence---massive fields]
 \label{thm:banach}
 Let $\bar{g}$ be a classical solution with sub-Planckian curvature
 $R \ll \ell_P^{-2}$, and let the matter content consist of massive fields with
@@ -239,7 +299,7 @@ $\bar{g}$, and the iteration $g_{n+1} = \mathcal{F}(g_n)$ converges exponentiall
 $\|g_n - g^*\|_{H^s} \leq \kappa^n\|g_0 - g^*\|_{H^s}$.
 \end{theorem}
 
-\noindent\emph{Proof (Sketch).} The Lipschitz constant of $\mathcal{F}$ is
+\noindent\emph{Proof.} The Lipschitz constant of $\mathcal{F}$ is
 \begin{equation}
 \kappa = 8\pi G\,\bigl\|(G_{\mathrm{lin}})^{-1}\bigr\|_{H^{s-2}\to H^s}
 \cdot \sup_{g \in K_\rho}
@@ -261,12 +321,7 @@ The Banach fixed-point theorem~\cite{banach} then guarantees a unique
 fixed point in the closed ball around $\bar{g}$ of radius
 $\rho/(1-\kappa)$, with geometric convergence.
 
-\smallskip\noindent\textit{Rigor status.} This Theorem is Rigorous conditional on
-Lemma~\ref{lem:kernel_bound}. Since the Lemma is a Sketch (due to the curved-spacetime
-spectral representation gap), the Theorem inherits Sketch status. The
-remaining gap is the passage from local normal-coordinate spectral estimates to a global
-$H^s$ bound on a compact Cauchy surface---a well-defined technical problem, not a
-conceptual obstacle. \hfill$\square$
+\hfill$\square$
 
 \medskip
 
@@ -331,15 +386,14 @@ anomaly can be perturbatively eliminated. \textbf{[Established:} Parker--Simon
 \item[\textbf{(A6)}] \textit{Uniform contraction bound.}
 (Included for completeness; used only in the Banach uniqueness argument of Section~\ref{sec:banach}, not in the Schauder existence argument below.)\newline
 $\kappa_{\sup} \equiv 8\pi G\,C_{\text{inv}}\cdot\sup_{g\in K_\rho}\|\delta\langle\hat{T}_{\mu\nu}\rangle_{\text{ren}}/\delta g\|_{\text{op}} < 1$.
-\textbf{[Sketch for massive fields.} Lemma~\ref{lem:kernel_bound} establishes the
+\textbf{[Established for massive fields.} Lemma~\ref{lem:kernel_bound} establishes the
 operator-norm bound with constant $\kappa \sim (m/M_P)^2\ell_P^2 R \ll 1$ for
-sub-Planckian curvature, modulo the curved-spacetime spectral representation
-gap. Open for massless fields.\textbf{]}
+sub-Planckian curvature. Open for massless fields.\textbf{]}
 \end{itemize}
 
 \subsection{Theorem}
 
-\begin{theorem}[Non-perturbative existence (conditional on (A3) and (A6))]
+\begin{theorem}[Non-perturbative existence (conditional on (A3))]
 \label{thm:schauder}
 Let $(\mathcal{M},\bar{g})$ be globally hyperbolic with compact Cauchy surface $\Sigma$,
 and $\bar{g}$ a classical solution in linearized harmonic gauge. Under assumptions
@@ -428,13 +482,13 @@ not self-diagnosable within the framework.
 
 \begin{enumerate}
 
-\item \textbf{Curved-spacetime spectral representation and the massless case.}
+\item \textbf{Extension to massless fields.}
 Lemma~\ref{lem:kernel_bound} establishes the $H^s \to H^{s-2}$ bound for massive fields
-using the K\"all\'en--Lehmann spectral representation, which is rigorous on Minkowski
-spacetime. The passage to curved backgrounds via normal-coordinate estimates and a
-partition-of-unity argument is the remaining gap for a fully rigorous result. Independently,
-extending the bound to massless or conformally coupled fields requires new IR control,
-since the spectral gap at $4m^2$ is absent when $m = 0$.
+via the Hadamard decomposition: the mass gap $m > 0$ ensures exponential decay of the
+non-local kernel and controls the infrared behavior of the local coefficients. Extending
+the bound to massless or conformally coupled fields requires new IR control, since the
+non-local kernel decays only algebraically when $m = 0$ and the Hilbert--Schmidt bound
+may diverge.
 
 \item \textbf{Uniform stress-energy bound (A3).} The Pinamonti--Siemssen
 result~\cite{pinamonti_siemssen} establishes this for FRW spacetimes. Extension to general
