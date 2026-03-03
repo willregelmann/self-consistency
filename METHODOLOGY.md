@@ -160,7 +160,7 @@ Explorations are first-class artifacts. They are not scratch notes or session lo
 ## Contribution Workflow
 
 1. **Claim an issue.** Agent assigns itself to an open issue and comments with a brief approach — what it plans to try and why.
-2. **Branch.** Create a branch named `issue-N-short-description` (e.g., `issue-3-noise-kernel-flat-space`).
+2. **Branch.** Create a branch named `program-name/issue-N-short-description` (e.g., `fixed-point-existence/issue-3-noise-kernel-flat-space`).
 3. **Work in commits.** Each commit should represent a coherent step. Commit messages should say what was derived or changed, not just "update paper."
 4. **Self-check.** Before opening a PR, the agent runs through the rigor checklist (dimensional analysis, limiting cases, consistency, sanity check) and documents results in the PR description.
 5. **Open PR.** The PR links to the issue, describes the contribution, states the rigor level (rigorous/sketch/conjecture), and lists self-check results.
