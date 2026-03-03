@@ -655,58 +655,120 @@ it reflects the fact that the Hilbert space is emergent and subsystem-relative,
 not fundamental.
 
 %======================================================================
-\section{The metric-to-signature problem}
+\section{Signature emergence from cross-level consistency}
 \label{sec:signature}
 %======================================================================
 
 The most critical open problem in the hierarchy concerns the emergence of
-Lorentzian metric signature. We identify it precisely here because it is
-potentially fatal to the topological approach.
+Lorentzian metric signature. The direct topological route---connecting the
+intersection form to the metric signature---fails, but a different mechanism
+emerges from the requirement that all levels be simultaneously consistent.
+
+\subsection{The intersection form route fails}
 
 The intersection form $Q_\mathcal{M}$ has \emph{type} $(b^+, b^-)$, where
-$b^\pm$ are the dimensions of the positive- and negative-definite subspaces,
-and \emph{signature} $\sigma(\mathcal{M}) = b^+ - b^-$. The Hirzebruch
-signature theorem~\cite{hirzebruch} gives $\sigma(\mathcal{M}) =
+$b^\pm$ are the dimensions of the positive- and negative-definite subspaces.
+The Hirzebruch signature theorem~\cite{hirzebruch} gives $\sigma(\mathcal{M}) =
 \frac{1}{3}p_1(\mathcal{M})$, connecting the intersection form to the first
-Pontryagin class. The intersection form type $(b^+, b^-)$ is a global invariant
-of $H_2(\mathcal{M};\mathbb{Z})$. It must be carefully distinguished from the
-\emph{metric signature}---the sign pattern $(-,+,+,+)$ of the tangent-space
-metric---which is a pointwise property of a different mathematical object.
+Pontryagin class. It is tempting to identify the intersection form type
+$(1, b^-)$---one positive eigenvalue---with the one timelike direction of
+Lorentzian signature $(-,+,+,+)$.
 
-The conjectured mechanism for Lorentzian signature emergence is:
+This identification fails for two independent reasons. First, the intersection
+form is a global invariant on $H_2(\mathcal{M};\mathbb{Z})$, while the metric
+signature is a pointwise property of the tangent bundle. Characteristic classes
+cannot distinguish Riemannian from Lorentzian metrics on the same manifold. No
+theorem in the mathematical literature connects them.
 
-\begin{conjecture}[Signature emergence]
+Second, there is an active topological obstruction. A closed manifold admits a
+Lorentzian metric if and only if $\chi(\mathcal{M}) = 0$
+(Geroch~\cite{geroch}). For closed simply-connected 4-manifolds---the class
+where Freedman's classification~\cite{freedman} and Donaldson's
+constraints~\cite{donaldson} are strongest---the Euler characteristic is
+$\chi = 2 + b_2 \geq 3$ whenever the intersection form is nontrivial. The
+manifold class where exotic smooth structures are richest is precisely the
+class that \emph{cannot} carry a Lorentzian metric.
+
+\subsection{Mass, signature, time, and Hilbert space are co-defined}
+
+The failure of the topological route reveals something deeper: signature cannot
+be derived from any single level. Four concepts that are usually treated as
+independent are in fact co-defined, each requiring the others:
+\begin{enumerate}
+\item \textbf{Physical mass} requires Lorentzian signature. The dispersion
+relation $E^2 = p^2 + m^2$ requires the $(-,+,+,+)$ split; the mass shell
+$p_\mu p^\mu = -m^2$ is a Lorentzian concept. On a Riemannian manifold, the
+parameter $m^2$ appears in the field equation $(\Delta + m^2)\phi = 0$ but
+does not define a mass shell, a dispersion relation, or propagating degrees of
+freedom. Massive particles are irreducible representations of the Poincar\'e
+group $\mathrm{ISO}(3,1)$ (Wigner~\cite{wigner}); no analogous classification
+exists for $\mathrm{ISO}(4)$.
+
+\item \textbf{Lorentzian signature} is meaningful only with mass. The
+distinction between timelike and spacelike geodesics---the physical content of
+the $(-,+,+,+)$ sign pattern---is realized by massive particles following
+timelike geodesics and massless particles following null geodesics. Without
+matter, the causal structure is formally present but physically empty.
+
+\item \textbf{Local time} requires mass. A massive particle experiences proper
+time $d\tau^2 = -g_{\mu\nu}\,dx^\mu dx^\nu > 0$ along its worldline; a massless
+particle does not ($d\tau = 0$ along null geodesics). General relativity
+prohibits universal time, but mass provides \emph{local} time:
+worldline-dependent clocks carried by massive objects.
+
+\item \textbf{Local Hilbert space} requires local time. The Schr\"odinger
+equation requires $\partial/\partial t$; the inner product is defined on a
+spatial slice at fixed $t$; unitarity requires a time parameter. If there is no
+universal time, there is no universal Hilbert space. But if mass provides
+local time, a local Hilbert space exists for massive subsystems that carry
+their own clocks.
+\end{enumerate}
+
+\noindent This mutual dependence forms a closed loop:
+\begin{equation}
+\text{mass} \;\longleftrightarrow\; \text{Lorentzian signature}
+\;\longleftrightarrow\; \text{local time}
+\;\longleftrightarrow\; \text{local Hilbert space}
+\;\longleftrightarrow\; \langle\hat{T}_{\mu\nu}\rangle
+\;\longleftrightarrow\; \text{gravity}
+\;\longleftrightarrow\; \text{mass}
+\label{eq:co_emergence}
+\end{equation}
+In the framework of Axiom~1, this is not a circularity but a self-consistency
+constraint: the block must satisfy all these conditions simultaneously.
+
+\subsection{The signature selection principle}
+
+\begin{conjecture}[Signature selection]
 \emph{(Conjecture.)}
 \label{conj:signature}
-An indefinite intersection form $Q_\mathcal{M}$ of type $(b^+, b^-)$ with
-$b^+ = 1$---one positive eigenvalue and $b^-$ negative eigenvalues---requires
-that any smooth metric compatible with the self-consistency constraint of
-Level~2 has Lorentzian metric signature $(-,+,+,+)$. No known theorem connects
-the intersection form type to the metric signature; bridging this gap between
-$H_2$ and the tangent bundle is the central mathematical obstacle.
+Cross-level self-consistency of the hierarchy has nontrivial solutions only for
+Lorentzian metric signature with $m > 0$. Riemannian and ultrahyperbolic
+fixed points, if they exist at Level~2, fail at Level~3: without timelike
+geodesics, there is no local proper time, no local Hilbert space, and no
+effective quantum mechanics for subsystems.
 \end{conjecture}
 
-We emphasize that Conjecture~\ref{conj:signature} is the weakest link in the
-hierarchy. The intersection form is a global invariant on $H_2$; the metric
-signature is a local property of the tangent bundle. Connecting global topology
-to local geometry requires a theorem that, to our knowledge, does not currently
-exist in the mathematical literature.
+The companion paper~\cite{fixed_point} establishes that the perturbative
+self-consistency map at Level~2 has the same contraction constant
+$\kappa \sim (m/M_P)^2 \ll 1$ regardless of metric signature. This is not a
+deficiency of the analysis---it is informative. It demonstrates that signature
+selection does not operate at Level~2 alone. The Banach contraction is
+signature-blind because it asks whether a self-consistent solution
+\emph{exists}, not whether it supports a physical interpretation.
 
-The direction in which such a theorem might go: an indefinite form of type
-$(1, b^-)$ has $b^+ = 1$, which is \emph{suggestive} of a single timelike
-direction, but this is an analogy between second homology and the tangent
-bundle that currently has no mathematical justification. Definite forms
-correspond to Riemannian (positive-definite) metrics; indefinite forms with
-different types correspond to other pseudo-Riemannian structures. The specific
-$b^+ = 1$ case is singled out by requiring:
-\begin{enumerate}
-\item The self-consistent manifold must admit a global timelike direction (for
-the notion of ``subsystem'' in Level~3 to be well-defined).
-\item The signature must be consistent with the causal structure required by the
-Level~2 Einstein equation.
-\end{enumerate}
-These requirements, formalized, might yield Conjecture~\ref{conj:signature}.
-The proof remains open.
+The selection operates at the cross-level constraint. A Riemannian fixed point
+at Level~2 satisfies $G_{\mu\nu} = 8\pi G\langle\hat{T}_{\mu\nu}\rangle$ but
+cannot support Level~3: the wave operator $\Delta + m^2$ is elliptic, there
+are no propagating modes, no mass shell, no particle interpretation, and---
+crucially---no timelike geodesics to provide the local proper time required for
+the Page--Wootters mechanism~\cite{page_wootters} of Section~\ref{sec:level3}.
+The parameter $m^2$ is present in the field equation, but it is not
+\emph{mass}: it generates no dispersion, no propagation, no local clocks.
+
+This analysis reduces the signature problem to the mass gap problem: if the
+self-consistency constraints at Levels~0--1 generate field content with $m > 0$,
+Lorentzian signature follows from the requirement that all four levels cohere.
 
 %======================================================================
 \section{Open problems}
@@ -717,16 +779,14 @@ We list four priority open problems, in order of importance:
 
 \begin{enumerate}
 
-\item \textbf{The signature bridge (Section~\ref{sec:signature}).}
-Prove or disprove Conjecture~\ref{conj:signature}: that an indefinite
-intersection form of type $(1,b^-)$ with $b^+ = 1$ implies Lorentzian metric
-signature $(-,+,+,+)$ for the self-consistent metric. This requires bridging
-the gap between a global invariant on $H_2$ and a local property of the tangent
-bundle---a specific mathematical question in four-dimensional topology and
-Lorentzian geometry. A proof would
-validate the topological approach to signature emergence. A counterexample would
-require a different mechanism for signature emergence or a modification of the
-Level~0 constraint.
+\item \textbf{The mass gap origin.}
+Where does mass come from in the hierarchy? If the self-consistency constraints
+at Levels~0--1 generate field content with $m > 0$, the signature selection
+principle (Conjecture~\ref{conj:signature}) implies Lorentzian signature, local
+time, and local Hilbert space---resolving several open problems simultaneously.
+The critical question is whether exotic smooth structures on the Level~0
+manifold determine massive field content. This is the single most important
+open problem in the hierarchy.
 
 \item \textbf{A natural measure on smooth structures.}
 Define a measure $\mu$ on $\mathrm{Sm}(\mathcal{M})$ for a compact
@@ -807,6 +867,13 @@ equation from a path integral for minisuperspace models,
 
 \bibitem{banks} T.~Banks, TCP, quantum gravity, the cosmological constant
 and all that\ldots, \textit{Nucl.\ Phys.\ B}\ \textbf{249}, 332 (1985).
+
+\bibitem{wigner} E.~P.~Wigner, On unitary representations of the
+inhomogeneous Lorentz group, \textit{Ann.\ Math.}\ \textbf{40}, 149--204
+(1939).
+
+\bibitem{geroch} R.~Geroch, Spinor structure of space-times in general
+relativity.~I, \textit{J.\ Math.\ Phys.}\ \textbf{9}, 1739--1744 (1968).
 
 \end{thebibliography}
 
