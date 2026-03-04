@@ -46,7 +46,10 @@ is signature-blind: self-consistent solutions exist for both Lorentzian
 and Riemannian metrics, for both massive and massless field content.
 Signature selection operates not at any single level but at the
 cross-level constraint, where only Lorentzian metrics with massive field
-content support the full hierarchy.
+content support the full hierarchy. The mass assumption itself can be
+weakened: the conformal trace anomaly generates nonzero curvature, which
+induces effective mass for non-conformally coupled fields, closing the
+co-emergence loop without bare mass as input.
 
 \bigskip\noindent\textit{Note:} Companion to ``Fixed-point existence of
 self-consistent semiclassical gravity''~\cite{fixed_point}, whose results
@@ -108,12 +111,18 @@ constraints at every level simultaneously. We call this the
 \emph{co-emergence thesis}. It is formalized as a four-level hierarchy
 of geometric constraints (Section~\ref{sec:hierarchy}) whose joint
 solution space is restricted to Lorentzian signature with massive field
-content (Conjecture~\ref{conj:coemergence}).
+content (Conjecture~\ref{conj:coemergence}). Moreover, the mass
+assumption itself can be weakened: the conformal trace anomaly generates
+effective mass for non-conformal fields on any self-consistent
+background with nonzero curvature
+(Conjecture~\ref{conj:mass_generation}).
 
 The paper is organized as follows. Section~\ref{sec:axioms} states the
 three axioms. Section~\ref{sec:coemergence} presents the co-emergence
-thesis: four links forming a closed chain, each with its rigor level.
-Section~\ref{sec:hierarchy} develops the four-level hierarchy.
+thesis: four links forming a closed chain, each with its rigor level,
+followed by the self-consistent mass generation mechanism that weakens
+the mass assumption. Section~\ref{sec:hierarchy} develops the four-level
+hierarchy.
 Section~\ref{sec:dimensions} argues that four-dimensionality is derived,
 not assumed. Section~\ref{sec:connections} connects the hierarchy to
 Wheeler--DeWitt, the SCE, Page--Wootters, and Osterwalder--Schrader
@@ -420,6 +429,168 @@ simultaneously. The chain is our explanation of the constraint structure,
 expressed in the only order available to linear text, not a description
 of how the block came to be.
 \end{remark}
+
+%----------------------------------------------------------------------
+\subsection{The phase structure of $\mu^*$}
+\label{sec:phase}
+%----------------------------------------------------------------------
+
+The co-emergence thesis requires that marginalizing $\mu^*$ over the
+complement of a subregion produces quantum statistics---density matrices,
+interference, Born rule probabilities. Whether this is possible depends
+on a structural property of $\mu^*$ that the paper has so far left
+unspecified: is $\mu^*$ real-valued or complex-valued?
+
+A real-valued positive measure cannot produce destructive interference.
+If $\mu^*$ is a probability measure in the ordinary sense---real,
+positive, normalized---then the marginal over the complement of
+$\mathcal{R}$ is a classical conditional probability, and the effective
+theory for $\mathcal{R}$ is a classical stochastic process. No amount
+of marginalization or coarse-graining can generate complex amplitudes
+from real-valued weights. If $\mu^*$ is real, the framework produces
+statistical mechanics, not quantum mechanics.
+
+Quantum statistics require complex weights that can cancel. In the path
+integral, this structure comes from the Lorentzian action: the weight
+$e^{iS/\hbar}$ is a complex phase whose oscillations produce the
+interference that distinguishes quantum from classical. On a Riemannian
+manifold, the corresponding weight $e^{-S_E/\hbar}$ is real and positive.
+
+This observation connects the phase structure of $\mu^*$ directly to
+signature selection. If the smooth-structure measure inherits its weight
+from the action functional on each smooth structure, then:
+\begin{itemize}
+\item On a Lorentzian manifold, $\mu^*$ carries complex phases $\to$
+marginalization can produce quantum statistics $\to$ Level~3 is
+nontrivial.
+\item On a Riemannian manifold, $\mu^*$ is real-valued $\to$
+marginalization produces only classical correlations $\to$ Level~3
+collapses to classical statistics.
+\end{itemize}
+This is a sharper mechanism for Level~3 signature selectivity than the
+absence of timelike geodesics alone. The Riemannian fixed point fails
+not only because there are no local clocks, but because the measure
+itself lacks the phase structure required for quantum interference.
+
+\begin{remark}[What emergence means here]
+\label{rem:emergence}
+If $\mu^*$ must be complex for quantum statistics to emerge, then the
+claim of the framework must be stated precisely. The topology provides
+the configuration space $\mathrm{Sm}(\mathcal{M})$. The self-consistency
+condition provides the dynamics (the map $\mathcal{F}$). But the complex
+phase comes from the Lorentzian action evaluated on each smooth
+structure. The framework derives local Hilbert space structure from
+global phase structure via marginalization---the Born rule, the density
+matrix, the subsystem-dependence of quantum mechanics are all emergent.
+What is not derived from topology alone is the phase itself. This is a
+weaker claim than ``quantum mechanics emerges from topology'' but
+stronger than ``quantum mechanics is assumed'': the local quantum
+structure is genuinely emergent even though the global phase structure is
+not.
+\end{remark}
+
+The critical question for the toy model (Section~\ref{sec:open}) is
+therefore two-part: (1) does the self-consistency condition
+$\mathcal{F}(\mu^*) = \mu^*$ naturally produce complex-valued fixed
+points even when the input space is purely topological, or must the
+phases be imposed by hand? And (2) if $\mu^*$ is complex, does the
+marginal over a bipartition have the algebraic structure of a density
+matrix? A positive answer to both would demonstrate that self-consistency
+generates the phase structure that marginalization then organizes into
+local quantum mechanics. A negative answer to (1) would mean the
+framework reorganizes quantum mechanics but does not derive it, and this
+paper should be read accordingly.
+
+\begin{remark}[Finite toy model]
+\label{rem:toy_model}
+A finite truncation ($N = 4$, $\mathrm{Sm}(\mathcal{M}) = S_R \times
+S_C$ with $|S_R| = |S_C| = 2$) with an explicit self-consistency map
+$\mathcal{F}$ partially answers both questions. In the minimal model:
+\begin{itemize}
+\item The Lorentzian coupling $\gamma = -1 + i\theta$ produces
+complex-valued fixed points whose configuration-dependent relative
+phases survive the partial trace, yielding a subsystem density matrix
+$\rho_R$ with complex off-diagonal elements ($|\mathrm{Im}\,
+\rho_{01}| \sim 10^{-2}$ at $\theta = 1$). The phases originate
+in the oscillatory weight $e^{i\theta R}$; self-consistency preserves
+them into the fixed point rather than generating them from nothing.
+\item The Riemannian coupling $\gamma = -1$ produces real-valued fixed
+points; $\rho_R$ has only real entries. Classical correlations persist
+(the state is entangled, with purity $< 1$) but no quantum coherences
+appear.
+\item The quantum/classical boundary coincides exactly with the
+Lorentzian/Riemannian boundary, confirming the mechanism of this
+subsection.
+\end{itemize}
+This demonstrates that Lorentzian self-consistency can produce quantum
+coherences in subsystem density matrices and that Riemannian
+self-consistency cannot. It does not demonstrate the full algebraic
+structure of quantum mechanics: the Born rule, the composition rule for
+subsystems, and interference in measurement outcomes require a larger
+model ($N \geq 8$) where these properties can be tested independently.
+The toy model confirms one link of the co-emergence chain in a minimal
+setting; the chain as a whole remains Conjecture.
+\end{remark}
+
+%----------------------------------------------------------------------
+\subsection{Weakening the mass assumption}
+\label{sec:mass_generation}
+%----------------------------------------------------------------------
+
+Conjecture~\ref{conj:coemergence} conditions on the existence of massive
+field content. This condition can be weakened. The Starobinsky de Sitter
+fixed point~\cite{starobinsky} has nonzero scalar curvature
+$R = 12H_0^2$, driven by the conformal trace anomaly even for massless
+fields. On this background, a scalar field with non-conformal curvature
+coupling $\xi \neq 1/6$ acquires an effective mass
+\begin{equation}
+m_{\mathrm{eff}}^2 = \left(\xi - \tfrac{1}{6}\right) R.
+\label{eq:meff}
+\end{equation}
+For $\xi > 1/6$, this is a genuine positive mass-squared; the field has
+a mass shell $p_\mu p^\mu = -m_{\mathrm{eff}}^2$ in the subhorizon WKB
+regime, timelike worldlines with proper time, and the capacity to serve
+as a Page--Wootters clock. For the conformally coupled case $\xi = 1/6$,
+the effective mass vanishes identically---the field remains exactly
+massless. This is consistent with the photon, which is conformally
+coupled in four dimensions.
+
+The effective mass~\eqref{eq:meff} is the same number on both Lorentzian
+de Sitter and Riemannian $S^4$. But on the Riemannian side it is a
+correlation length parameter, not physical mass: there is no mass shell,
+no dispersion relation, no propagation, and no local clocks. The
+signature selectivity of the co-emergence thesis survives with
+$m_{\mathrm{eff}}$ in place of bare mass.
+
+\begin{conjecture}[Self-consistent mass generation]
+\label{conj:mass_generation}
+\emph{(Sketch.)}
+Let $(\mathcal{M}, g)$ be a Lorentzian 4-manifold carrying quantum
+fields with at least one species having non-conformal curvature coupling
+($\xi \neq 1/6$). Then the self-consistent solution of the semiclassical
+Einstein equation has $R \neq 0$, and each non-conformal field acquires
+effective mass $m_{\mathrm{eff}}^2 = (\xi - 1/6)R$. This effective mass
+is sufficient to activate the co-emergence chain: it defines a mass
+shell, provides local proper time along timelike worldlines, enables
+local Hilbert space via the Page--Wootters mechanism, and sources the
+stress-energy that maintains the self-consistent curvature. Conformal
+fields ($\xi = 1/6$) remain exactly massless.
+\end{conjecture}
+
+Conjecture~\ref{conj:mass_generation} weakens the mass assumption in the
+co-emergence thesis from ``massive fields exist'' to ``non-conformally
+coupled fields exist.'' The effective mass is generated by the
+self-consistent curvature, not assumed as input. The Rigorous components
+are the Starobinsky fixed point and eq.~\eqref{eq:meff} (standard
+curved-spacetime QFT). The Sketch component is the closure of the
+co-emergence chain with $m_{\mathrm{eff}}$ in place of bare mass.
+
+What the conjecture does not achieve: it does not derive the field
+content, the curvature coupling constants, the mass spectrum, or fermion
+masses (which require additional mechanisms such as Yukawa couplings).
+The mass gap origin is partially answered---effective mass is generated,
+not assumed---but the deeper question of why non-conformal fields exist
+remains open (Section~\ref{sec:open}).
 
 %======================================================================
 \section{The self-consistency hierarchy}
@@ -875,29 +1046,58 @@ We list four priority open problems, in order of importance.
 \begin{enumerate}
 
 \item \textbf{The mass gap origin.}
-The co-emergence thesis is conditional: \emph{if} mass, \emph{then}
-signature, time, and Hilbert space co-emerge. Where does mass come from?
-The hierarchy's proven results do not depend on answering this question---they
-hold for any mass input satisfying the perturbative bound $m \ll M_P$.
-But the framework aspires to derive mass from topology
-(Axiom~\ref{ax:nobackground}).
+The co-emergence thesis requires at least one massive field species.
+Conjecture~\ref{conj:mass_generation} shows that effective mass is
+generated self-consistently for non-conformal fields, reducing the
+assumption from ``massive fields exist'' to ``non-conformally coupled
+fields exist.'' Two questions remain open:
+\begin{enumerate}
+\item[(a)] \emph{Mass existence.} Can the existence of non-conformally
+coupled fields ($\xi \neq 1/6$) be derived from Levels~0--1, or is it
+irreducible input? The Asselmeyer-Maluga
+program~\cite{asselmeyer_maluga} has explored the possibility that
+exotic smooth structures generate matter fields from pure topology, but
+its core claims remain unverified by independent groups, and the
+program operates in Euclidean signature.
+\item[(b)] \emph{Mass spectrum.} Can the specific mass values of the
+Standard Model be derived from the hierarchy, or do they require
+additional structure (field content, coupling constants) as external
+input? The trace anomaly mechanism of
+Conjecture~\ref{conj:mass_generation} generates a single mass scale
+$\sim H_0$, not a spectrum.
+\end{enumerate}
+A more radical possibility is that mass is the spectral gap of the
+self-consistency map $\mathcal{F}$ on the full space of measures on
+$\mathrm{Sm}(\mathcal{M})$. If correct, this identification would
+subsume both questions into the spectral theory of $\mathcal{F}$. Whether
+this identification has mathematical content is an open problem
+requiring explicit computation in toy models.
 
-Mass enters the hierarchy at Level~2 as a parameter of the matter field
-content. Cross-level consistency requires at least some massive fields
-(Conjecture~\ref{conj:coemergence}): without mass, there are no timelike
-geodesics, no local proper time, no local Hilbert space, and therefore
-no Level~3 structure. Whether the mass spectrum can be derived from
-Levels~0--1 is the hierarchy's deepest open problem.
+\item \textbf{Level~3 formalization: quantum vs.\ classical.}
+The co-emergence chain requires that marginalizing $\mu^*$ over the
+complement of a subregion produces \emph{quantum} statistics---density
+matrices with complex amplitudes, interference, and Born rule
+probabilities---not merely classical stochastic correlations. The finite
+toy model (Remark~\ref{rem:toy_model}) demonstrates that Lorentzian
+self-consistency produces complex off-diagonal density matrix elements at
+$N = 4$, confirming that the mechanism of Section~\ref{sec:phase} is
+operative in the minimal case. But complex off-diagonal elements are
+necessary, not sufficient: the decisive question is whether larger models
+($N = 8$, $16$) produce the full algebraic structure of quantum
+mechanics---the Born rule, the composition rule for subsystems
+($\rho_{R_1} = \mathrm{Tr}_{R_2}\,\rho_R$), and interference in
+measurement outcomes. If larger models show only classical correlations
+with a complex sheen---off-diagonal phases that do not compose correctly
+or produce the right measurement statistics---then the framework
+reorganizes quantum mechanics but does not derive it, and the paper
+should say so.
 
-\item \textbf{Level~3 formalization.}
-Make ``local Hilbert space requires local time requires mass''
-mathematically precise. The Page--Wootters mechanism provides a partial
-model, but as standardly formulated it presupposes a total Hilbert
-space (Remark~\ref{rem:pw_gap}). The needed result: reformulate
-Page--Wootters using the marginal of $\mu^*$ rather than a fundamental
-Hilbert space, and show that the conditioning on a massive clock
-subsystem requires the metric to be Lorentzian. This would promote the
-co-emergence thesis from Conjecture to Sketch.
+Separately, the Page--Wootters mechanism as standardly formulated
+presupposes a total Hilbert space (Remark~\ref{rem:pw_gap}). Reformulating
+it as an operation on measures rather than Hilbert space vectors, and
+showing that the conditioning on a massive clock subsystem requires the
+metric to be Lorentzian, would promote the co-emergence thesis from
+Conjecture to Sketch.
 
 \item \textbf{The Level~0 manifold class.}
 Which 4-manifolds admit both Lorentzian metrics ($\chi = 0$) and
@@ -924,6 +1124,74 @@ measure on the full moduli space $\mathrm{Sm}(\mathcal{M})$ is the open
 problem.
 
 \end{enumerate}
+
+\medskip
+
+\noindent\textbf{Empirical content.} At energies accessible to current
+or foreseeable experiments, the hierarchy's empirical content is
+identical to semiclassical gravity. The framework does not predict new
+physics at sub-Planckian energies; it reorganizes the conceptual
+foundations---the relationships between mass, signature, time, and
+Hilbert space---in a way that may point toward new physics at Planck-scale
+energies. Level~1 corrections (the smooth-structure sum beyond the
+single-metric approximation) are suppressed by powers of $\ell_P$ and
+invisible at any accessible scale. The companion
+paper~\cite{fixed_point} identifies specific predictions (gravitational
+decoherence timescales) that arise from the Level~2 fixed point; these
+are predictions of semiclassical gravity, not of the full hierarchy.
+
+\medskip
+
+\noindent\textbf{What would falsify the framework.} The co-emergence
+thesis (Conjecture~\ref{conj:coemergence}) is a mathematical claim, not
+a directly experimental one. It would be falsified by any of the
+following, each of which is a definite mathematical question:
+\begin{enumerate}
+\item \emph{Riemannian quantum mechanics.} A construction of a
+self-consistent Riemannian solution of the hierarchy that supports
+effective quantum mechanics for subsystems---i.e., a Riemannian manifold
+where the marginal of $\mu^*$ produces density matrices with complex
+off-diagonal elements, interference, and Born rule statistics despite
+the absence of timelike geodesics. The finite toy model
+(Remark~\ref{rem:toy_model}) finds no such structure at $N = 4$; a
+construction at any $N$ would kill the thesis.
+
+\item \emph{Classical Lorentzian fixed points.} A proof that for
+\emph{all} non-uniform weight functions on a finite configuration
+space, the self-consistency map $\mathcal{F}$ with Lorentzian coupling
+$\gamma = -1 + i\theta$ admits only fixed points whose partial trace
+is a real-valued density matrix. The toy model finds complex coherences
+at $N = 4$, but this could be a finite-size artifact. If Lorentzian
+self-consistency produces only classical correlations in the $N \to
+\infty$ limit, the mechanism of Section~\ref{sec:phase} fails.
+
+\item \emph{Born rule failure.} A demonstration that the subsystem
+density matrices produced by marginalization of $\mu^*$ fail to satisfy
+the full algebraic structure of quantum mechanics---specifically, that
+$\rho_R$ does not compose correctly under further bipartitions
+($\rho_{R_1} \neq \mathrm{Tr}_{R_2}\,\rho_R$ for $R = R_1 \cup R_2$),
+or that measurement outcomes computed from $\rho_R$ violate the Born
+rule. Complex off-diagonal elements are necessary but not sufficient for
+quantum mechanics; the composition and measurement structure must also
+emerge.
+
+\item \emph{Mass shell failure.} A proof that curvature-generated
+effective mass (eq.~\eqref{eq:meff}) does not produce a physical mass
+shell---i.e., that the WKB approximation fails for $m_{\mathrm{eff}}$
+in a way that prevents the Wigner classification from applying and the
+co-emergence chain from closing.
+
+\item \emph{Smooth-structure triviality.} A proof that all 4-manifolds
+admitting Lorentzian metrics have trivial or finite
+$\mathrm{Sm}(\mathcal{M})$, leaving no room for the smooth-structure
+sum that defines Level~1. This would reduce the hierarchy to standard
+semiclassical gravity without the measure-theoretic superstructure.
+\end{enumerate}
+The framework is structured so that its central claims can be killed by
+computation, not only by experiment. The falsification criteria above
+are ordered roughly by accessibility: items~1--3 can be tested in
+finite toy models of increasing size; items~4--5 require analytic work
+in differential geometry.
 
 %======================================================================
 \section*{Acknowledgments}
@@ -1028,6 +1296,11 @@ K.~Osterwalder and R.~Schrader,
 \textit{Commun.\ Math.\ Phys.} \textbf{31}, 83--112 (1973);
 ``Axioms for Euclidean Green's functions.\ II,''
 \textit{Commun.\ Math.\ Phys.} \textbf{42}, 281--305 (1975).
+
+\bibitem{asselmeyer_maluga}
+T.~Asselmeyer-Maluga and C.~H.~Brans,
+``How to include fermions into general relativity by exotic smoothness,''
+\textit{Gen.\ Rel.\ Grav.} \textbf{47}, 30 (2015).
 
 \end{thebibliography}
 
