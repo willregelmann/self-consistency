@@ -60,6 +60,40 @@ Enter plan mode to design the approach before making changes. The plan should:
 
 Present the plan for approval before proceeding.
 
+## Step 5: Open a PR
+
+After the work is complete and committed:
+
+1. **Run self-checks** (dimensional analysis, limiting cases, consistency, order-of-magnitude sanity) and document results
+2. **Push the branch**: `git push -u origin <branch-name>`
+3. **Open a PR** linking to the issue, using this format:
+
+```
+gh pr create --title "<concise title>" --body "$(cat <<'EOF'
+Closes #N
+
+## Summary
+<What was derived/changed and why>
+
+## Rigor level
+<Rigorous / Sketch / Conjecture — for each result>
+
+## Self-checks
+- [ ] Dimensional analysis: <result>
+- [ ] Limiting cases: <result>
+- [ ] Consistency: <result>
+- [ ] Order-of-magnitude sanity: <result>
+
+## Adversarial review
+<Recommended / Not needed — and which mode: verification, stress testing, or both>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+EOF
+)"
+```
+
+4. **Report the PR URL** to the user
+
 ## Important constraints
 
 - **Do not start work without user selection.** The recommendation is a suggestion, not a decision.
