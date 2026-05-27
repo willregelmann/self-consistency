@@ -29,11 +29,14 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
 CROSSREF_API = "https://api.crossref.org/works"
-ARXIV_API = "http://export.arxiv.org/api/query"
+ARXIV_API = "https://export.arxiv.org/api/query"
+# arXiv asks for no more than one request every ~3 seconds.
+ARXIV_DELAY = 3.0
 # Crossref "polite pool": identify ourselves so we get better service.
 MAILTO = os.environ.get("CITATION_VERIFY_MAILTO", "will@regelmann.net")
 USER_AGENT = f"self-consistency-citation-verifier/1.0 (mailto:{MAILTO})"
@@ -182,12 +185,27 @@ _cache: dict[str, float] = {}
 
 def _http_get(url: str) -> bytes | None:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    for attempt in range(3):
+    throttle_attempt = 0
+    conn_attempt = 0
+    while throttle_attempt < 5 and conn_attempt < 2:
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 return resp.read()
+        except urllib.error.HTTPError as e:
+            # 429 (rate limited) / 503 are transient: back off and retry, honoring
+            # Retry-After when given. arXiv throttles bursts, so we must wait rather
+            # than mistake throttling for "not found".
+            if e.code in (429, 503):
+                retry_after = e.headers.get("Retry-After")
+                wait = int(retry_after) if (retry_after or "").isdigit() else 5 * (throttle_attempt + 1)
+                time.sleep(min(wait, 60))
+                throttle_attempt += 1
+            else:
+                return None  # 404 etc. -- a definite answer, not transient
         except Exception:
-            time.sleep(1.5 * (attempt + 1))
+            # Connection refused / DNS / timeout: retrying rarely helps, give up fast.
+            conn_attempt += 1
+            time.sleep(1)
     return None
 
 
@@ -231,15 +249,20 @@ def _crossref_year(item: dict) -> int | None:
     return None
 
 
-def arxiv_id_exists(arxiv_id: str) -> bool:
+def arxiv_id_exists(arxiv_id: str) -> bool | None:
+    """True = confirmed present, False = confirmed absent, None = couldn't check."""
     params = urllib.parse.urlencode({"id_list": arxiv_id, "max_results": 1})
     data = _http_get(f"{ARXIV_API}?{params}")
-    time.sleep(0.4)
+    time.sleep(ARXIV_DELAY)
     if not data:
-        return False
+        return None  # network error / exhausted retries (e.g. sustained throttling)
     text = data.decode("utf-8", "ignore")
-    # A real id returns an <entry> with a matching <id> and no error title.
-    return f"abs/{arxiv_id}" in text and "<entry>" in text
+    # A valid id returns an <entry> for the paper. An invalid id returns a feed
+    # whose single <entry> points at http://arxiv.org/api/errors. Key off that
+    # rather than substring-matching the id (robust to version suffixes/format).
+    if "api/errors" in text:
+        return False
+    return True if "<entry>" in text else None
 
 
 def arxiv_best_score(ref: Reference) -> float:
@@ -255,7 +278,7 @@ def arxiv_best_score(ref: Reference) -> float:
         for t in re.findall(r"<title>(.*?)</title>", data.decode("utf-8", "ignore"), re.DOTALL):
             ratio = difflib.SequenceMatcher(None, norm, normalize_title(t)).ratio()
             best = max(best, ratio)
-    time.sleep(0.4)
+    time.sleep(ARXIV_DELAY)
     return best
 
 
@@ -311,8 +334,14 @@ def main() -> int:
             if ref.key in allow:
                 rows.append((path, ref.key, "allowlisted", 1.0, ref.title or ""))
                 continue
-            if ref.arxiv_id and arxiv_id_exists(ref.arxiv_id):
+            arxiv_state = arxiv_id_exists(ref.arxiv_id) if ref.arxiv_id else None
+            if arxiv_state is True:
                 rows.append((path, ref.key, "resolved", 1.0, ref.title or ref.arxiv_id))
+                continue
+            if arxiv_state is False:
+                # arXiv positively reports this id does not exist -> a real problem.
+                failed = True
+                rows.append((path, ref.key, "unresolved", 0.0, ref.title or ref.arxiv_id))
                 continue
             score = crossref_best_score(ref)
             status = classify(score)
@@ -321,6 +350,11 @@ def main() -> int:
                 ax = arxiv_best_score(ref)
                 if ax > score:
                     score, status = ax, classify(ax)
+            # A well-formed arXiv id we couldn't disconfirm (API unreachable/throttled)
+            # downgrades a would-be failure to a non-blocking warning rather than a
+            # false negative on a likely-real preprint.
+            if status == "unresolved" and ref.arxiv_id:
+                status = "ambiguous"
             if status == "unresolved":
                 failed = True
             rows.append((path, ref.key, status, score, ref.title or "(no title parsed)"))
