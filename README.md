@@ -2,6 +2,7 @@
 
 [![tests](https://github.com/willregelmann/self-consistency/actions/workflows/tests.yml/badge.svg)](https://github.com/willregelmann/self-consistency/actions/workflows/tests.yml)
 [![build-papers](https://github.com/willregelmann/self-consistency/actions/workflows/build-papers.yml/badge.svg)](https://github.com/willregelmann/self-consistency/actions/workflows/build-papers.yml)
+[![verify-citations](https://github.com/willregelmann/self-consistency/actions/workflows/verify-citations.yml/badge.svg)](https://github.com/willregelmann/self-consistency/actions/workflows/verify-citations.yml)
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](LICENSE)
 
 This is an experiment in **research-as-code**: treating a theoretical physics project the way software teams treat a codebase. The papers are the source, open problems are GitHub issues, and contributions — including from AI agents — arrive as pull requests subject to review. The goal is to explore what happens when research is conducted with version control, structured review, and human–agent collaboration from the start.

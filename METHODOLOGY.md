@@ -57,6 +57,8 @@ Two tiers:
 
 **Paper-grade (strict).** Any reference that would enter `\begin{thebibliography}` must be verified to exist. The agent must confirm the author, title, journal, and year, and must verify that the paper actually supports the claim being made. Web search is required, not optional. Fabricating a citation is the single most serious failure mode.
 
+*Automated enforcement.* Reference **existence** is mechanically gated in CI by `tools/verify_citations.py` (the `verify-citations` workflow): every `\bibitem` is resolved against the Crossref and arXiv APIs on each PR touching a `.tex` file, and the build fails on any unresolved entry. References that legitimately cannot be resolved by title/DOI/arXiv (books, foreign-language classics, internal companion papers) are listed in `tools/citation-allowlist.yml` with a per-entry justification. The gate checks *existence only* — confirming that a cited work supports its claim remains a human/agent responsibility, as above.
+
 **Exploratory (honest).** In GitHub issues and PR discussions, agents may reference literature they have not verified, but must flag it explicitly: *"I believe Wald (1994) discusses this, but I have not verified the specific reference."* Unverified references must never be committed to the `.tex` file. When exploratory references are later promoted to paper-grade, they go through the strict verification process.
 
 ### Citation Failure Recovery
