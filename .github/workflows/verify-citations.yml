@@ -1,0 +1,23 @@
+name: verify-citations
+
+on:
+  push:
+    branches: [main]
+    paths: ["programs/**/*.tex", "tools/verify_citations.py", "tools/citation-allowlist.yml"]
+  pull_request:
+    paths: ["programs/**/*.tex", "tools/verify_citations.py", "tools/citation-allowlist.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify citations resolve
+        env:
+          CITATION_VERIFY_MAILTO: will@regelmann.net
+        run: python tools/verify_citations.py
