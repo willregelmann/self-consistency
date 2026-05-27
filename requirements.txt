@@ -1,6 +1,6 @@
 # Numerical dependencies for the co-emergence toy model and its test suite.
 numpy>=1.24
-scipy>=1.10
+scipy>=1.17.1
 pytest>=7.0
 
 # Used by the standalone exploration/plotting scripts in programs/*/tests/
