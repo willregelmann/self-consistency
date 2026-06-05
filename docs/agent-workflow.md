@@ -14,12 +14,18 @@ methodology is the *product*. The full normative spec lives in
 
 ## The core model
 
-**Agent-as-contributor, human-as-reviewer.** Agents claim issues, work on
-branches, and open PRs. The human author reviews and merges. **Agents have no
-merge authority** — every change to the papers passes through human review.
-This mirrors the 2025–2026 consensus that autonomous science still needs a
-human in the loop for conceptual judgment, while letting agents do the heavy
-lifting of derivation, search, and drafting.
+**Agent-as-contributor, human-as-reviewer** is the default model. Agents claim
+issues, work on branches, and open PRs. The human author reviews and merges.
+In this mode agents have no merge authority — every change to the papers
+passes through human review. This mirrors the 2025–2026 consensus that
+autonomous science still needs a human in the loop for conceptual judgment,
+while letting agents do the heavy lifting of derivation, search, and drafting.
+
+**Autonomous mode** is the pre-registered exception built to test that
+consensus directly: for the 90-day experiment window defined in
+[`EXPERIMENT.md`](../EXPERIMENT.md), merge authority is delegated to a
+mechanical gate stack and the human acts as *experimenter*, not reviewer. See
+[Autonomous mode](#autonomous-mode-the-90-day-experiment) below.
 
 ## The contribution lifecycle
 
@@ -35,7 +41,8 @@ issue ──▶ branch ──▶ commits ──▶ self-check ──▶ PR ─�
 4. **Self-check** before the PR: dimensional analysis, limiting cases,
    consistency, order-of-magnitude sanity — documented in the PR description.
 5. **Adversarial review** (optional, human-requested) — see below.
-6. **Human merges.**
+6. **Merge.** Default mode: the human merges. Autonomous mode: GitHub
+   auto-merge fires mechanically once the full gate stack passes.
 
 ## Rigor labels and the rigor lifecycle
 
@@ -82,6 +89,47 @@ not edit the paper directly. (A known limitation, tracked for improvement:
 position agents drawn from the same base model partially correlate, so genuine
 independence benefits from varying the model/temperature across positions.)
 
+## Autonomous mode (the 90-day experiment)
+
+The default model keeps a human in the merge loop. The autonomous experiment
+removes them and asks whether machinery alone can hold the quality bar. The
+full normative spec is the constitution, [`AUTONOMY.md`](../AUTONOMY.md); the
+pre-registration (hypothesis, metrics, tripwires, kill switch, live status and
+incident log) is [`EXPERIMENT.md`](../EXPERIMENT.md). The operational picture:
+
+**Seven scheduled routines** replace the human's roles, each defined in a
+version-controlled, constitutionally protected file under
+[`automation/routines/`](../automation/routines/): a daily **worker** (claims
+one issue, works it to a PR), a twice-daily **reviewer** (adversarial quorum:
+two-pass review, machine-readable verdict per head SHA), a daily **responder**
+(addresses revise verdicts and CI failures), a **red-team** every three days
+(stress-tests merged Rigorous results — its product is demotions), a weekly
+**scout** (opens issues for OBJECTIVES milestones) and **librarian** (arXiv
+watch), and a monthly **governor** (direction: updates objectives, kills and
+opens research lines).
+
+**The merge-gate stack.** A PR merges when — and only when — all required
+checks pass, in four tiers:
+
+```
+PR ──▶ deterministic (pytest · pdflatex · citation existence)
+   ──▶ semantic (claim-support: do load-bearing citations support their claims?)
+   ──▶ quorum (reviewer verdict marker for the current head SHA; promotions
+       to Rigorous additionally need an independent stress-test marker)
+   ──▶ constitutional (protected paths require the experimenter's approval)
+   ──▶ GitHub auto-merge
+```
+
+Verdicts are per-SHA: any push invalidates them and the gate resets. Routines
+authenticate as a dedicated machine account with write (not admin) access, so
+branch protection, no-self-approval, and settings immutability hold *by
+construction*, not by promise.
+
+**The human is the experimenter, not a reviewer**: kill switch, budget,
+constitutional amendments, and `needs-human` escalations — agents halt and
+escalate rather than improvise when they hit a contradiction, a suspect
+citation in merged content, or a malfunctioning gate.
+
 ## Custom tooling (`.claude/commands/`)
 
 Three project-specific slash commands encode the workflow:
@@ -121,7 +169,7 @@ judgment-and-advisory:
 | Tier | Question | Mechanism | Blocking? |
 |------|----------|-----------|-----------|
 | **Deterministic** | Does it compile / run / resolve? | `tests`, `build-papers`, `verify-citations` | yes |
-| **Semantic** | Does it overclaim / mis-cite / skip a self-check? | `semantic-review` — LLM-as-evaluator ([claude-tests](https://github.com/willregelmann/claude-tests)) | no (advisory) |
+| **Semantic** | Does it overclaim / mis-cite / skip a self-check? | `semantic-review` — LLM-as-evaluator ([claude-tests](https://github.com/willregelmann/claude-tests)) | advisory in default mode; the autonomous mode's `claim-support` check is **blocking** |
 | **Formal** | Is the proof actually valid? | Lean formalization (planned, issue #45) | yes, where formalized |
 
 The semantic tier is run by an **isolated evaluator with no implementation

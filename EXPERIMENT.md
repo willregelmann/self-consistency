@@ -1,7 +1,11 @@
 # EXPERIMENT.md — Pre-registration of the Autonomous Research Experiment
 
-**Status:** Running. Started 2026-06-05 by the experimenter (all seven routines
-enabled; see log). This file is a protected path; agents do not edit it.
+**Status:** Halted ~3h after first enablement (2026-06-05). The live identity
+check on the first routine run found routines authenticating as the
+experimenter's admin login rather than the machine account; all seven routines
+were disabled (kill switch step 1 — see log). Restart pending the auth fix;
+the start date will be re-recorded at restart. This file is a protected path;
+agents do not edit it.
 
 ## Hypothesis
 
@@ -22,8 +26,8 @@ audit. The experiment is designed so these two outcomes are distinguishable.
 | Parameter | Value |
 |---|---|
 | Duration | **90 days** from start date |
-| Start date | **2026-06-05** |
-| End date | **2026-09-03** (start + 90 days) |
+| Start date | _first enablement 2026-06-05 halted at T+3h (see log); to be re-recorded at restart_ |
+| End date | start + 90 days |
 | Worker cadence / model | daily / opus |
 | Reviewer cadence / model | every 12h / opus |
 | Responder cadence / model | daily / sonnet |
@@ -122,3 +126,4 @@ terminal artifact, regardless of outcome.
 | 2026-06-05 | Phase D gate verification: tests 1a/2/4/5/6/7 passed as designed; test 3 found a claim-support false negative (assertions judged against sources, not the paper) — fixed by binding assertions to the paper's text (PR #58) |
 | 2026-06-05 | Branch protection `strict` (require up-to-date branches) disabled: with SHA-bound experimenter approvals and concurrent auto-merges, strict mode livelocks protected-path PRs (approve → behind → update → approval stale). Pre-registered as a tuning knob; required checks unaffected |
 | 2026-06-05 | **Experiment started.** Start date recorded and all seven routines enabled by the experimenter from the CLI (experimenter-authored PR, admin-merged per the documented protected-path procedure). Scout fired once manually post-enablement to seed the issue queue ahead of its Monday cadence |
+| 2026-06-05 | **Halted at T+3h (kill switch step 1).** The manually-fired scout run doubled as the live identity check: its issues (#65, #66) were authored by the experimenter's login (`willregelmann`, admin) instead of the machine account (`will-physagent`) — the cloud environment's GitHub credential is the experimenter's, so every authority boundary that holds "by construction" (write-not-admin, no branch-protection bypass, experimenter/agent distinction) was void. All seven routines disabled via API within minutes; no PRs were opened and nothing merged under the wrong identity. Scout-filed issues kept — experimenter-authored `agent-ready` issues are valid per the label table. Remediation before restart: (1) rotate the bot PAT (also closing the earlier transcript-exposure note), (2) set the rotated PAT as the cloud environment's GitHub credential so routine runs operate as `will-physagent`, (3) re-fire one routine and verify its effective login on a created artifact, (4) re-enable all seven and re-record the start date. The identity check and kill-switch drill from the pre-enablement runbook were skipped at first enablement; this entry is the consequence — both are now mandatory restart steps |

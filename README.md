@@ -23,11 +23,35 @@ described below, but the artifact worth studying is the *process*.
 
 The agent-engineering machinery is documented in **[`docs/agent-workflow.md`](docs/agent-workflow.md)** — roles, the contribution lifecycle, agent-team debates, custom tooling, and guardrails. Highlights:
 
-- **Agent-as-contributor, human-as-reviewer.** Agents work on branches and open PRs; only the human merges. ([`METHODOLOGY.md`](METHODOLOGY.md))
+- **Agent-as-contributor, human-as-reviewer** (default mode). Agents work on branches and open PRs; only the human merges. ([`METHODOLOGY.md`](METHODOLOGY.md))
+- **A fully autonomous mode** (pre-registered 90-day experiment): merge authority delegated to a mechanical gate stack — deterministic CI → semantic claim-support → adversarial review quorum → constitutional guard — executed by GitHub auto-merge, with the human as *experimenter* rather than reviewer. ([`AUTONOMY.md`](AUTONOMY.md), [`EXPERIMENT.md`](EXPERIMENT.md))
 - **Custom agent tooling** in [`.claude/`](.claude/commands/): `/work-issue`, `/review-pr` (two-pass dialectical review), `/restructure-paper`, plus `TeammateIdle`/`TaskCompleted` quality-gate hooks.
 - **Agent-team debates** that develop competing positions in parallel to fight anchoring, then adjudicate by synthesis — recorded as dated Explorations.
 - **Verifiable output over attested output.** Three CI gates: tests pass, every paper compiles, and **every citation resolves against Crossref/arXiv** ([`tools/verify_citations.py`](tools/verify_citations.py)).
 - **Honest failure.** Rigor labels are demoted when wrong, negative results are recorded, and the citation gate has already caught a real mis-citation. See the **[case studies](docs/case-studies.md)** — the receipts.
+
+## The autonomous experiment
+
+The repository's most ambitious test of the methodology is a **pre-registered,
+90-day fully autonomous experiment**: seven scheduled agent routines (worker,
+reviewer, responder, red-team, scout, librarian, governor) run the entire
+contribution loop — claiming issues, opening PRs, adversarially reviewing,
+demoting wrong results, setting direction — with **no human in the review or
+merge loop**. PRs merge only through a mechanical stack of required checks;
+the human author acts as *experimenter*, holding the kill switch and approving
+constitutional changes, but never reviewing or merging research PRs.
+
+The hypothesis under test: the gate stack alone can hold the quality bar —
+a low silent-error rate in merged Rigorous results, with self-correction
+(demotions) demonstrably firing — against the null hypothesis that correlated
+LLM error and approval drift produce a paper that merely *looks* maintained.
+
+- **Constitution** (roles, authority boundaries, the merge-gate stack): [`AUTONOMY.md`](AUTONOMY.md)
+- **Pre-registration** (hypothesis, metrics, tripwires, audit, live status and log): [`EXPERIMENT.md`](EXPERIMENT.md)
+- **Routine definitions** (version-controlled behavior of each role): [`automation/routines/`](automation/routines/)
+
+See `EXPERIMENT.md` for current status — including its log of incidents and
+tuning, which is part of the experiment's record, not a blemish on it.
 
 ## The research (testbed)
 
@@ -45,6 +69,7 @@ under `programs/<name>/index.tex` with its own `README.md`:
 | [`fixed-point-existence`](programs/fixed-point-existence/) | Self-consistent solutions to the semiclassical Einstein equation exist — exactly (Starobinsky trace anomaly), perturbatively (Banach contraction, $\kappa \sim (m/M_P)^2$), and conditionally (Schauder). The Planck scale emerges as the validity boundary. | Pre-submission draft |
 | [`gaussian-gravitational-decoherence`](programs/gaussian-gravitational-decoherence/) | The Einstein–Langevin equation predicts a **Gaussian** (not exponential) decoherence profile, with $\tau_{\text{coh}} \sim 1.13\,\tau_{\text{DP}}$, as a consequence of the semiclassical equation rather than an added postulate. | Pre-submission draft |
 | [`co-emergence`](programs/co-emergence/) | Mass, Lorentzian signature, local time, and local Hilbert space co-emerge as the unique cross-level self-consistent configuration, with phase structure (and an entropy excess) confirmed by a finite toy model through N=16. | Draft |
+| [`signature-change-boundary`](programs/signature-change-boundary/) | On a fixed background whose metric changes signature across a degenerate surface, geometry, geodesics, and fields cross in a finite, controlled way — with a causal-type asymmetry: timelike paths terminate, spacelike paths cross intact. | Early notes |
 
 ## Building
 
