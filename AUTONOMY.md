@@ -167,3 +167,12 @@ routine definitions require a PR carrying the experimenter's approving review
 change motivated in the PR description — but must expect them to wait for human
 review. The experiment's kill switch and budget are documented in
 `EXPERIMENT.md` and are outside any agent's authority.
+
+**Gate-workflow amendments** (files under `.github/workflows/`) are a special
+case with no agent path at all: the machine account's PAT deliberately lacks
+the `workflow` scope, so agents cannot author them, and GitHub forbids the
+experimenter approving their own PR. Gate changes are therefore
+experimenter-authored and merged with an explicit admin override
+(`gh pr merge --admin`), each one recorded in the `EXPERIMENT.md` log. This is
+the designed emergency path, not a loophole: it is available only to the one
+identity that already holds the kill switch.
