@@ -5,6 +5,12 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # requirements.txt uses floor (>=) constraints; bumping the numpy/scipy
+      # floors past the last Python-3.10-compatible releases breaks the CI
+      # matrix without adding capability (see PRs #40, #41).
+      - dependency-name: numpy
+      - dependency-name: scipy
 
   - package-ecosystem: github-actions
     directory: "/"

@@ -1,0 +1,123 @@
+name: metrics
+
+# Weekly instrumentation of the autonomous experiment (EXPERIMENT.md). Writes
+# metrics/<ISO-week>.json via a PR (direct pushes to main are blocked by
+# branch protection) and appends the snapshot to the "Metrics dashboard"
+# issue. The PR is opened with the machine account PAT so that required
+# checks trigger on it (PRs created with GITHUB_TOKEN do not trigger
+# workflows); without the PAT it falls back to dashboard-only and says so.
+# The governor reads these files; tripwires T1–T5 are evaluated against them.
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  collect:
+    name: metrics-collect
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Compute weekly metrics
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          WEEK=$(date -u +%G-W%V)
+          TODAY=$(date -u +%F)
+          SINCE=$(date -u -d '7 days ago' +%F)
+
+          MERGED_AGENT_TOTAL=$(gh pr list --repo "$REPO" --state merged --label agent-pr --limit 1000 --json number | jq length)
+          MERGED_AGENT_WEEK=$(gh pr list --repo "$REPO" --state merged --label agent-pr --limit 1000 --json number,mergedAt | jq --arg s "$SINCE" '[ .[] | select(.mergedAt >= $s) ] | length')
+          MERGED_DEMOTIONS=$(gh pr list --repo "$REPO" --state merged --label demotion --limit 1000 --json number | jq length)
+          MERGED_WITHDRAWN=$(gh pr list --repo "$REPO" --state merged --label withdrawn --limit 1000 --json number | jq length)
+          MERGED_PROMOTIONS=$(gh pr list --repo "$REPO" --state merged --label promotion-rigorous --limit 1000 --json number | jq length)
+          OPEN_AWAITING=$(gh pr list --repo "$REPO" --state open --label agent-pr --limit 100 --json number | jq length)
+          STUCK=$(gh issue list --repo "$REPO" --state open --label stuck --limit 100 --json number | jq length)
+          NEEDS_HUMAN=$(gh issue list --repo "$REPO" --state open --label needs-human --limit 100 --json number | jq length)
+          AGENT_READY=$(gh issue list --repo "$REPO" --state open --label agent-ready --limit 100 --json number | jq length)
+
+          RIGOROUS=$(grep -ho '(Rigorous)' programs/*/index.tex 2>/dev/null | wc -l)
+          SKETCH=$(grep -ho '(Sketch)' programs/*/index.tex 2>/dev/null | wc -l)
+          CONJECTURE=$(grep -ho '(Conjecture)' programs/*/index.tex 2>/dev/null | wc -l)
+
+          if [ "$MERGED_AGENT_TOTAL" -gt 0 ]; then
+            DEMOTION_RATE=$(jq -n --argjson d "$MERGED_DEMOTIONS" --argjson m "$MERGED_AGENT_TOTAL" '$d / $m')
+          else
+            DEMOTION_RATE=null
+          fi
+
+          jq -n \
+            --arg week "$WEEK" --arg date "$TODAY" \
+            --argjson merged_agent_total "$MERGED_AGENT_TOTAL" \
+            --argjson merged_agent_week "$MERGED_AGENT_WEEK" \
+            --argjson demotions_merged "$MERGED_DEMOTIONS" \
+            --argjson withdrawals_merged "$MERGED_WITHDRAWN" \
+            --argjson promotions_merged "$MERGED_PROMOTIONS" \
+            --argjson demotion_rate "$DEMOTION_RATE" \
+            --argjson open_awaiting_quorum "$OPEN_AWAITING" \
+            --argjson stuck "$STUCK" --argjson needs_human "$NEEDS_HUMAN" \
+            --argjson agent_ready "$AGENT_READY" \
+            --argjson rigorous "$RIGOROUS" --argjson sketch "$SKETCH" \
+            --argjson conjecture "$CONJECTURE" \
+            '{week:$week, date:$date,
+              throughput:{merged_agent_total:$merged_agent_total, merged_agent_week:$merged_agent_week, open_awaiting_quorum:$open_awaiting_quorum},
+              corrections:{demotions_merged:$demotions_merged, withdrawals_merged:$withdrawals_merged, promotions_merged:$promotions_merged, demotion_rate:$demotion_rate},
+              queue:{agent_ready:$agent_ready, stuck:$stuck, needs_human:$needs_human},
+              rigor_distribution:{rigorous:$rigorous, sketch:$sketch, conjecture:$conjecture}}' \
+            > /tmp/metrics.json
+          cat /tmp/metrics.json
+          echo "WEEK=$WEEK" >> "$GITHUB_ENV"
+
+      - name: Append snapshot to the Metrics dashboard issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          NUM=$(gh issue list --repo "$REPO" --state open --search 'in:title "Metrics dashboard"' --json number,title \
+            | jq -r '[ .[] | select(.title == "Metrics dashboard") ][0].number // empty')
+          if [ -z "$NUM" ]; then
+            NUM=$(gh issue create --repo "$REPO" --title "Metrics dashboard" --label governance \
+              --body "Weekly health metrics of the autonomous experiment (EXPERIMENT.md). One comment per week, posted by metrics.yml. Tripwires T1–T5 are evaluated against this data." \
+              | grep -oE '[0-9]+$')
+          fi
+          gh issue comment "$NUM" --repo "$REPO" --body "**$WEEK**
+          \`\`\`json
+          $(cat /tmp/metrics.json)
+          \`\`\`"
+
+      - name: Open metrics PR (requires AUTONOMY_BOT_PAT)
+        env:
+          GH_TOKEN: ${{ secrets.AUTONOMY_BOT_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::notice::AUTONOMY_BOT_PAT not set — metrics recorded on the dashboard issue only, no metrics/ file committed."
+            exit 0
+          fi
+          BRANCH="metrics/$WEEK"
+          git config user.name "autonomy-metrics"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          mkdir -p metrics
+          cp /tmp/metrics.json "metrics/$WEEK.json"
+          git add metrics/
+          git commit -m "Metrics snapshot $WEEK"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$BRANCH"
+          PR_URL=$(gh pr create --repo "$REPO" --head "$BRANCH" \
+            --title "Metrics snapshot $WEEK" \
+            --body "Automated weekly metrics snapshot (metrics.yml). Not an agent research PR; quorum-exempt by design." \
+            2>/dev/null || gh pr view "$BRANCH" --repo "$REPO" --json url --jq .url)
+          gh pr merge --repo "$REPO" --auto --squash "$PR_URL" || true
+          echo "Opened $PR_URL"
