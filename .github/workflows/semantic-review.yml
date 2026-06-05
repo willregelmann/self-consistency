@@ -1,49 +1,83 @@
 name: semantic-review
 
-# Advisory semantic tier of the verification stack (see docs/agent-workflow.md):
-# an isolated LLM evaluator judges questions that aren't mechanically decidable —
-# here, whether load-bearing citations actually support the claims they're
-# attached to. Existence is already gated deterministically by verify-citations;
-# this is the harder claim-support question. It is ADVISORY (continue-on-error):
-# an LLM verdict never blocks a merge, but its findings surface in the run.
+# Semantic tier of the verification stack (see docs/agent-workflow.md and
+# AUTONOMY.md): an isolated LLM evaluator judges questions that aren't
+# mechanically decidable — here, whether load-bearing citations actually
+# support the claims they're attached to. Existence is already gated
+# deterministically by verify-citations; this is the harder claim-support
+# question.
 #
-# Uses the claude-tests headless runner (LLM-as-evaluator) from the sibling repo.
-# Requires the repo secret CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`);
-# without it the suite is skipped so the workflow stays green.
+# BLOCKING under the autonomous experiment: `claim-support` is a required
+# check on main (it was advisory in the human-reviewed era). Always-run
+# conversion: required checks must never be skipped by trigger-level paths
+# filters, so detection happens in-run and the job no-ops to success when
+# nothing semantic-relevant changed.
+#
+# Uses the claude-tests headless runner (LLM-as-evaluator) from the sibling
+# repo. Requires the repo secret CLAUDE_CODE_OAUTH_TOKEN (from
+# `claude setup-token`); without it the suite is skipped (neutral pass) so the
+# gate cannot deadlock on a missing credential — the gap is visible in the log.
 
 on:
   pull_request:
-    paths: ["programs/**/*.tex", ".claude/tests/**"]
   workflow_dispatch:
 
 jobs:
-  claim-support:
+  changes:
+    name: semantic-changes
     runs-on: ubuntu-latest
-    continue-on-error: true
+    outputs:
+      relevant: ${{ steps.filter.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - id: filter
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "relevant=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          RANGE="origin/${{ github.base_ref }}...HEAD"
+          if git diff --name-only $RANGE | grep -qE '^(programs/.*\.tex|\.claude/tests/)'; then
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  claim-support:
+    needs: changes
+    runs-on: ubuntu-latest
     steps:
       - name: Check out this repo
+        if: needs.changes.outputs.relevant == 'true'
         uses: actions/checkout@v4
 
       - name: Check out claude-tests (LLM-as-evaluator runner)
+        if: needs.changes.outputs.relevant == 'true'
         uses: actions/checkout@v4
         with:
           repository: willregelmann/claude-tests
           ref: main # needs the arbitrary-headless-tools change (claude-tests#4)
           path: .claude-tests-runner
 
-      - uses: actions/setup-node@v4
+      - if: needs.changes.outputs.relevant == 'true'
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install Claude Code CLI
+        if: needs.changes.outputs.relevant == 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Run semantic claim-support evaluation
+        if: needs.changes.outputs.relevant == 'true'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
           if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
-            echo "::notice::CLAUDE_CODE_OAUTH_TOKEN not set — skipping semantic review."
+            echo "::notice::CLAUDE_CODE_OAUTH_TOKEN not set — skipping semantic review (neutral pass)."
             exit 0
           fi
           python3 .claude-tests-runner/bin/run-tests.py citation-claim-support \
@@ -55,3 +89,7 @@ jobs:
         with:
           name: semantic-results
           path: semantic-results.xml
+
+      - name: No semantic-relevant changes — pass
+        if: needs.changes.outputs.relevant != 'true'
+        run: echo "No .tex or semantic-test changes; evaluation not needed."

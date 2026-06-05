@@ -1,0 +1,89 @@
+name: quorum-gate
+
+# Quorum tier of the merge-gate stack (AUTONOMY.md). The required context
+# `quorum-gate` is a COMMIT STATUS posted by this workflow, not the job's own
+# check run (the job is deliberately named differently). Two triggers drive
+# the same evaluator:
+#   - pull_request events seed/refresh the status for the head SHA
+#     (pending until a verdict exists — so the context is never "missing");
+#   - issue_comment events re-evaluate when the reviewer posts a verdict
+#     marker, flipping the status without requiring a push.
+# Verdict markers are honored only from the machine account (repo variable
+# AUTONOMY_BOT) or the experimenter. Statuses are per-SHA, so a push
+# automatically invalidates stale verdicts.
+# NOTE: issue_comment workflows execute from the default branch — this file
+# gates nothing until merged to main, and hot-fixes need an experimenter-
+# approved merge (see EXPERIMENT.md kill-switch runbook).
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  issue_comment:
+    types: [created, edited]
+
+permissions:
+  statuses: write
+  pull-requests: read
+  issues: read
+
+jobs:
+  evaluate:
+    name: quorum-gate-eval
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.event.issue.pull_request
+    steps:
+      - name: Evaluate verdict markers and post quorum-gate status
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BOT: ${{ vars.AUTONOMY_BOT }}
+          EXPERIMENTER: willregelmann
+          PR: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          DATA=$(gh api "repos/$REPO/pulls/$PR")
+          STATE=$(echo "$DATA" | jq -r .state)
+          [ "$STATE" = "open" ] || { echo "PR #$PR is $STATE; nothing to do."; exit 0; }
+          SHA=$(echo "$DATA" | jq -r .head.sha)
+          LABELS=$(echo "$DATA" | jq -r '[.labels[].name] | join(",")')
+
+          post() {
+            gh api "repos/$REPO/statuses/$SHA" \
+              -f context=quorum-gate -f state="$1" -f description="$2" >/dev/null
+            echo "quorum-gate on $SHA -> $1 ($2)"
+          }
+
+          case ",$LABELS," in
+            *,agent-pr,*) : ;;
+            *) post success "Not an agent PR; quorum not required."; exit 0 ;;
+          esac
+
+          # Markers count only from the machine account or the experimenter.
+          COMMENTS=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
+            | jq -r --arg bot "${BOT:-__unset__}" --arg exp "$EXPERIMENTER" \
+              '.[] | select(.user.login == $bot or .user.login == $exp) | .body')
+
+          VERDICT=$(echo "$COMMENTS" \
+            | grep -oE "<!-- quorum:verdict (accept|revise|reject) sha=$SHA -->" \
+            | tail -1 | grep -oE 'accept|revise|reject' || true)
+          STRESS=$(echo "$COMMENTS" \
+            | grep -oE "<!-- quorum:stress-test (pass|fail) sha=$SHA -->" \
+            | tail -1 | grep -oE 'pass|fail' || true)
+
+          if [ -z "$VERDICT" ]; then
+            post pending "Awaiting reviewer quorum verdict for $SHA."
+            exit 0
+          fi
+          if [ "$VERDICT" != "accept" ]; then
+            post failure "Reviewer verdict: $VERDICT."
+            exit 0
+          fi
+          case ",$LABELS," in
+            *,promotion-rigorous,*)
+              case "$STRESS" in
+                pass) post success "Quorum accept + independent stress-test pass." ;;
+                fail) post failure "Independent stress test failed." ;;
+                *)    post pending "Accept present; awaiting independent stress-test marker (promotion-rigorous)." ;;
+              esac ;;
+            *) post success "Quorum verdict: accept." ;;
+          esac

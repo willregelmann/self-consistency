@@ -1,14 +1,47 @@
 name: build-papers
 
+# Always-run conversion: the pdflatex contexts are REQUIRED checks on main,
+# and a required check that is skipped by a trigger-level paths filter is
+# reported as missing and blocks merge forever. The paths filter therefore
+# lives inside the run as a cheap detection job; when no .tex changed, the
+# matrix jobs still run and no-op to success, satisfying the required
+# contexts. Do not reintroduce `paths:` at the trigger level, and do not
+# create any other job named `pdflatex`.
+
 on:
   push:
     branches: [main]
-    paths: ["programs/**/*.tex"]
   pull_request:
-    paths: ["programs/**/*.tex"]
 
 jobs:
+  changes:
+    name: tex-changes
+    runs-on: ubuntu-latest
+    outputs:
+      tex: ${{ steps.filter.outputs.tex }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - id: filter
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            RANGE="origin/${{ github.base_ref }}...HEAD"
+          elif [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ] || [ -z "${{ github.event.before }}" ]; then
+            echo "tex=true" >> "$GITHUB_OUTPUT"; exit 0
+          else
+            RANGE="${{ github.event.before }}..${{ github.event.after }}"
+          fi
+          if git diff --name-only $RANGE | grep -qE '^programs/.*\.tex$'; then
+            echo "tex=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "tex=false" >> "$GITHUB_OUTPUT"
+          fi
+
   pdflatex:
+    needs: changes
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -18,10 +51,16 @@ jobs:
           - fixed-point-existence
           - gaussian-gravitational-decoherence
     steps:
-      - uses: actions/checkout@v6
+      - if: needs.changes.outputs.tex == 'true'
+        uses: actions/checkout@v6
 
       - name: Compile ${{ matrix.program }}
+        if: needs.changes.outputs.tex == 'true'
         uses: xu-cheng/latex-action@v4
         with:
           root_file: index.tex
           working_directory: programs/${{ matrix.program }}
+
+      - name: No .tex changes — pass
+        if: needs.changes.outputs.tex != 'true'
+        run: echo "No .tex files changed; build not needed."

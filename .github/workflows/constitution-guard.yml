@@ -1,0 +1,53 @@
+name: constitution-guard
+
+# Constitutional tier of the merge-gate stack (AUTONOMY.md): passes trivially
+# unless the PR touches a protected path, in which case it requires an
+# approving review from the experimenter (@willregelmann) on the CURRENT head
+# SHA. Always-run (no paths filter) so the required context can never be
+# missing. Re-runs when a review is submitted so a late approval unblocks the
+# PR without a push.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  pull_request_review:
+    types: [submitted, dismissed]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  guard:
+    name: constitution-guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check protected paths and experimenter approval
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          EXPERIMENTER: willregelmann
+        run: |
+          set -euo pipefail
+          FILES=$(gh api "repos/$REPO/pulls/$PR/files" --paginate | jq -r '.[].filename')
+          echo "Changed files:"
+          echo "$FILES"
+          PROTECTED='^(METHODOLOGY\.md|AUTONOMY\.md|EXPERIMENT\.md|CLAUDE\.md|AGENTS\.md|\.github/|tools/|\.claude/|scripts/|automation/)'
+          if ! echo "$FILES" | grep -qE "$PROTECTED"; then
+            echo "No protected paths touched — pass."
+            exit 0
+          fi
+          echo "Protected paths touched. Requiring approving review from @$EXPERIMENTER on $HEAD_SHA."
+          # The approval must be bound to the current head SHA: an approval
+          # followed by additional commits is stale and does not count.
+          APPROVED=$(gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
+            | jq -r --arg u "$EXPERIMENTER" --arg sha "$HEAD_SHA" \
+              '[ .[] | select(.user.login == $u and .state == "APPROVED" and .commit_id == $sha) ] | length')
+          if [ "$APPROVED" -ge 1 ]; then
+            echo "Experimenter approval present for the current head SHA — pass."
+          else
+            echo "::error::This PR modifies constitutionally protected paths (AUTONOMY.md) and requires an approving review from @$EXPERIMENTER on the current head commit."
+            exit 1
+          fi
