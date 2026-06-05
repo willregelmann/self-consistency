@@ -52,11 +52,11 @@ jobs:
     steps:
       - name: Check out this repo
         if: needs.changes.outputs.relevant == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Check out claude-tests (LLM-as-evaluator runner)
         if: needs.changes.outputs.relevant == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: willregelmann/claude-tests
           ref: main # needs the arbitrary-headless-tools change (claude-tests#4)
