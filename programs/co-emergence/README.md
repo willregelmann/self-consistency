@@ -22,7 +22,7 @@ Mass, Lorentzian signature, local time, and local Hilbert space are four aspects
 
 The paper leads with proved results, then develops the interpretive framework:
 
-- **Section 3 (Lorentzian phases and the entropy excess):** The mathematical core. The Lorentzian self-consistency map produces complex phases locked to magnitudes in the fixed-point wavefunction (~25–34% imaginary content depending on subsystem rank, stable through N=256), absent in the Riemannian case. The phase-induced entropy excess lemma (Rigorous for rank-2 subsystems) proves S_Lor > S_Riem for any non-uniform magnitude profile. A finite toy model confirms composition, Born rule, and imaginary subsystem coherences through N=16, with the full 68% entropy excess arising entirely from phase structure.
+- **Section 3 (Lorentzian phases and the entropy excess):** The mathematical core. The Lorentzian self-consistency map produces complex phases locked to magnitudes in the fixed-point wavefunction (~25–34% imaginary content depending on subsystem rank, stable through N=256), absent in the Riemannian case. The phase-induced lemma proves a purity decrease for all subsystem ranks and S_Lor > S_Riem for rank-2 subsystems (Rigorous), for any magnitude profile that is not multiplicatively separable across the bipartition; the general-rank von Neumann excess fails for extreme entry ratios and survives only as a bounded-ratio conjecture. A finite toy model confirms composition, Born rule, and imaginary subsystem coherences through N=16, with the full 68% entropy excess arising entirely from phase structure.
 
 - **Section 4 (The co-emergence thesis):** The interpretive framework. Mass requires Lorentzian signature (Wigner); signature provides local time; local time enables local Hilbert space (Page-Wootters); Hilbert space closes the loop via stress-energy. The mass assumption is weakened: the conformal trace anomaly generates effective mass for non-conformally coupled fields (Conjecture 2).
 
@@ -39,10 +39,11 @@ The paper leads with proved results, then develops the interpretive framework:
 | Result | Status | Source |
 |--------|--------|--------|
 | Phase-induced entropy excess (rank 2) | **Rigorous** | Lemma in paper |
+| Phase-induced purity decrease (all ranks) | **Rigorous** | Lemma in paper / general-rank exploration |
 | Toy model: composition, Born rule, interference (N=4–16) | **Rigorous** (numerical) | Toy model exploration |
 | ψ* imaginary content ~25–34% (rank-dependent), stable through N=256 | **Rigorous** (numerical) | Scaling/mixed-dims studies |
 | S_Lor/S_Riem ≈ 1.68, entirely from phases | **Rigorous** (numerical) | Scaling study |
-| Phase-induced entropy excess (general rank) | Conjecture | 20k+ tests, 0 violations |
+| vN entropy excess (general rank) | **Refuted** in general (3×3 counterexample, extreme entry ratios); survives as bounded-entry-ratio Conjecture | General-rank exploration (100k+ moderate-ratio tests, 0 violations) |
 | Level 2 is signature-blind (massive) | Rigorous | B1 exploration |
 | Level 2 is signature-blind (massless) | Rigorous | Massless fixed-point exploration |
 | Intersection form cannot force Lorentzian | Rigorous (obstruction) | C1 exploration |
