@@ -12,17 +12,23 @@ Diósi famously estimated how fast; experiments are inching toward testing it.
 This paper sharpens the prediction: the superposition should not decay
 exponentially (steadily, like radioactivity) but as a Gaussian — slowly at
 first, then all at once. The timescale agrees with the Penrose–Diósi estimate
-to within about 13%, but the *shape* of the decay differs, and it depends on
-the material: rigid crystals decay Gaussian, soft materials drift back toward
-exponential. Shape and material-dependence are things an experiment can
-check, distinguishing this account from its rivals. The prediction is derived
-at draft rigor and has not been tested by any experiment.
+to within about 13%, but the *shape* of the decay differs — something an
+experiment could check, distinguishing this account from its rivals. The shape
+prediction is a sketch, not a finished proof: it relies on modeling gravity's
+noise as "Gaussian noise", which is an assumption of the framework used, not
+something derived — and on reading an ensemble-averaged fading of coherence
+as genuine decoherence, which is an open interpretational question. A further
+idea — that rigid crystals would decay Gaussian while soft materials would
+drift back toward exponential — is a conjecture: the mechanism has not been
+worked out, and it is not yet known whether any realistic laboratory object
+is soft enough to show the difference. Nothing here has been tested by any
+experiment.
 
 ## Results
 
-1. The decoherence timescale is tau_coh = (4sqrt(2)/5) hbar/E_Delta ~ 1.13 tau_DP, determined by the same gravitational self-energy as the Diosi-Penrose prediction.
-2. The temporal profile is Gaussian, not exponential -- a consequence of the noise kernel for stationary matter being time-independent in the Newtonian limit.
-3. The profile is material-dependent: rigid crystalline bodies give Gaussian decoherence, while soft or amorphous bodies whose acoustic modes approach the gravitational coherence frequency transition toward exponential.
+1. **(Sketch)** The decoherence timescale is tau_coh = (4sqrt(2)/5) hbar/E_Delta ~ 1.13 tau_DP, determined by the same gravitational self-energy as the Diosi-Penrose prediction.
+2. **(Sketch)** The temporal profile is Gaussian, not exponential -- a consequence of the noise kernel for stationary matter being time-independent in the Newtonian limit. Both results rest on the Einstein-Langevin framework's Gaussian-noise assumption (made explicit as Assumption 1 in the paper, not derived) and on an unresolved ensemble-dephasing caveat (Remark 2 in the paper).
+3. **(Conjecture)** The profile is material-dependent: rigid crystalline bodies give Gaussian decoherence, while bodies whose acoustic modes approach the gravitational coherence frequency would transition toward exponential. The crossover mechanism is asserted, not derived, and whether any experimentally realistic platform reaches the crossover regime is open.
 
 ## Relationship to other programs
 
