@@ -34,9 +34,14 @@ assistant; contributed to mathematical development and analysis.}}
 \begin{abstract}
 Lorentzian self-consistency produces complex phases in the fixed-point
 wavefunction that are absent in the Riemannian case. These phases force
-subsystem entanglement entropy to exceed the Riemannian baseline (proved
-for rank-2 subsystems; conjectured for general rank, with zero violations
-in over $20{,}000$ random matrices through dimension $16 \times 16$). A finite toy model
+subsystem purity below the Riemannian baseline (proved for all
+subsystem ranks) and entanglement entropy above it (proved for rank-2
+subsystems). For rank $\geq 3$ the von Neumann excess is \emph{not}
+universal: it fails for matrices with extreme entry heterogeneity (an
+explicit $3 \times 3$ counterexample with entry ratio $\sim\!10^7$),
+and survives as a bounded-entry-ratio conjecture, with zero violations
+in over $100{,}000$ random moderate-ratio matrices through dimension
+$16 \times 16$---the regime the toy model occupies. A finite toy model
 confirms: composition, Born rule statistics, and imaginary subsystem
 coherences all emerge from Lorentzian self-consistency through $N = 16$,
 with phase structure
@@ -90,7 +95,7 @@ $H_2(\mathcal{M};\mathbb{Z})$, while metric signature is a pointwise
 property of the tangent bundle; no theorem connects them. Worse, closed
 simply-connected 4-manifolds with nontrivial intersection forms have
 Euler characteristic $\chi \geq 3$, while a closed manifold admits a
-Lorentzian metric only if $\chi = 0$~\cite{geroch}. The manifold class
+Lorentzian metric only if $\chi = 0$~\cite{markus}. The manifold class
 where the Freedman--Donaldson machinery~\cite{freedman,donaldson} is
 strongest cannot carry a Lorentzian metric at all.
 
@@ -312,7 +317,9 @@ is $|\psi^*_\sigma|$, with the same $|\psi^*_\sigma|$ in both cases.
 Phase-stripping recovers the Riemannian state by construction, so the
 entropy excess is entirely a phase effect.
 Lemma~\ref{lem:entropy_excess} proves that this excess is guaranteed
-for any non-uniform magnitude profile.
+for any magnitude profile that is not multiplicatively separable
+across the bipartition---a condition that generic non-uniform profiles
+satisfy.
 
 The distinction matters: a na\"ive diagnostic that checks only whether
 the reduced density matrix has large imaginary off-diagonal elements
@@ -352,7 +359,15 @@ equivalently $S_2(\theta) \geq S_2(0)$ where $S_2 = -\log
 \item[(b)] \textbf{(Rank 2.)} The von Neumann entropy increases:
 $S(\theta) \geq S(0)$.
 \end{enumerate}
-In both cases, equality holds if and only if all $m_{ij}$ are equal.
+In both cases, equality at a given $\theta \neq 0$ holds if and only
+if, for every pair $j \neq k$, the phases $\theta(\log m_{ik} - \log
+m_{ij})$ coincide modulo $2\pi$ across $i$. Equality holds for
+\emph{all} $\theta \neq 0$ simultaneously if and only if $\log m_{ij}
+= a_i + b_j$ for some vectors $a, b$---i.e., $M = (u_i v_j)$ is
+multiplicatively separable (rank one), in which case the bipartition
+is unentangled and both sides vanish trivially. In particular, the
+inequalities are strict for every non-separable $M$ at generic
+$\theta$.
 \end{lemma}
 
 \begin{proof}
@@ -401,8 +416,14 @@ gives $|\rho(\theta)_{jk}| \leq \sum_i m_{ij}\, m_{ik} =
 \]
 Equality requires $|\rho(\theta)_{jk}| = \rho(0)_{jk}$ for all
 $j \neq k$, which forces each triangle inequality in Fact~3 to be
-tight---all phases $\theta(\log m_{ik} - \log m_{ij})$ must be equal
-across $i$ for each pair $(j,k)$, hence all $m_{ij}$ equal.
+tight---all phases $\theta(\log m_{ik} - \log m_{ij})$ must coincide
+modulo $2\pi$ across $i$ for each pair $(j,k)$. If this holds for all
+$\theta \neq 0$ (equivalently, for a single $\theta$ at which no phase
+difference is a nonzero multiple of $2\pi$), then $\log m_{ik} - \log
+m_{ij}$ is independent of $i$ for every pair $(j,k)$, i.e., $\log
+m_{ij} = a_i + b_j$ and $M = (u_i v_j)$ is rank one. A rank-one $M$
+gives a product (unentangled) state with $\mathrm{Tr}(\rho^2) = 1$ and
+$S = 0$ for every $\theta$, so equality indeed holds there.
 
 \textbf{Part (b):} When $\min(d_{\mathrm{sub}}, d_{\mathrm{env}}) =
 2$, there are at most two nonzero singular values $\sigma_1 \geq
@@ -446,9 +467,12 @@ but no phases.
 
 Lemma~\ref{lem:entropy_excess}(a) rigorously guarantees that the
 Lorentzian state has lower purity (higher R\'enyi-2 entropy) than the
-Riemannian state for all bipartitions, whenever the curvature values
-$R_\sigma$ are not all equal---i.e., whenever the external field $h$
-is non-uniform. For the von Neumann entropy: the toy model entries
+Riemannian state for any bipartition across which the curvature values
+are not additively separable---i.e., for which $R_{(j,k)} = a_j + b_k$
+has no solution (additively separable $R$ corresponds to a rank-one,
+unentangled $M$ with both entropies zero). A generic non-uniform
+external field $h$ satisfies this non-separability almost surely.
+For the von Neumann entropy: the toy model entries
 $m_\sigma = e^{-R_\sigma}$ with $h \sim \mathrm{Uniform}[0.5, 1.5]$
 have moderate heterogeneity (entry ratio $\lesssim 3$), placing them
 well within the regime where $S(\theta) \geq S(0)$ holds
@@ -780,7 +804,7 @@ Then $\arg(\rho_{S|c})_{ss'} \neq \arg(\rho_{S|c'})_{ss'}$: the
 conditional density matrices carry $c$-dependent complex phases.
 \end{proposition}
 
-\begin{proof}
+\noindent\emph{Sketch.}
 The fixed point has the form $\psi^*_\sigma \propto \exp((-1 +
 i\theta)\,R_\sigma)$, so $\psi^*_\sigma = |\psi^*_\sigma|\,
 e^{i\theta R_\sigma}$. The off-diagonal entries of $\rho_{S|c}$ are
@@ -806,8 +830,9 @@ The toy model (Section~\ref{sec:toy_model}) confirms this across
 $N = 4$ to $32$: Lorentzian $\rho_{S|c}$ has
 $\|\mathrm{Im}(\rho_{S|c})\|_F \sim 0.2$--$0.3$ with $c$-dependent
 variation, while Riemannian $\rho_{S|c}$ has identically zero imaginary
-content.
-\end{proof}
+content. \hfill$\square$
+
+\medskip
 
 \begin{remark}[Physical interpretation]
 \label{rem:pw_lorentzian}
@@ -1120,7 +1145,7 @@ it must admit a Lorentzian metric, and it must support nontrivial smooth
 structures. These requirements are in tension.
 
 A closed manifold admits a Lorentzian metric if and only if its Euler
-characteristic vanishes: $\chi(\mathcal{M}) = 0$~\cite{geroch}. For
+characteristic vanishes: $\chi(\mathcal{M}) = 0$~\cite{markus}. For
 closed simply-connected 4-manifolds---the class where Freedman's
 classification theorem~\cite{freedman} is strongest---the Euler
 characteristic is $\chi = 2 + b_2$, where $b_2 = \mathrm{rank}(Q_\mathcal{M})$
@@ -1371,7 +1396,7 @@ of Definition~\ref{def:hierarchy} is nontrivial.
 Dimension & Smooth structures on $\mathbb{R}^n$ & $h$-cobordism theorem & Level~1 richness \\
 \midrule
 $n < 4$ & Unique & Holds (Smale, $n \geq 6$; special cases $n = 5$) & Insufficient \\
-$n = 4$ & Uncountably many & \textbf{Fails} (Donaldson 1987) & Rich \\
+$n = 4$ & Uncountably many & \textbf{Fails} (Donaldson 1987~\cite{donaldson_hcob}) & Rich \\
 $n > 4$ & Unique ($n \geq 5$) & Holds & Insufficient \\
 \bottomrule
 \end{tabular}
@@ -1590,10 +1615,11 @@ The measure-theoretic clock conditioning
 Page--Wootters mechanism: the conditioning is reformulated as an
 operation on the self-consistency measure $\mu^*$, without presupposing
 a total Hilbert space. The mixture decomposition
-(Proposition~\ref{prop:mixture}), the classical character of Riemannian
-conditioning (Proposition~\ref{prop:riem_classical}), and the quantum
-character of Lorentzian conditioning
-(Proposition~\ref{prop:lor_quantum}) are all Rigorous. The remaining open question is whether the $c$-dependence
+(Proposition~\ref{prop:mixture}) and the classical character of
+Riemannian conditioning (Proposition~\ref{prop:riem_classical}) are
+Rigorous; the quantum character of Lorentzian conditioning
+(Proposition~\ref{prop:lor_quantum}) is a Sketch---its genericity
+argument for the external field is not fully rigorous. The remaining open question is whether the $c$-dependence
 reduces to unitary time evolution. For generic (small) clock dimensions,
 the $c$-dependence is genuinely non-unitary: magnitude profiles
 $|\mu_{S|c}(s)|$ vary significantly across $c$.
@@ -1788,6 +1814,16 @@ M.~H.~Freedman,
 S.~K.~Donaldson,
 ``An application of gauge theory to four-dimensional topology,''
 \textit{J.\ Diff.\ Geom.} \textbf{18}, 279--315 (1983).
+
+\bibitem{donaldson_hcob}
+S.~K.~Donaldson,
+``Irrationality and the $h$-cobordism conjecture,''
+\textit{J.\ Diff.\ Geom.} \textbf{26}, 141--168 (1987).
+
+\bibitem{markus}
+L.~Markus,
+``Line element fields and Lorentz structures on differentiable manifolds,''
+\textit{Ann.\ Math.} \textbf{62}, 411--417 (1955).
 
 \bibitem{smale}
 S.~Smale,
