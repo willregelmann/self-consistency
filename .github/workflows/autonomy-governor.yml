@@ -15,5 +15,5 @@ jobs:
     uses: ./.github/workflows/autonomy-routine.yml
     with:
       role: governor
-      model: claude-opus-4-8
+      model: claude-fable-5
     secrets: inherit

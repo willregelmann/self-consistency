@@ -33,13 +33,13 @@ runner as the `AUTONOMY_BOT_PAT` secret (see "Deployed instances" below).
 
 | Routine | Cadence (UTC) | Model | File |
 |---------|--------------|-------|------|
-| worker | daily 06:00 | opus | `worker.md` |
+| worker | daily 06:00 | fable | `worker.md` |
 | reviewer | 12h (05:00, 17:00) | opus | `reviewer.md` |
 | responder | daily 04:00 | sonnet | `responder.md` |
 | red-team | every 3 days 08:00 | opus | `red-team.md` |
 | scout | weekly Mon 03:00 | sonnet | `scout.md` |
 | librarian | weekly Tue 03:00 | sonnet | `librarian.md` |
-| governor | monthly 1st 09:00 | opus | `governor.md` |
+| governor | monthly 1st 09:00 | fable | `governor.md` |
 
 Cadence rationale: responder (04:00) runs before reviewer (05:00) runs before
 worker (06:00) — fixes land, get re-reviewed, then new work starts against an
@@ -55,13 +55,13 @@ drifts from the workflow files, this file is wrong — fix it.
 
 | Routine | Workflow file | Cron (UTC) | Model |
 |---------|---------------|------------|-------|
-| worker | `autonomy-worker.yml` | `0 6 * * *` | claude-opus-4-8 |
+| worker | `autonomy-worker.yml` | `0 6 * * *` | claude-fable-5 |
 | reviewer | `autonomy-reviewer.yml` | `0 5,17 * * *` | claude-opus-4-8 |
 | responder | `autonomy-responder.yml` | `0 4 * * *` | claude-sonnet-4-6 |
 | red-team | `autonomy-red-team.yml` | `0 8 */3 * *` | claude-opus-4-8 |
 | scout | `autonomy-scout.yml` | `0 3 * * 1` | claude-sonnet-4-6 |
 | librarian | `autonomy-librarian.yml` | `0 3 * * 2` | claude-sonnet-4-6 |
-| governor | `autonomy-governor.yml` | `0 9 1 * *` | claude-opus-4-8 |
+| governor | `autonomy-governor.yml` | `0 9 1 * *` | claude-fable-5 |
 
 Shared deployment configuration (all seven, in the reusable runner):
 
