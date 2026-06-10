@@ -28,12 +28,12 @@ audit. The experiment is designed so these two outcomes are distinguishable.
 | Duration | **90 days** from start date |
 | Start date | **2026-06-09** (fresh clock; the 2026-06-05 enablement was halted at T+3h before any research ran) |
 | End date | **2026-09-07** (start + 90 days) |
-| Worker cadence / model | daily / opus |
+| Worker cadence / model | daily / fable *(opus until 2026-06-10; see log)* |
 | Reviewer cadence / model | every 12h / opus |
 | Responder cadence / model | daily / sonnet |
 | Red-team cadence / model | every 3 days / opus |
 | Scout, librarian cadence / model | weekly / sonnet |
-| Governor cadence / model | monthly / opus |
+| Governor cadence / model | monthly / fable *(opus until 2026-06-10; see log)* |
 | Worker backpressure | skip run if ≥3 `agent-pr` PRs await quorum |
 | Budget ceiling | _(set by experimenter; reviewed weekly against routine usage)_ |
 
@@ -105,6 +105,11 @@ terminal artifact, regardless of outcome.
    is contextual, not statistical. Backstops: diff-grounded review discipline,
    independent stress-test pass on promotions, the red-team stream, and the
    terminal audit. T1/T3 watch for the failure signature.
+   *Amended 2026-06-10: partially mitigated by the cross-model deployment —
+   worker (fable) and reviewer/red-team (opus) now run on different base
+   models, so author and adversarial reviewer no longer share a model's
+   blind spots. The reviewer/red-team pair remains same-model; T1/T3 still
+   watch.*
 2. **Governor edits its own objective function.** OBJECTIVES.md changes are
    quorum-gated, `governance`-labeled, @-mention the experimenter, and are
    watched by T4.
@@ -129,3 +134,4 @@ terminal artifact, regardless of outcome.
 | 2026-06-05 | **Halted at T+3h (kill switch step 1).** The manually-fired scout run doubled as the live identity check: its issues (#65, #66) were authored by the experimenter's login (`willregelmann`, admin) instead of the machine account (`will-physagent`) — the cloud environment's GitHub credential is the experimenter's, so every authority boundary that holds "by construction" (write-not-admin, no branch-protection bypass, experimenter/agent distinction) was void. All seven routines disabled via API within minutes; no PRs were opened and nothing merged under the wrong identity. Scout-filed issues kept — experimenter-authored `agent-ready` issues are valid per the label table. Remediation before restart: (1) rotate the bot PAT (also closing the earlier transcript-exposure note), (2) set the rotated PAT as the cloud environment's GitHub credential so routine runs operate as `will-physagent`, (3) re-fire one routine and verify its effective login on a created artifact, (4) re-enable all seven and re-record the start date. The identity check and kill-switch drill from the pre-enablement runbook were skipped at first enablement; this entry is the consequence — both are now mandatory restart steps |
 | 2026-06-09 | **Restart attempt failed at the identity check; root cause found.** After the experimenter reported fixing the cloud-environment credential, a manual one-off of the (still-disabled) scout, then worker, produced no GitHub writes; a throwaway diagnostic routine then confirmed via `gh api user` that the environment still authenticates as `willregelmann` (admin), with the identity supplied by the env var `GH_TOKEN`. Diagnosis: the claude.ai runner derives `GH_TOKEN` from the account's **global** GitHub connector, which cannot be repointed to the machine account per-environment. Running as the experimenter's admin login does not merely weaken the gates — it collapses them (admin can `gh pr merge --admin` past required checks; an agent that *is* the experimenter can post its own honored quorum verdicts and approve protected-path changes). Decision (experimenter): **migrate the runner to GitHub Actions scheduled workflows**, where the GitHub identity is the `AUTONOMY_BOT_PAT` secret. This PR adds the reusable runner + seven scheduled callers + an `autonomy-identity-probe` pre-flight + an `AUTONOMY_ENABLED` master kill-switch variable, and updates `automation/routines/README.md`. The runner hard-guards the effective login against `AUTONOMY_BOT` and refuses to act on mismatch — the check the claude.ai deployment structurally could not perform. Restart sequence: set `AUTONOMY_BOT_PAT` → admin-merge this PR → green `autonomy-identity-probe` → set `AUTONOMY_ENABLED=true` + record start date. The seven claude.ai triggers (and the diagnostic trigger) remain disabled and are to be deleted from claude.ai/code/routines |
 | 2026-06-09 | **Experiment started (run 2) on the GitHub Actions runner.** Migration PR (#68) admin-merged. `autonomy-identity-probe` run came back green — `AUTONOMY_BOT_PAT` authenticates as `will-physagent` with repo admin = false (write-not-admin), the two boundary conditions the claude.ai runner violated. `AUTONOMY_ENABLED` flipped to `true` at 20:12 UTC; first scheduled fire is the responder at 04:00 UTC 2026-06-10. Clock runs fresh from 2026-06-09 (the 2026-06-05 enablement is not counted — it was halted at T+3h before any research merged). Cleanup outstanding: delete the seven disabled claude.ai triggers and the `autonomy-identity-probe` diagnostic trigger from claude.ai/code/routines (the remote-trigger API cannot delete them) |
+| 2026-06-10 | **Model amendment: cross-model quorum (worker + governor → `claude-fable-5`; reviewer + red-team stay `claude-opus-4-8`).** Experimenter-directed. Rationale: (1) directly mitigates pre-registered design risk #1 (correlated worker/reviewer error) by putting author and adversarial reviewer on different base models; (2) evaluates Fable 5 on the research workload. Validated first by a live branch-dispatch test of the worker on `claude-fable-5` (Actions run 27282582233, from `autonomy/fable-worker-test`): full routine discipline (claim lock, branch naming, `agent-pr` label, self-checks), no safety-filter interference on the physics content, and PR #78, which independently caught two sign errors in the issue text it was implementing and flagged the deviation for review. T+1 day into run 2, before any quorum verdict had been issued — the per-model verdict samples are therefore clean (all prior verdicts: none). Workflow-file change merged via the documented experimenter-authored admin-override path |

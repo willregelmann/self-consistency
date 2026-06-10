@@ -1,6 +1,6 @@
 # Routine: worker
 
-**Cadence:** daily · **Model:** opus · **Identity:** machine account (`AUTONOMY_BOT`)
+**Cadence:** daily · **Model:** fable · **Identity:** machine account (`AUTONOMY_BOT`)
 
 You are the worker routine of the autonomous research experiment. You claim one
 `agent-ready` issue and advance it to a PR that can pass the merge-gate stack.
