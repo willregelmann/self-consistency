@@ -312,7 +312,9 @@ is $|\psi^*_\sigma|$, with the same $|\psi^*_\sigma|$ in both cases.
 Phase-stripping recovers the Riemannian state by construction, so the
 entropy excess is entirely a phase effect.
 Lemma~\ref{lem:entropy_excess} proves that this excess is guaranteed
-for any non-uniform magnitude profile.
+for any \emph{non-separable} magnitude profile (one whose reshaped
+magnitude matrix has rank $\geq 2$); a non-uniform but separable
+(rank-one) profile produces no excess at all.
 
 The distinction matters: a na\"ive diagnostic that checks only whether
 the reduced density matrix has large imaginary off-diagonal elements
@@ -352,7 +354,15 @@ equivalently $S_2(\theta) \geq S_2(0)$ where $S_2 = -\log
 \item[(b)] \textbf{(Rank 2.)} The von Neumann entropy increases:
 $S(\theta) \geq S(0)$.
 \end{enumerate}
-In both cases, equality holds if and only if all $m_{ij}$ are equal.
+In both cases, equality holds if and only if the magnitude matrix is
+\emph{phase-degenerate}: for every column pair $(j,k)$ the difference
+$\log m_{ik} - \log m_{ij}$ is independent of $i$ modulo $2\pi/\theta$.
+For non-resonant $\theta$ this is equivalent to $\log m_{ij}$ being
+additively separable, $\log m_{ij} = a_i + b_j$---i.e.\ the magnitude
+matrix $m$ has rank one. All $m_{ij}$ equal is the special case
+$a_i = b_j = \mathrm{const}$; it is sufficient for equality but
+\emph{not} necessary (any rank-one $m$ with non-constant $a_i$ or $b_j$,
+or a $\theta$ tuned to a $2\pi$-resonance, also gives equality).
 \end{lemma}
 
 \begin{proof}
@@ -401,8 +411,17 @@ gives $|\rho(\theta)_{jk}| \leq \sum_i m_{ij}\, m_{ik} =
 \]
 Equality requires $|\rho(\theta)_{jk}| = \rho(0)_{jk}$ for all
 $j \neq k$, which forces each triangle inequality in Fact~3 to be
-tight---all phases $\theta(\log m_{ik} - \log m_{ij})$ must be equal
-across $i$ for each pair $(j,k)$, hence all $m_{ij}$ equal.
+tight. Since the summands $m_{ij} m_{ik} > 0$, their phases
+$\theta(\log m_{ik} - \log m_{ij})$ must coincide across $i$ (modulo
+$2\pi$) for each pair $(j,k)$. For non-resonant $\theta$ this means
+$\log m_{ik} - \log m_{ij}$ is independent of $i$, i.e.\ $\log m_{ij} =
+a_i + b_j$ is separable and $m$ has rank one. This is strictly weaker
+than ``all $m_{ij}$ equal'': any rank-one positive matrix saturates the
+bound---its Gram matrix has a single nonzero eigenvalue, so the purity
+is identically $1$ for every $\theta$---so the converse of the
+all-equal characterization fails. (At resonant $\theta$, further
+non-separable equality cases arise when all phase differences are
+multiples of $2\pi$.)
 
 \textbf{Part (b):} When $\min(d_{\mathrm{sub}}, d_{\mathrm{env}}) =
 2$, there are at most two nonzero singular values $\sigma_1 \geq
@@ -439,16 +458,26 @@ The toy model entries $m_\sigma = e^{-R_\sigma}$ fall in this regime.
 In the toy model, the Lorentzian fixed point
 $\psi^*_\sigma \propto \exp((-1 + i\theta)\, R_\sigma)$ has magnitude
 $|\psi^*_\sigma| \propto e^{-R_\sigma}$ and phase $\theta R_\sigma$,
-which is exactly the structure $m^{1+i\theta}$ of
-Lemma~\ref{lem:entropy_excess} with $m_\sigma = e^{-R_\sigma}$. The
+which is the structure $m^{1+i\theta}$ of
+Lemma~\ref{lem:entropy_excess} with $m_\sigma = e^{-R_\sigma}$ and
+$\theta \to -\theta$ (since $\theta R_\sigma = -\theta \log m_\sigma$);
+the substitution is immaterial because $\rho(-\theta) = \rho(\theta)^*$,
+so all singular values, and hence all entropies, are unchanged. The
 Riemannian fixed point has $\theta = 0$, giving the same magnitudes
 but no phases.
 
 Lemma~\ref{lem:entropy_excess}(a) rigorously guarantees that the
 Lorentzian state has lower purity (higher R\'enyi-2 entropy) than the
-Riemannian state for all bipartitions, whenever the curvature values
-$R_\sigma$ are not all equal---i.e., whenever the external field $h$
-is non-uniform. For the von Neumann entropy: the toy model entries
+Riemannian state for any bipartition whose reshaped magnitude matrix
+$m_\sigma = e^{-R_\sigma}$ is non-separable (rank $\geq 2$). A
+bipartition across which $R_\sigma$ is additively separable yields a
+rank-one magnitude matrix and hence \emph{no} excess; non-uniformity of
+$h$ alone is therefore not sufficient. In the toy model the cross-level
+couplings in $R_\sigma = h_\sigma + \sum_j \alpha_j M_j(\sigma_j) +
+\beta |\psi_\sigma|^2$ generically render $m_\sigma$ non-separable, so
+the excess does occur, but the guarantee is conditional on
+non-separability rather than on mere non-uniformity. For the von
+Neumann entropy: the toy model entries
 $m_\sigma = e^{-R_\sigma}$ with $h \sim \mathrm{Uniform}[0.5, 1.5]$
 have moderate heterogeneity (entry ratio $\lesssim 3$), placing them
 well within the regime where $S(\theta) \geq S(0)$ holds
