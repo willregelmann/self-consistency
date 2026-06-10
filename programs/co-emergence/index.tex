@@ -330,6 +330,90 @@ there; they restructure the subsystem's spectrum even when the
 reduced-matrix representation partially averages them away.
 
 %----------------------------------------------------------------------
+\subsection{An interference metric that excludes classical redistribution}
+\label{sec:interference_metric}
+%----------------------------------------------------------------------
+
+A diagnostic that compares the rotated-basis populations of a reduced
+density matrix $\rho$ to those of its diagonal $\mathrm{diag}(\rho)$ does
+\emph{not} isolate the quantum signature: real off-diagonal elements---the
+classical correlations present in any partial trace of a pure state---also
+redistribute probability across rotated bases, so the comparison flags
+``interference'' for Riemannian and Lorentzian fixed points alike. The
+distinguishing feature is not off-diagonality but \emph{imaginary}
+coherence, and the metric must vanish identically on every real state.
+
+Such a metric is the von Neumann relative entropy between $\rho$ and its
+entrywise real part. Write $\mathrm{Re}\,\rho = \tfrac12(\rho +
+\overline{\rho})$, which for Hermitian $\rho$ is the time-reversal
+($\rho \mapsto \overline\rho$) symmetrization of the state. Define
+\begin{equation}
+\label{eq:interference_metric}
+  I_S(\rho) \;:=\; S(\mathrm{Re}\,\rho) - S(\rho),
+  \qquad S(X) = -\mathrm{Tr}(X \log X).
+\end{equation}
+
+\begin{proposition}[Interference metric]
+\textbf{(Rigorous.)}
+\label{prop:interference_metric}
+For any density matrix $\rho$ (Hermitian, positive semidefinite, unit
+trace):
+\begin{enumerate}
+\item[(a)] $\mathrm{Re}\,\rho$ is a valid density matrix (real, symmetric,
+positive semidefinite, unit trace).
+\item[(b)] $I_S(\rho) \geq 0$, with equality if and only if
+$\mathrm{Im}\,\rho = 0$.
+\item[(c)] When $\mathrm{supp}(\rho) \subseteq \mathrm{supp}(\mathrm{Re}\,\rho)$
+(in particular whenever $\mathrm{Re}\,\rho$ is full rank, which holds
+generically), $I_S(\rho) = S\!\left(\rho \,\|\, \mathrm{Re}\,\rho\right)$,
+the quantum relative entropy of $\rho$ with respect to $\mathrm{Re}\,\rho$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Hermiticity gives $\overline{\rho} = \rho^{\mathsf T}$, so
+$\mathrm{Re}\,\rho = \tfrac12(\rho + \rho^{\mathsf T})$ is real symmetric;
+its diagonal equals that of $\rho$ (real), preserving the trace; and it is
+the average of the two isospectral positive semidefinite matrices $\rho$
+and $\rho^{\mathsf T}$, hence positive semidefinite. (c) Under the support
+condition, decompose $\rho = \mathrm{Re}\,\rho + i\,\mathrm{Im}\,\rho$ with
+$\mathrm{Im}\,\rho$ real antisymmetric and $\log(\mathrm{Re}\,\rho)$ real
+symmetric; the trace of an antisymmetric times a symmetric matrix vanishes,
+so $\mathrm{Tr}(\rho \log \mathrm{Re}\,\rho) = \mathrm{Tr}(\mathrm{Re}\,\rho
+\log \mathrm{Re}\,\rho) = -S(\mathrm{Re}\,\rho)$, whence
+$S(\rho\|\mathrm{Re}\,\rho) = -S(\rho) + S(\mathrm{Re}\,\rho) = I_S(\rho)$.
+(b) By concavity of the von Neumann entropy and $S(\overline\rho) =
+S(\rho)$, $S(\mathrm{Re}\,\rho) = S(\tfrac12(\rho+\overline\rho)) \geq
+S(\rho)$; equality forces $\rho = \mathrm{Re}\,\rho$ by faithfulness of the
+relative entropy (applicable via (c) when $\mathrm{Re}\,\rho$ is full rank,
+and by the entropy-gap form directly on the rank-deficient measure-zero set).
+\end{proof}
+
+Because $I_S$ vanishes \emph{exactly} on real density matrices, it assigns
+zero interference to every Riemannian fixed point---whose reduced states
+are real---and to the classical correlations of any real-valued partial
+trace, while remaining strictly positive whenever genuine imaginary
+coherence is present. It is the resolution of the diagnostic difficulty
+above: the earlier population-comparison heuristic is replaced by a
+faithful, information-theoretic measure. Applied to the global pure state
+$\rho_g = |\psi^*\rangle\langle\psi^*|$, the same quantity
+$I_S^{\mathrm{global}} = S(\mathrm{Re}\,\rho_g)$ is size-robust---with
+$\psi^* = a + i b$, $\mathrm{Re}\,\rho_g = a a^{\mathsf T} + b b^{\mathsf
+T}$ has rank at most two and $I_S^{\mathrm{global}}$ equals the binary
+entropy of the $2\times2$ Gram matrix of $(a,b)$, the entropic counterpart
+of the imaginary fraction of Section~\ref{sec:phase_structure}.
+
+Numerically (\texttt{tests/interference\_metric.py}), $I_S$ is zero to
+machine precision ($\leq 10^{-12}$) on the Riemannian fixed points at
+$N = 4, 8, 16$ and on all six subsystems of the $N=8$ model, strictly
+positive on the Lorentzian fixed points, and grows quadratically in
+$\theta$ at small $\theta$, mirroring the entropy excess; the
+size-robustness of $I_S^{\mathrm{global}}$ and the partial-trace
+suppression of the reduced $I_S(\rho_R)$ are both reproduced. The
+derivation and validation are recorded in
+\texttt{explorations/2026-06-10-interference-metric.md}.
+
+%----------------------------------------------------------------------
 \subsection{Phase-induced entropy excess}
 \label{sec:entropy_excess}
 %----------------------------------------------------------------------
