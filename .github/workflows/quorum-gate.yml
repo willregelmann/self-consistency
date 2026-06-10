@@ -11,6 +11,13 @@ name: quorum-gate
 # Verdict markers are honored only from the machine account (repo variable
 # AUTONOMY_BOT) or the experimenter. Statuses are per-SHA, so a push
 # automatically invalidates stale verdicts.
+# RESEARCH-CONTENT GUARD: the quorum requirement is keyed on the `agent-pr`
+# label, which the worker applies to its own PR. To stop a machine-account PR
+# from silently skipping quorum by omitting that label, an unlabeled PR
+# authored by AUTONOMY_BOT that touches programs/ or explorations/ FAILS this
+# gate (missing-label error) instead of passing as "not an agent PR". The gate
+# must not depend on the gated agent labelling itself. dependabot, human, and
+# metrics PRs are unaffected (not the machine account, or touch only metrics/).
 # NOTE: issue_comment workflows execute from the default branch — this file
 # gates nothing until merged to main, and hot-fixes need an experimenter-
 # approved merge (see EXPERIMENT.md kill-switch runbook).
@@ -55,7 +62,21 @@ jobs:
 
           case ",$LABELS," in
             *,agent-pr,*) : ;;
-            *) post success "Not an agent PR; quorum not required."; exit 0 ;;
+            *)
+              # Unlabeled PR. A machine-account PR that touches research content
+              # must carry agent-pr — otherwise quorum is skipped by label
+              # omission. Fail it so the missing label is fixable (adding the
+              # label re-triggers this gate to the pending verdict path).
+              AUTHOR=$(echo "$DATA" | jq -r .user.login)
+              if [ "$AUTHOR" = "${BOT:-__unset__}" ]; then
+                FILES=$(gh api "repos/$REPO/pulls/$PR/files" --paginate | jq -r '.[].filename')
+                if echo "$FILES" | grep -qE '^(programs/|explorations/)'; then
+                  post failure "Machine-account PR touches research content but lacks agent-pr; quorum is required. Add the agent-pr label."
+                  exit 0
+                fi
+              fi
+              post success "Not an agent PR; quorum not required."
+              exit 0 ;;
           esac
 
           # Markers count only from the machine account or the experimenter.

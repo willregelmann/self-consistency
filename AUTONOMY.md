@@ -36,7 +36,15 @@ All agent GitHub operations authenticate as the dedicated machine account
 **write access, not admin**. Consequences, by construction:
 
 - Agents cannot bypass branch protection, force-push, or merge around required checks.
-- Agents cannot approve their own PRs (GitHub forbids author self-approval).
+- Agents cannot submit an approving GitHub *review* on their own PR (GitHub
+  forbids author self-approval). Note the scope of this guarantee: the quorum
+  verdict is a *comment marker*, not a review, and worker and reviewer share
+  the one machine identity — so GitHub's self-approval rule does **not** by
+  itself stop a worker session from posting an accept marker on its own PR.
+  That author≠reviewer separation is enforced by routine discipline (NEVER
+  rule 4), by the quorum-gate's research-content guard (an unlabeled
+  machine-account PR touching `programs/` or `explorations/` fails rather than
+  skips quorum), and is watched by tripwire T3 — not "by construction".
 - Agents cannot change repository settings, secrets, or branch protection.
 
 Agents additionally may not, by rule:
@@ -68,7 +76,11 @@ mechanically.
      `<!-- quorum:stress-test pass sha=<head-sha> -->` from an independent
      stress-test review.
    - Markers are honored only from the machine account or the experimenter.
-   - PRs without the `agent-pr` label (dependabot, human) are exempt.
+   - PRs without the `agent-pr` label are exempt (dependabot, human, metrics) —
+     **except** a machine-account PR touching `programs/` or `explorations/`,
+     which fails as a missing-label error. A research PR cannot skip quorum by
+     omitting its own label; the gate does not depend on the gated agent
+     labelling itself.
 4. **Constitutional tier** — `constitution-guard`: passes trivially unless the
    diff touches a protected path, in which case it requires an approving review
    from the experimenter.
