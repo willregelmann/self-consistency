@@ -103,8 +103,11 @@ Conversely if `Im rho = 0` then `Re rho = rho` and `I_S = 0`. ∎
 
 **Theorem 4 (Relative-entropy identity). (Rigorous.)**
 `I_S(rho) = S(rho || Re rho)`, where `S(a||b) = Tr a(log a - log b)` is the
-von Neumann relative entropy (with the standard support convention
-`supp(rho) ⊆ supp(Re rho)`, which holds generically; see Limitations).
+von Neumann relative entropy. The support condition `supp(rho) ⊆ supp(Re rho)`
+holds for **every** density matrix: if `(rho + rho^T)x = 0` then
+`x*(rho + rho^T)x = 2 Re(x*rho x) = 0` with `x*rho x ≥ 0`, forcing `rho x = 0`;
+so `null(Re rho) ⊆ null(rho)` universally, and the relative entropy is finite for
+all density matrices.
 *Proof.* Write `rho = Re rho + i Im rho`. The real matrix `Im rho` is
 antisymmetric (`Im(rho_{jk}) = Im(conj(rho_{kj})) = -Im(rho_{kj})`), while
 `B := log(Re rho)` is real symmetric. For any real antisymmetric `A` and real
@@ -234,12 +237,11 @@ eigenvalue-level entropy excess), as the paper already argues.
   orthogonal changes of basis, which commute with `T`). The metric answers
   "interference relative to the classical/Riemannian frame," which is the
   question the thesis poses. **(Stated, not a defect.)**
-- **Support condition.** Theorem 4's relative-entropy form needs
-  `supp(rho) ⊆ supp(Re rho)`. By Theorem 3 the entropy-gap form
-  `S(Re rho) - S(rho)` is always well-defined and nonnegative regardless; the
-  relative-entropy reading is the one that can be `+∞` on a measure-zero set of
-  rank-deficient edge cases. The code's `relative_entropy` returns `+∞` there
-  by an explicit support check.
+- **Support condition (resolved, not a limitation).** Theorem 4 requires
+  `supp(rho) ⊆ supp(Re rho)`, but this holds for every density matrix by the
+  null-space argument in the proof (see above). The relative-entropy form is
+  unconditionally finite; the code's explicit support check is conservative
+  but can never fire on a valid density matrix.
 - **Not a full resource monotone (Conjecture).** I expect `I_S` to be
   monotone under the free operations of the resource theory of imaginarity
   (real channels), by analogy with the relative entropy of coherence, but I do

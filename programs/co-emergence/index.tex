@@ -363,9 +363,7 @@ trace):
 positive semidefinite, unit trace).
 \item[(b)] $I_S(\rho) \geq 0$, with equality if and only if
 $\mathrm{Im}\,\rho = 0$.
-\item[(c)] When $\mathrm{supp}(\rho) \subseteq \mathrm{supp}(\mathrm{Re}\,\rho)$
-(in particular whenever $\mathrm{Re}\,\rho$ is full rank, which holds
-generically), $I_S(\rho) = S\!\left(\rho \,\|\, \mathrm{Re}\,\rho\right)$,
+\item[(c)] For every density matrix, $I_S(\rho) = S\!\left(\rho \,\|\, \mathrm{Re}\,\rho\right)$,
 the quantum relative entropy of $\rho$ with respect to $\mathrm{Re}\,\rho$.
 \end{enumerate}
 \end{proposition}
@@ -375,8 +373,13 @@ the quantum relative entropy of $\rho$ with respect to $\mathrm{Re}\,\rho$.
 $\mathrm{Re}\,\rho = \tfrac12(\rho + \rho^{\mathsf T})$ is real symmetric;
 its diagonal equals that of $\rho$ (real), preserving the trace; and it is
 the average of the two isospectral positive semidefinite matrices $\rho$
-and $\rho^{\mathsf T}$, hence positive semidefinite. (c) Under the support
-condition, decompose $\rho = \mathrm{Re}\,\rho + i\,\mathrm{Im}\,\rho$ with
+and $\rho^{\mathsf T}$, hence positive semidefinite. (c) For any positive
+semidefinite $\rho$, if $(\rho+\rho^{\mathsf T})x=0$ then
+$0 = x^{\dagger}(\rho+\rho^{\mathsf T})x = 2\,\mathrm{Re}(x^{\dagger}\rho x)$
+with $x^{\dagger}\rho x\geq 0$, so $\rho x = 0$; thus
+$\mathrm{null}(\mathrm{Re}\,\rho)\subseteq\mathrm{null}(\rho)$, i.e.\
+$\mathrm{supp}(\rho)\subseteq\mathrm{supp}(\mathrm{Re}\,\rho)$ for every
+density matrix. Now decompose $\rho = \mathrm{Re}\,\rho + i\,\mathrm{Im}\,\rho$ with
 $\mathrm{Im}\,\rho$ real antisymmetric and $\log(\mathrm{Re}\,\rho)$ real
 symmetric; the trace of an antisymmetric times a symmetric matrix vanishes,
 so $\mathrm{Tr}(\rho \log \mathrm{Re}\,\rho) = \mathrm{Tr}(\mathrm{Re}\,\rho
@@ -385,8 +388,7 @@ $S(\rho\|\mathrm{Re}\,\rho) = -S(\rho) + S(\mathrm{Re}\,\rho) = I_S(\rho)$.
 (b) By concavity of the von Neumann entropy and $S(\overline\rho) =
 S(\rho)$, $S(\mathrm{Re}\,\rho) = S(\tfrac12(\rho+\overline\rho)) \geq
 S(\rho)$; equality forces $\rho = \mathrm{Re}\,\rho$ by faithfulness of the
-relative entropy (applicable via (c) when $\mathrm{Re}\,\rho$ is full rank,
-and by the entropy-gap form directly on the rank-deficient measure-zero set).
+relative entropy, via (c).
 \end{proof}
 
 Because $I_S$ vanishes \emph{exactly} on real density matrices, it assigns
