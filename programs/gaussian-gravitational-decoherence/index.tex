@@ -10,6 +10,10 @@
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
 
 \title{\textbf{Gaussian temporal profile of gravitational decoherence\\[6pt]
 from the Einstein-Langevin equation}}
@@ -32,16 +36,20 @@ Neither route uses the Einstein equation. We ask what the Einstein-Langevin
 equation---the established stochastic extension of semiclassical gravity---actually
 predicts for the decoherence temporal profile of a massive body in spatial superposition.
 
-We derive three results. (1)~The decoherence timescale is $\tau_{\text{coh}} =
-(4\sqrt{2}/5)\,\hbar/E_\Delta \approx 1.13\,\tau_{DP}$, determined by the same
-gravitational self-energy $E_\Delta$ as the Di\'osi--Penrose prediction. (2)~The temporal
-profile is Gaussian, not exponential---a direct consequence of the noise kernel for
-stationary matter being time-independent in the Newtonian limit. (3)~The profile is
-material-dependent: rigid crystalline bodies give Gaussian decoherence, while soft or
-amorphous bodies whose acoustic modes approach the gravitational coherence frequency
-$\omega_g = E_\Delta/\hbar$ transition toward exponential. Comparing profiles across
-materials of identical mass and geometry provides a discriminant absent from existing
-models. The precise additional postulate that Di\'osi's model makes beyond the
+We derive two results and state one conjecture. (1)~The decoherence timescale is
+$\tau_{\text{coh}} = (4\sqrt{2}/5)\,\hbar/E_\Delta \approx 1.13\,\tau_{DP}$, determined by
+the same gravitational self-energy $E_\Delta$ as the Di\'osi--Penrose prediction. (2)~The
+temporal profile is Gaussian, not exponential---a direct consequence of the noise kernel
+for stationary matter being time-independent in the Newtonian limit. Both results are
+derived at sketch rigor: they treat the stress-energy fluctuations of the superposition as
+Gaussian noise, an assumption built into the Einstein-Langevin framework that we make
+explicit, since the underlying stress-energy distribution of a two-branch superposition is
+bimodal. (3)~We conjecture that the profile is material-dependent: rigid crystalline
+bodies give Gaussian decoherence, while bodies whose acoustic modes approach the
+gravitational coherence frequency $\omega_g = E_\Delta/\hbar$ would transition toward
+exponential. If the crossover regime is experimentally accessible, comparing profiles
+across materials of identical mass and geometry would provide a discriminant absent from
+existing models. The precise additional postulate that Di\'osi's model makes beyond the
 Einstein-Langevin equation is identified: a white-noise temporal correlator for the
 gravitational potential fluctuations.
 \end{abstract}
@@ -75,6 +83,22 @@ and to establish a rigorous theory of noise in curved spacetime~\cite{phillips_h
 question we address is: what does this framework predict for the temporal structure of
 gravitational decoherence of a massive body in spatial superposition?
 
+This question sits within an existing field-theoretic literature on gravitational
+decoherence, surveyed by Bassi, Gro\ss ardt and Ulbricht~\cite{bassi_review}.
+Anastopoulos and Hu~\cite{anastopoulos_hu} derive a gravitational-decoherence master
+equation from quantized linear perturbations interacting with matter, obtaining
+decoherence in the energy basis, and caution against treating the stress-energy variance
+of a quantum state as a classical noise source; Blencowe~\cite{blencowe} reaches a
+master equation of similar structure from gravity as an effective-field-theory
+environment. The present paper does not supersede those first-principles treatments. Its
+contribution is narrower: to take the Einstein-Langevin equation as given---including its
+defining prescription that stress-energy fluctuations enter as Gaussian noise, which we
+state as an explicit assumption (Assumption~\ref{ass:gaussian}) rather than a derived
+fact---and to work out what that framework, so understood, predicts for the temporal
+profile. The Gaussian-profile result should be read as a sharp consequence of the
+Einstein-Langevin postulates, exposing exactly where Di\'osi's model adds a further
+postulate, not as a field-theoretic derivation of decoherence from first principles.
+
 The deterministic semiclassical Einstein equation alone cannot answer this question. For a
 body in superposition $|\psi\rangle = (|L\rangle + |R\rangle)/\sqrt{2}$, the
 stress-energy expectation value averages over branches,
@@ -83,8 +107,8 @@ carrying no information about the off-diagonal coherence $\rho_{LR}$. The result
 geometry is blind to the superposition structure and cannot decohere it. The stochastic
 extension is necessary.
 
-We derive three results. First, the decoherence timescale from the Einstein-Langevin
-equation is:
+We derive two results and state one conjecture. First, the decoherence timescale from the
+Einstein-Langevin equation is:
 \begin{equation}
 \tau_{\text{coh}} = \frac{4\sqrt{2}}{5}\,\frac{\hbar}{E_\Delta} \approx 1.13\,\tau_{DP}
 \label{eq:tau_coh_preview}
@@ -96,12 +120,16 @@ Second, the temporal profile is Gaussian:
 \label{eq:gaussian_preview}
 \end{equation}
 This arises because the noise kernel for stationary matter is time-independent in the
-Newtonian limit, producing static rather than white noise. Third, the profile is
-material-dependent: for rigid crystalline bodies the noise is static and the profile is
-Gaussian; for soft or amorphous bodies with acoustic modes near the gravitational coherence
-frequency $\omega_g = E_\Delta/\hbar$, a finite noise correlation time develops and the
-profile transitions toward exponential. An experimental comparison of decoherence profiles
-across materials of identical mass and geometry can distinguish whether the noise is
+Newtonian limit, producing static rather than white noise. Both results are
+\textbf{(Sketch)}: every algebraic step is given, but the chain rests on the Gaussian-noise
+assumption of the Einstein-Langevin framework (Assumption~\ref{ass:gaussian}), which is
+not derived. Third, we conjecture that the profile is material-dependent: for rigid
+crystalline bodies the noise is static and the profile is Gaussian; for bodies with
+acoustic modes near the gravitational coherence frequency $\omega_g = E_\Delta/\hbar$, a
+finite noise correlation time would develop and the profile would transition toward
+exponential (Conjecture~\ref{conj:material}). If an experimentally accessible platform
+reaches that crossover regime---an open question---a comparison of decoherence profiles
+across materials of identical mass and geometry could distinguish whether the noise is
 fundamental (Di\'osi) or derived from quantum stress-energy (this work).
 
 Section~\ref{sec:framework} recalls the Einstein-Langevin equation.
@@ -138,7 +166,29 @@ $\langle\xi_{\mu\nu}(x)\rangle_s = 0$, and two-point function given by the noise
 \end{equation}
 where $\delta\hat{T}_{\mu\nu} \equiv \hat{T}_{\mu\nu} - \langle\hat{T}_{\mu\nu}\rangle$
 is the stress-energy fluctuation operator and $\langle\cdot\rangle$ denotes the quantum
-expectation value in the physical state. In the Newtonian (non-relativistic, weak-field)
+expectation value in the physical state.
+
+\begin{assumption}[Gaussian noise]
+\label{ass:gaussian}
+The stochastic source $\xi_{\mu\nu}$ is a \emph{Gaussian} random field, fully specified
+by its vanishing mean and the two-point function~\eqref{eq:noise_kernel_def}.
+\end{assumption}
+
+\noindent
+This is the defining prescription of the Einstein-Langevin framework~\cite{hu_verdaguer},
+not a derived property, and for the states considered here it is a genuine physical
+assumption: for a two-branch superposition the actual distribution of $\hat{T}_{00}$ is
+bimodal (the mass is in one place or the other), which is maximally non-Gaussian. The
+Einstein-Langevin prescription matches only the symmetrized two-point function of
+$\delta\hat{T}_{\mu\nu}$ and discards all higher cumulants. The decoherence
+formula~\eqref{eq:decoherence_integral} used below is exact only for Gaussian noise.
+Every result downstream of Assumption~\ref{ass:gaussian} therefore carries at most
+\textbf{(Sketch)} rigor as a statement about gravitational decoherence in nature, however
+exact it is as a statement about the Einstein-Langevin framework. Field-theoretic
+treatments that do not make this assumption reach qualitatively different
+conclusions~\cite{anastopoulos_hu,blencowe}.
+
+In the Newtonian (non-relativistic, weak-field)
 limit, the linearized metric perturbation satisfies the stochastic Poisson equation:
 \begin{equation}
 \nabla^2 \delta\Phi(\mathbf{x},t) = 4\pi G\,\xi_{00}(\mathbf{x},t)/c^2
@@ -157,13 +207,15 @@ Consider a rigid body of mass $m$ placed in a center-of-mass superposition
 $|\psi\rangle = (|L\rangle + |R\rangle)/\sqrt{2}$, with branch densities
 $\rho_L(\mathbf{x}) = \rho(\mathbf{x}-\mathbf{x}_L)$ and
 $\rho_R(\mathbf{x}) = \rho(\mathbf{x}-\mathbf{x}_R)$, separated by
-$d = |\mathbf{x}_L - \mathbf{x}_R|$. For non-relativistic matter,
-$\hat{T}_{00}(\mathbf{x}) = c^4\rho(\mathbf{x}-\hat{\mathbf{X}}_{\text{CM}})$, giving:
+$d = |\mathbf{x}_L - \mathbf{x}_R|$. For non-relativistic matter, $T_{00}$ is the energy
+density: $\hat{T}_{00}(\mathbf{x}) = c^2\rho(\mathbf{x}-\hat{\mathbf{X}}_{\text{CM}})$
+(this convention is used consistently with the stochastic Poisson
+equation~\eqref{eq:poisson_stochastic}), giving:
 \begin{align}
 \langle\hat{T}_{00}(\mathbf{x})\rangle &=
-\tfrac{c^4}{2}\!\left[\rho_L(\mathbf{x}) + \rho_R(\mathbf{x})\right] \\
+\tfrac{c^2}{2}\!\left[\rho_L(\mathbf{x}) + \rho_R(\mathbf{x})\right] \\
 \langle\hat{T}_{00}(\mathbf{x})\hat{T}_{00}(\mathbf{x}')\rangle &=
-\tfrac{c^8}{2}\!\left[\rho_L(\mathbf{x})\rho_L(\mathbf{x}')
+\tfrac{c^4}{2}\!\left[\rho_L(\mathbf{x})\rho_L(\mathbf{x}')
 + \rho_R(\mathbf{x})\rho_R(\mathbf{x}')\right]
 \end{align}
 The cross terms $\rho_L(\mathbf{x})\rho_R(\mathbf{x}')$ and
@@ -174,21 +226,31 @@ and $|R\rangle$ to $|R\rangle$ (each branch has definite center-of-mass position
 the diagonal matrix elements survive.
 Subtracting, the noise kernel~\eqref{eq:noise_kernel_def} evaluates to:
 \begin{equation}
-N_{0000}(\mathbf{x},\mathbf{x}') = \frac{c^8}{4}\,\Delta\rho(\mathbf{x})\,\Delta\rho(\mathbf{x}')
+N_{0000}(\mathbf{x},\mathbf{x}') = \frac{c^4}{4}\,\Delta\rho(\mathbf{x})\,\Delta\rho(\mathbf{x}')
 \label{eq:N0000}
 \end{equation}
 where $\Delta\rho \equiv \rho_L - \rho_R$. The noise kernel factorizes as the outer
-product of the branch-difference density with itself.
+product of the branch-difference density with itself. This evaluation is
+\textbf{(Rigorous)} given the non-relativistic stress-energy operator and the branch
+orthogonality stated above; what is \emph{not} rigorous is the subsequent use of this
+two-point function as the complete specification of a Gaussian noise source
+(Assumption~\ref{ass:gaussian}).
 
 \subsection{Physical interpretation}
 
-The noise is not a quantum vacuum fluctuation of matter fields. It is the classical
-statistical variance of the mass distribution arising from the superposition: the mass is
-in two places, and this uncertainty generates metric fluctuations. Quantum vacuum fluctuations of $\hat{T}_{00}$
-within a single branch are suppressed relative to eq.~\eqref{eq:N0000} by factors of
-order $(\ell_P/\sigma)^2 \sim G\hbar/(c^3\sigma^2)$~\cite{phillips_hu}, where $\sigma$
-is the body size. For a nanodiamond ($\sigma \sim 100\,\text{nm}$) this ratio is
-$\sim 10^{-57}$: entirely negligible.
+The noise is not a quantum vacuum fluctuation of matter fields. It is the statistical
+variance of the mass distribution arising from the superposition: the mass is in two
+places, and this uncertainty generates metric fluctuations.
+
+\begin{remark}[Vacuum fluctuations negligible; order of magnitude only]
+\label{rem:vacuum}
+Quantum vacuum fluctuations of $\hat{T}_{00}$ within a single branch are suppressed
+relative to eq.~\eqref{eq:N0000} by factors of order
+$(\ell_P/\sigma)^2 \sim G\hbar/(c^3\sigma^2)$~\cite{phillips_hu}, where $\sigma$ is the
+body size. For a micron-scale diamond ($\sigma \approx 0.9\,\mu\text{m}$, cf.\
+Table~\ref{tab:platforms}) this ratio is $\sim 3\times10^{-58}$: entirely negligible.
+This is an order-of-magnitude estimate, not a derived bound.
+\end{remark}
 
 \subsection{Time-independence in the Newtonian limit}
 
@@ -196,16 +258,17 @@ For a stationary superposition---one in which wavepacket spreading is negligible
 decoherence timescale---the mass distributions $\rho_L$ and $\rho_R$ are
 time-independent. Consequently the noise kernel is static:
 \begin{equation}
-N_{0000}(\mathbf{x},t;\,\mathbf{x}',t') = \frac{c^8}{4}\,\Delta\rho(\mathbf{x})\,\Delta\rho(\mathbf{x}')
+N_{0000}(\mathbf{x},t;\,\mathbf{x}',t') = \frac{c^4}{4}\,\Delta\rho(\mathbf{x})\,\Delta\rho(\mathbf{x}')
 \label{eq:N0000_static}
 \end{equation}
 Retardation corrections are $\mathcal{O}(v^2/c^2)$ and negligible. The static character
 of eq.~\eqref{eq:N0000_static} is the key structural feature that distinguishes the
 Einstein-Langevin noise from the white noise postulated by Di\'osi.
 
-The stationary approximation holds when the wavepacket spreading time $Md^2/\hbar$ exceeds
+The stationary approximation holds when the wavepacket spreading time $md^2/\hbar$ exceeds
 the decoherence timescale. For a microdiamond ($m \sim 10^{-14}$~kg, $d \sim 250\,\mu$m),
-this ratio is $\sim 6\times10^9$~s versus $\sim 1$~ms---a margin of $10^{12}$.
+this timescale is $md^2/\hbar \approx 6\times10^{12}$~s versus $\tau_{\text{coh}} \approx
+13$~ms (Table~\ref{tab:platforms})---a margin of $\sim 5\times10^{14}$.
 
 %======================================================================
 \section{Gaussian decoherence timescale}
@@ -237,9 +300,24 @@ eq.~\eqref{eq:decoherence_integral} then evaluates to $C_V(0)\,t^2$, giving:
 \end{equation}
 This is the direct mathematical consequence of static noise. In the Markovian limit, a
 finite noise correlation time $\tau_c$ gives $\int\int C_V dt'dt'' \approx 2C_V(0)\tau_c
-t$, yielding exponential decoherence at rate $\Gamma = 2C_V(0)\tau_c/\hbar^2$. In the
+t$, which through the $1/(2\hbar^2)$ prefactor in eq.~\eqref{eq:decoherence_integral}
+yields exponential decoherence at rate $\Gamma = C_V(0)\tau_c/\hbar^2$. In the
 static limit ($\tau_c\to\infty$ for stationary matter), the exponential rate vanishes and
 the profile is Gaussian with timescale $\tau_{\text{coh}} = \hbar\sqrt{2}/\sqrt{C_V(0)}$.
+
+\begin{remark}[Ensemble dephasing versus single-system decoherence]
+\label{rem:dephasing}
+Equation~\eqref{eq:gaussian_suppression} is an average over realizations of a
+\emph{static} Gaussian random variable. In any single realization the branch-differential
+potential $\delta V_\Delta$ is a constant, and the accumulated phase is deterministic and
+in principle recoverable (e.g.\ by echo protocols); the Gaussian decay describes
+dephasing of an ensemble. Di\'osi's white noise, by contrast, produces irreversible
+decoherence realization by realization. Whether the ensemble-averaged Gaussian suppression
+constitutes genuine single-system decoherence---and what, physically, the ensemble of
+realizations of the superposition's own stress-energy variance refers to---is an open
+interpretational question of the Einstein-Langevin framework that we flag here and do not
+resolve.
+\end{remark}
 
 \subsection{Evaluation of $C_V(0)$ for a uniform sphere}
 
@@ -298,8 +376,18 @@ E_\Delta = \frac{2Gm^2}{\pi}\int_0^\infty|\tilde{F}(kR)|^2\!\left(1-\frac{\sin k
 \label{eq:tau_coh}
 \end{equation}
 The $G^2$ in $C_V(0)$ yields $G^{-1}$ scaling in $\tau_{\text{coh}}$ via the square root,
-matching the $G$-scaling of $\tau_{DP}$. Numerical values for three experimental platforms
-are given in Table~\ref{tab:platforms}.
+matching the $G$-scaling of $\tau_{DP}$.
+
+\textbf{Rigor status of results (1) and (2).} Equations~\eqref{eq:gaussian_suppression}
+and~\eqref{eq:tau_coh} are \textbf{(Sketch)}. Every algebraic step from the noise
+kernel~\eqref{eq:N0000} to the timescale is given above, and within the Einstein-Langevin
+framework the chain is complete; but the chain rests on
+Assumption~\ref{ass:gaussian} (Gaussian noise, not derived, and maximally violated by the
+actual bimodal stress-energy distribution of the state), on the decoherence
+formula~\eqref{eq:decoherence_integral}, which is exact only for Gaussian noise and is
+imported from the stochastic-gravity literature~\cite{hu_verdaguer} rather than derived
+here, and on the interpretational caveat of Remark~\ref{rem:dephasing}. Numerical values
+for three experimental platforms are given in Table~\ref{tab:platforms}.
 
 \begin{table}[h]
 \centering
@@ -307,17 +395,21 @@ are given in Table~\ref{tab:platforms}.
 \toprule
 Platform & $m$ & $R$ & $d$ & $\tau_{DP}$ & $\tau_{\text{coh}}$ & Profile \\
 \midrule
-Microdiamond (BMV)~\cite{bose} & $10^{-14}$~kg & 90~nm & 250~$\mu$m & 1.2~ms & 1.3~ms & Gaussian \\
-Levitated nanosphere & $5\times10^{-18}$~kg & 100~nm & 500~nm & 6300~s & 7100~s & Gaussian \\
-MAQRO test mass~\cite{maqro} & $1.7\times10^{-17}$~kg & 200~nm & 100~nm & 10700~s & 12100~s & Gaussian \\
+Microdiamond (BMV)~\cite{bose} & $10^{-14}$~kg & 880~nm & 250~$\mu$m & 11.6~ms & 13.1~ms & Gaussian \\
+Levitated silica nanosphere & $5\times10^{-18}$~kg & 82~nm & 500~nm & 5000~s & 5500~s & Gaussian \\
+MAQRO test mass~\cite{maqro} & $1.7\times10^{-17}$~kg & 123~nm & 100~nm & 2880~s & 2850~s & Gaussian \\
 \bottomrule
 \end{tabular}
-\caption{Coherence timescales for three experimental platforms. The MAQRO entry uses
-eq.~\eqref{eq:E_delta_fourier} (overlapping-branch regime, $d/R = 0.5$); in this
-regime the prefactor $4\sqrt{2}/5$ in eq.~\eqref{eq:tau_coh} does not apply and
-$\tau_{\text{coh}}$ is obtained numerically from $\tau_{\text{coh}} = \hbar\sqrt{2}/\sqrt{C_V(0)}$
-with $C_V(0)$ evaluated via eq.~\eqref{eq:E_delta_fourier}. All three platforms
-satisfy $\omega_{\text{phonon}}/\omega_g \gg 1$ and are in the rigid-body Gaussian regime.}
+\caption{Coherence timescales for three experimental platforms. Radii follow from the
+masses and bulk densities (diamond $3500$~kg/m$^3$; fused silica $2200$~kg/m$^3$). The
+MAQRO entry is in the overlapping-branch regime ($d/R \approx 0.8$): $E_\Delta$ (and hence
+$\tau_{DP}$) is computed numerically from eq.~\eqref{eq:E_delta_fourier}, while $C_V(0)$
+is computed from eq.~\eqref{eq:CV0} using the interior potential of a uniform sphere,
+which gives $U(\mathbf{x}_L)-U(\mathbf{x}_R) = md^2/R^3$ for $d \le R$ and hence
+$\tau_{\text{coh}} = 2\sqrt{2}\,\hbar R^3/(Gm^2d^2)$. In this regime the prefactor
+$4\sqrt{2}/5$ in eq.~\eqref{eq:tau_coh} does not apply ($\tau_{\text{coh}} \approx
+0.99\,\tau_{DP}$ here). All three platforms satisfy
+$\omega_{\text{phonon}}/\omega_g \gg 1$ and are in the rigid-body Gaussian regime.}
 \label{tab:platforms}
 \end{table}
 
@@ -347,7 +439,7 @@ Di\'osi's model postulates a white-noise correlator:
 C_V^{\text{D}}(\tau) = 2C_V(0)\,\tau_c\,\delta(\tau)
 \label{eq:corr_diosi}
 \end{equation}
-with $\tau_c$ chosen so that $\Gamma = C_V(0)\tau_c/\hbar^2 = \hbar/\tau_{DP}^2$ reproduces
+with $\tau_c$ chosen so that $\Gamma = C_V(0)\tau_c/\hbar^2 = 1/\tau_{DP}$ reproduces
 the DP rate. The spatial structure and equal-time amplitude $C_V(0)$ are identical in both
 cases; the difference is entirely in the temporal correlator. Di\'osi's extra postulate,
 beyond what the Einstein-Langevin equation specifies, is the Markovian (white-noise)
@@ -364,11 +456,16 @@ Model & Timescale & $G$-scaling & Profile & Noise temporal correlator \\
 \midrule
 This work & $\hbar/E_\Delta$ & $1/G$ & Gaussian & Static (derived) \\
 Di\'osi--Penrose & $\hbar/E_\Delta$ & $1/G$ & Exponential & White (postulated) \\
-Kafri--Taylor--Milburn & $\hbar D^5/(G^2 m^3)$ & $1/G^2$ & Exponential & White (postulated) \\
+Kafri--Taylor--Milburn & $\sim \omega d^3/(G m)$ & $1/G$ & Exponential & White (postulated) \\
 \bottomrule
 \end{tabular}
-\caption{Comparison of gravitational decoherence models. This work and Di\'osi--Penrose
-share the same timescale scaling; the discriminating prediction is the temporal profile.}
+\caption{Comparison of gravitational decoherence models. The Kafri--Taylor--Milburn
+model~\cite{kafri} applies to two masses $m$ in harmonic traps of frequency $\omega$ at
+separation $d$: its decoherence rate $\Lambda = K/(4m\omega)$, with gravitational spring
+constant $K = 2Gm^2/d^3$, is of the order of the gravitationally induced normal-mode
+splitting, giving a timescale $\sim m\omega/K \sim \omega d^3/(Gm)$. This work and
+Di\'osi--Penrose share the same timescale scaling; the discriminating prediction is the
+temporal profile.}
 \label{tab:models}
 \end{table}
 
@@ -403,19 +500,22 @@ be characterized to within a factor of $\sim 2$ (so that $\delta\Gamma_{\text{en
 \tau_{\text{coh}} \lesssim 0.1$). This is achievable by comparing data at different masses
 or between materials with the same environmental coupling but different $E_\Delta$.
 
-\subsection{Material-dependent profile transition}
+\subsection{Material-dependent profile transition (conjectural)}
 \label{sec:material}
 
 The static-noise result~\eqref{eq:N0000_static} holds when the body's lowest acoustic
 phonon frequency $\omega_{\text{phonon}}$ far exceeds the gravitational coherence frequency
-$\omega_g = E_\Delta/\hbar$. For nanoscale diamond, $\omega_{\text{phonon}} \sim c_s/L
-\sim 10^{10}$~Hz while $\omega_g \sim 10^3$~rad/s for $m \sim 10^{-14}$~kg: the ratio
-$\omega_{\text{phonon}}/\omega_g \sim 10^7$ confirms that the rigid-body Gaussian result
+$\omega_g = E_\Delta/\hbar$. For the micron-scale diamond of Table~\ref{tab:platforms},
+$\omega_{\text{phonon}} \sim c_s/L \sim 10^{10}$~rad/s while
+$\omega_g \approx 90$~rad/s: the ratio
+$\omega_{\text{phonon}}/\omega_g \sim 10^8$ confirms that the rigid-body Gaussian result
 applies to all current experimental targets.
 
-When $\omega_{\text{phonon}} \sim \omega_g$, internal dynamics introduce a finite noise
-correlation time $\tau_c \sim \omega_{\text{phonon}}^{-1}$, and the decoherence exponent
-crosses over:
+\begin{conjecture}[Material-dependent crossover]
+\label{conj:material}
+When $\omega_{\text{phonon}} \sim \omega_g$, internal acoustic dynamics introduce a finite
+correlation time $\tau_c \sim \omega_{\text{phonon}}^{-1}$ into the noise kernel, and the
+decoherence exponent crosses over:
 \begin{equation}
 \int_0^t\!\!\int_0^t C_V(t'-t'')\,dt'dt'' \approx
 \begin{cases}
@@ -424,19 +524,25 @@ C_V(0)\,t^2 & t \ll \tau_c \\
 \end{cases}
 \label{eq:crossover}
 \end{equation}
-This predicts qualitatively different profiles for bodies of identical mass and geometry
-but different material rigidity:
-\begin{itemize}
-\item \textbf{Rigid crystalline solids} (diamond, silicon, sapphire;
-$\omega_{\text{phonon}} \sim 10^{10}$--$10^{12}$~Hz): Gaussian profile throughout the
-accessible coherence-frequency range.
-\item \textbf{Soft or amorphous materials} (polymers, aerogels, amorphous metals;
-$\omega_{\text{phonon}} \sim 10^4$--$10^6$~Hz): Intermediate or exponential profile when
-$\omega_g \sim \omega_{\text{phonon}}$.
-\end{itemize}
-The Di\'osi model and Penrose collapse model predict exponential decoherence regardless of
-material. Observing profile differences across materials at fixed mass and geometry would
-directly probe whether the noise originates in quantum stress-energy (this work) or is a
+so that bodies of identical mass and geometry but lower rigidity drift from a Gaussian
+toward an exponential profile.
+\end{conjecture}
+
+\noindent
+This is a \textbf{(Conjecture)}: the identification $\tau_c \sim
+\omega_{\text{phonon}}^{-1}$ is asserted, not derived---a phonon-spectrum model of the
+noise kernel is an open problem (Section~\ref{sec:discussion}). Moreover, whether the
+crossover regime is experimentally accessible at all is open. For a mesoscopic body of
+size $L$, $\omega_{\text{phonon}} \sim c_s/L$; even soft materials ($c_s \sim
+10^2$--$10^3$~m/s for aerogels and polymers) give $\omega_{\text{phonon}} \sim
+10^8$--$10^{10}$~rad/s at $L \sim 1\,\mu$m, still many orders of magnitude above
+$\omega_g \lesssim 10^2$~rad/s for the masses of Table~\ref{tab:platforms}. Reaching
+$\omega_{\text{phonon}} \sim \omega_g$ requires much larger bodies or much larger
+$E_\Delta$; quantifying whether any realistic platform reaches it is the open problem
+noted above. If the regime is accessible, the discriminant is sharp: the Di\'osi model and
+the Penrose collapse model predict exponential decoherence regardless of material, so
+observing profile differences across materials at fixed mass and geometry would directly
+probe whether the noise originates in quantum stress-energy (this work) or is a
 fundamental background process.
 
 \subsection{BMV entanglement}
@@ -448,19 +554,26 @@ bipartite product state $\rho_1\otimes\rho_2$, the metric perturbation factorize
 $h_{\mu\nu} = h^{(1)}_{\mu\nu} + h^{(2)}_{\mu\nu}$, yielding a c-number interaction
 potential that acts as a classical common-cause channel. Because entanglement cannot
 be generated by local operations on a separable state coupled only through a classical
-stochastic field~\cite{oppenheim,marletto_classical}, the prediction is no entanglement at the quantum
-gravity rate; observation of such entanglement would falsify the framework.
+stochastic field~\cite{kafri,oppenheim,marletto_classical}, the prediction is no
+entanglement at the quantum gravity rate; observation of such entanglement would falsify
+the framework. This prediction is \textbf{(Sketch)}: the factorization argument above is
+given only in outline, and its force is conditional on the cited no-go results for
+entanglement generation through classical channels, which are used here as established
+inputs rather than re-derived.
 
 %======================================================================
 \section{Discussion}
 \label{sec:discussion}
 %======================================================================
 
-\textbf{What the derivation assumes.} The results rest on four standard assumptions within
+\textbf{What the derivation assumes.} The results rest on five assumptions within
 the Hu-Verdaguer stochastic gravity program: (i)~the Einstein-Langevin equation describes
 metric fluctuations sourced by quantum stress-energy; (ii)~the Newtonian limit applies;
 (iii)~the superposition is stationary on the decoherence timescale; (iv)~leading-order
-perturbation theory (backreaction of decoherence on the noise kernel is neglected).
+perturbation theory (backreaction of decoherence on the noise kernel is neglected);
+(v)~the stress-energy fluctuations enter as \emph{Gaussian} noise
+(Assumption~\ref{ass:gaussian})---the framework's defining prescription, not a derived
+fact, and the reason results (1) and (2) are labeled Sketch.
 Backreaction becomes significant when the compactness parameter $Gm/(c^2 R)$ approaches
 unity, i.e., when the body's gravitational radius is comparable to its size. For all
 laboratory masses this ratio is negligible: $Gm/(c^2 R) \sim 10^{-35}$ for a
@@ -472,14 +585,22 @@ No physics beyond the semiclassical Einstein equation is introduced.
 $\Delta\rho = 0$ (no superposition). The metric fluctuations that decohere the
 superposition are generated by the superposition itself, not by a background stochastic
 process. This is physically consistent and distinguishes the present framework
-from Di\'osi's model, where the noise is a fundamental property of spacetime.
+from Di\'osi's model, where the noise is a fundamental property of spacetime. It also has
+an observational consequence: the underground constraints on the Di\'osi--Penrose model
+from spontaneous radiation emission~\cite{donadi} probe a universal background noise that
+acts on every charged particle at all times; a state-dependent noise that vanishes in the
+absence of superposition predicts no such radiation from unsuperposed bulk matter and is
+not constrained by those experiments.
 
 \textbf{Limitations.} The Gaussian profile is a leading-order prediction; retardation
 corrections are $\mathcal{O}(v^2/c^2)$. The material-dependent crossover
-(eq.~\ref{eq:crossover}) requires a more detailed model of the phonon-spectrum contribution
-to the noise kernel, which we identify as an open problem. The BMV null prediction is
-necessary but not sufficient; the discriminating positive prediction is the temporal
-profile and its material dependence.
+(Conjecture~\ref{conj:material}) requires a more detailed model of the phonon-spectrum
+contribution to the noise kernel, and a quantitative assessment of whether any
+experimentally realistic platform reaches the crossover regime; both are open problems.
+The ensemble-dephasing caveat of Remark~\ref{rem:dephasing} is unresolved. The BMV null
+prediction is necessary but not sufficient; the discriminating positive prediction is the
+temporal profile and, conditionally on Conjecture~\ref{conj:material}, its material
+dependence.
 
 \textbf{Companion paper.} The semiclassical Einstein equation underlying the
 Einstein-Langevin formalism is itself a fixed-point condition: geometry and quantum state
@@ -510,6 +631,20 @@ stochastic gravity, \textit{Phys.\ Rev.\ D}\ \textbf{78}, 064010 (2008).
 
 \bibitem{phillips_hu} N.~G.~Phillips and B.~L.~Hu, Noise kernel in stochastic gravity and
 stress energy bitensor, \textit{Phys.\ Rev.\ D}\ \textbf{63}, 104001 (2001).
+
+\bibitem{anastopoulos_hu} C.~Anastopoulos and B.~L.~Hu, A master equation for
+gravitational decoherence: probing the textures of spacetime,
+\textit{Class.\ Quantum Grav.}\ \textbf{30}, 165007 (2013).
+
+\bibitem{blencowe} M.~P.~Blencowe, Effective field theory approach to gravitationally
+induced decoherence, \textit{Phys.\ Rev.\ Lett.}\ \textbf{111}, 021302 (2013).
+
+\bibitem{bassi_review} A.~Bassi, A.~Gro\ss ardt, and H.~Ulbricht, Gravitational
+decoherence, \textit{Class.\ Quantum Grav.}\ \textbf{34}, 193002 (2017).
+
+\bibitem{donadi} S.~Donadi, K.~Piscicchia, C.~Curceanu, L.~Di\'osi, M.~Laubenstein, and
+A.~Bassi, Underground test of gravity-related wave function collapse,
+\textit{Nat.\ Phys.}\ \textbf{17}, 74 (2021).
 
 \bibitem{marletto_vedral} C.~Marletto and V.~Vedral, Gravitationally induced entanglement
 between two massive particles is sufficient evidence of quantum effects in gravity,
