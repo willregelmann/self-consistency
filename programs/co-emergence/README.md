@@ -40,6 +40,7 @@ The paper leads with proved results, then develops the interpretive framework:
 |--------|--------|--------|
 | Phase-induced entropy excess (rank 2) | **Rigorous** | Lemma in paper |
 | Phase-induced purity decrease (all ranks) | **Rigorous** | Lemma in paper / general-rank exploration |
+| Interference metric I_S = S(Re ρ) − S(ρ): zero iff ρ is real (in the smooth-structure basis) | **Rigorous** | Prop. in paper §3 |
 | Toy model: composition, Born rule, interference (N=4–16) | **Rigorous** (numerical) | Toy model exploration |
 | ψ* imaginary content ~25–34% (rank-dependent), stable through N=256 | **Rigorous** (numerical) | Scaling/mixed-dims studies |
 | S_Lor/S_Riem ≈ 1.68, entirely from phases | **Rigorous** (numerical) | Scaling study |
