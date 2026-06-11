@@ -312,8 +312,10 @@ merely its entropy: since the curvature map $R_\sigma(\psi)$ depends
 on $\psi$ only through $|\psi_\sigma|^2$, both the Lorentzian and
 Riemannian fixed-point equations reduce to the same equation for the
 magnitudes $|\psi^*_\sigma|$. The Lorentzian fixed point is
-$|\psi^*_\sigma|^{1+i\theta}$ (up to normalization) and the Riemannian
-is $|\psi^*_\sigma|$, with the same $|\psi^*_\sigma|$ in both cases.
+$|\psi^*_\sigma|^{1-i\theta}$ (up to normalization; see
+Remark~\ref{rem:entropy_application} for the sign convention) and the
+Riemannian is $|\psi^*_\sigma|$, with the same $|\psi^*_\sigma|$ in
+both cases.
 Phase-stripping recovers the Riemannian state by construction, so the
 entropy excess is entirely a phase effect.
 Lemma~\ref{lem:entropy_excess} proves that this excess is guaranteed
@@ -459,11 +461,23 @@ The toy model entries $m_\sigma = e^{-R_\sigma}$ fall in this regime.
 \label{rem:entropy_application}
 In the toy model, the Lorentzian fixed point
 $\psi^*_\sigma \propto \exp((-1 + i\theta)\, R_\sigma)$ has magnitude
-$|\psi^*_\sigma| \propto e^{-R_\sigma}$ and phase $\theta R_\sigma$,
-which is exactly the structure $m^{1+i\theta}$ of
-Lemma~\ref{lem:entropy_excess} with $m_\sigma = e^{-R_\sigma}$. The
-Riemannian fixed point has $\theta = 0$, giving the same magnitudes
-but no phases.
+$|\psi^*_\sigma| \propto e^{-R_\sigma}$ and phase $\theta R_\sigma$.
+With $m_\sigma = e^{-R_\sigma}$ one has $\log m_\sigma = -R_\sigma$,
+so the phase locked to the magnitude is $\theta R_\sigma = -\theta
+\log m_\sigma$: the fixed point realizes the structure
+$m_\sigma^{1-i\theta}$, i.e., the construction of
+Lemma~\ref{lem:entropy_excess} at parameter $-\theta$ rather than
+$+\theta$. The sign is a harmless orientation convention
+\emph{(Rigorous)}: replacing $\theta$ by $-\theta$ conjugates the
+matrix entrywise, $M(-\theta) = \overline{M(\theta)}$, hence
+$\rho(-\theta) = \overline{M(\theta)}^{\dagger}\,\overline{M(\theta)}
+= \overline{\rho(\theta)}$, and a matrix and its entrywise complex
+conjugate have the same singular values. All purities and
+entropies---and the conclusions of Lemma~\ref{lem:entropy_excess}(a)
+and (b), including the equality characterization---are therefore
+invariant under $\theta \to -\theta$ and apply verbatim to the toy
+model. The Riemannian fixed point has $\theta = 0$, giving the same
+magnitudes but no phases.
 
 Lemma~\ref{lem:entropy_excess}(a) rigorously guarantees that the
 Lorentzian state has lower purity (higher R\'enyi-2 entropy) than the
