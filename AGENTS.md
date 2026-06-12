@@ -4,7 +4,34 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Project
 
-A research program developing a geometric block universe framework for quantum gravity. Papers are organized into programs (each with its own directory) and live at varying stages of completion.
+**This repository is an autonomous research system running on GitHub.** Seven
+scheduled agent routines (worker, reviewer, responder, red-team, scout,
+librarian, governor) claim issues, write and adversarially review derivations,
+demote results that fail stress-testing, and set direction; merges happen only
+through a mechanical gate stack, with the human acting as experimenter rather
+than reviewer. The system mapping — Actions as compute, labels as the state
+machine, issues/PRs as the database, the gate stack as the policy engine — is
+in `docs/ARCHITECTURE.md`.
+
+Its workload is a research program developing a geometric block universe
+framework for quantum gravity. Papers are organized into programs (each with
+its own directory) and live at varying stages of completion.
+
+## Which mode are you in?
+
+You are operating in one of two modes, and it matters which:
+
+- **As a routine** (dispatched by an `autonomy-*` workflow, authenticated as
+  the machine account): your role file in `automation/routines/<role>.md` and
+  `AUTONOMY.md` are controlling. You hold the machine account's authority and
+  all of its limits — protected paths, quorum rules, the NEVER list.
+- **As an interactive assistant** (a Claude Code session the human
+  experimenter is driving): you act under their direction and identity. You
+  may draft changes to protected paths for their review, but such changes
+  merge only through the experimenter's documented amendment procedure, and
+  infrastructure changes you co-author belong in the `EXPERIMENT.md` log.
+  You still follow METHODOLOGY's rigor and citation discipline — the schema
+  does not relax for humans.
 
 ## Programs
 
@@ -21,7 +48,7 @@ programs/                          — Each program has its own directory
     explorations/                  — Research investigations for this program
 explorations/governance/           — Cross-program governance explorations
 automation/routines/               — Autonomous-mode role definitions (protected path)
-docs/                              — Workflow docs and historical experiment data
+docs/                              — ARCHITECTURE.md (the system mapping), workflow docs, historical experiment data
 metrics/                           — Autonomous-experiment metrics
 scripts/hooks/                     — Quality-gate hooks (protected path)
 tools/                             — CI tooling: citation verification (protected path)
