@@ -456,10 +456,15 @@ Model & Timescale & $G$-scaling & Profile & Noise temporal correlator \\
 \midrule
 This work & $\hbar/E_\Delta$ & $1/G$ & Gaussian & Static (derived) \\
 Di\'osi--Penrose & $\hbar/E_\Delta$ & $1/G$ & Exponential & White (postulated) \\
+Dissipative DP~\cite{ddp_model} & $\hbar/E_\Delta$ & $1/G$ & Exponential & White $+$ friction \\
 Kafri--Taylor--Milburn & $\sim \omega d^3/(G m)$ & $1/G$ & Exponential & White (postulated) \\
 \bottomrule
 \end{tabular}
-\caption{Comparison of gravitational decoherence models. The Kafri--Taylor--Milburn
+\caption{Comparison of gravitational decoherence models. The dissipative Di\'osi--Penrose
+row gives the coherence profile over the decoherence timescale; the model's distinguishing
+non-Gaussian dynamics are steady-state phase-space effects (\S\ref{sec:ddp}), not
+coherence-profile modifications, and are negligible at proposed platforms. The
+Kafri--Taylor--Milburn
 model~\cite{kafri} applies to two masses $m$ in harmonic traps of frequency $\omega$ at
 separation $d$: its decoherence rate $\Lambda = K/(4m\omega)$, with gravitational spring
 constant $K = 2Gm^2/d^3$, is of the order of the gravitationally induced normal-mode
@@ -495,10 +500,72 @@ $C \approx 0.5$ this demands $N_{\text{run}} \gtrsim 1000$ shots per time point.
 eight time points spanning $t \in [0.1\tau_{DP}, 3\tau_{DP}]$, the total is
 $\sim 8{,}000$ experimental shots.
 
+\textbf{Invariance under the corrected platform parameters.} The discrimination metrics
+above---the maximum fractional difference $\approx 0.22$, the required visibility
+uncertainty $\sigma_V < 0.07$, and the shot budget $\sim 8{,}000$---depend only on the
+dimensionless ratio $\tau_{\text{coh}}/\tau_{DP} \approx 1.13$ (eq.~\ref{eq:tau_coh}), not
+on the absolute decoherence timescale. The errata correction to the BMV microdiamond row
+(real bulk density $3500$~kg/m$^3$, raising $\tau_{DP}$ from the pre-errata $1.2$~ms to
+$11.6$~ms; Table~\ref{tab:platforms}) rescales $\tau_{\text{coh}}$ in proportion
+($13.1$~ms), leaving the ratio---and hence all three metrics---unchanged. What the
+correction does change is the absolute schedule: the eight sampling points now span
+$t \in [1.2, 35]$~ms rather than sub-millisecond, with the maximum-discrimination point at
+$t \approx 0.48\,\tau_{DP} \approx 5.6$~ms. The longer timescale is experimentally
+favorable---millisecond-scale visibility sampling is well within the reach of the BMV
+protocol~\cite{bose}---so the corrected parameters strengthen, rather than weaken, the
+discriminability case.
+
 The profile discrimination requires that environmental decoherence $\Gamma_{\text{env}}$
 be characterized to within a factor of $\sim 2$ (so that $\delta\Gamma_{\text{env}}\cdot
 \tau_{\text{coh}} \lesssim 0.1$). This is achievable by comparing data at different masses
 or between materials with the same environmental coupling but different $E_\Delta$.
+
+\subsection{Discrimination from the dissipative Di\'osi--Penrose model}
+\label{sec:ddp}
+
+The standard Di\'osi--Penrose model shares the unbounded energy growth common to
+objective-collapse models; the dissipative Di\'osi--Penrose (dDP) variant cures this by
+adding linear friction in the mass current, so that the collapse-induced energy relaxes
+toward a finite asymptotic value associated with a noise ``temperature''
+$T$~\cite{ddp_model}. In the zero-friction limit ($T\to\infty$) the dDP master equation
+reduces to standard DP, recovering the exponential coherence decay
+$|\rho_{LR}^{\text{exp}}| = e^{-t/\tau_{DP}}$ of eq.~\eqref{eq:corr_diosi}. The
+discrimination question raised by~\cite{melo_dissipative} is whether the friction deforms
+that exponential enough to mimic---or be confused with---the Gaussian profile of
+eq.~\eqref{eq:tau_coh} at the sensitivities of \S\ref{sec:predictions}.
+
+It does not, at currently proposed platforms. The distinctive dDP signatures are
+phase-space effects, not coherence-profile effects: the friction drives the reduced state
+to a \emph{non-equilibrium steady state} whose Wigner function develops non-Gaussian tails,
+with the non-Gaussianity scaling as the third power of the dissipation
+parameter~\cite{melo_dissipative}. These are energy- and momentum-sector features that
+accumulate as the state approaches its steady state over the thermal-relaxation timescale;
+they are not modifications of the position off-diagonal element on the much shorter
+decoherence timescale $\tau_{DP}$. Over the interferometric window $t \lesssim 3\tau_{DP}$
+the dDP coherence decay therefore coincides with the standard DP exponential up to a
+fractional correction set by the friction strength, which levitated-optomechanics bounds
+already constrain to be weak (collapse temperature $T \gtrsim 10^{-13}$~K for localization
+length $< 10^{-6}$~m)~\cite{ddp_bounds}.
+
+\textbf{Assumption (explicit).} We take the dDP friction over $t \lesssim 3\tau_{DP}$ to
+modify the position-coherence exponent by a fractional amount small compared to the $0.22$
+Gaussian--exponential separation of eq.~\eqref{eq:delta_V}---i.e.\ thermal relaxation is
+slow compared to decoherence on the BMV and MAQRO platforms. This is consistent with both
+the $T\to\infty$ reduction to DP and the steady-state location of the non-Gaussian
+effects~\cite{melo_dissipative}, but a derivation of the exponent correction from the dDP
+master equation for a rigid superposed body is not carried out here.
+
+\textbf{Consequence.} Under this assumption the three-way discrimination collapses to the
+two-way test already quantified in \S\ref{sec:predictions}: dDP and standard DP both
+predict (near-)exponential decay over the observation window, while this work predicts the
+Gaussian of eq.~\eqref{eq:tau_coh}. The shot budget of \S\ref{sec:predictions} therefore
+distinguishes the Gaussian profile from \emph{both} DP and dDP. Should a future platform
+reach the thermal-relaxation regime, the dDP profile would drift away from a pure
+exponential toward its steady state---a deformation distinct from the Gaussian's
+slow-then-sudden shape, sharpening rather than blurring the discrimination. This analysis
+is \textbf{(Sketch)}: it rests on the explicit assumption above and on the cited
+characterization of where the dDP non-Gaussian effects reside, not on a derived dDP
+coherence profile for the superposed-body geometry.
 
 \subsection{Material-dependent profile transition (conjectural)}
 \label{sec:material}
@@ -659,6 +726,18 @@ gravitational decoherence, \textit{New J.\ Phys.}\ \textbf{16}, 065020 (2014).
 \bibitem{marletto_classical} C.~Marletto, J.~Oppenheim, V.~Vedral, and E.~Wilson,
 Classical gravity cannot mediate entanglement,
 preprint arXiv:2511.07348 (2025).
+
+\bibitem{ddp_model} G.~Di Bartolomeo, M.~Carlesso, K.~Piscicchia, C.~Curceanu,
+M.~Derakhshani, and L.~Di\'osi, On the linear friction many-body equation for dissipative
+spontaneous wavefunction collapse, \textit{Phys.\ Rev.\ A}\ \textbf{108}, 012202 (2023).
+
+\bibitem{ddp_bounds} G.~Di Bartolomeo and M.~Carlesso, Experimental bounds on
+linear-friction dissipative collapse models from levitated optomechanics,
+\textit{New J.\ Phys.}\ \textbf{26}, 043006 (2024).
+
+\bibitem{melo_dissipative} P.~B.~Melo, P.~V.~Paraguass\'u, S.~Artini, G.~Lo Monaco,
+S.~Donadi, and M.~Paternostro, Non-equilibrium thermodynamics of collapse models in the
+strongly non-Gaussian regime, preprint arXiv:2606.06259 (2026).
 
 \bibitem{fixed_point} W.~Regelmann and Claude (Anthropic), Fixed-point existence of
 self-consistent semiclassical gravity (2026). Companion paper.
