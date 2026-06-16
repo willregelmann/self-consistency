@@ -246,7 +246,7 @@ gap controls the wrong operator).
 "Structural" is a claim about absence; what is Rigorous is "not closed as
 written + obvious repair needs a foliation," while "cannot *ever* be closed by
 any A1–A6 route" (e.g. an equal-time/Euclidean reformulation with a controlled
-gap to the Lorentzian object, a route §open itself flags) is Sketch/Conjecture.
+gap to the Lorentzian object, a route worth recording) is Sketch/Conjecture.
 (2) "MPS cannot survive removal of homogeneity" is an inference from the
 estimate's structure, not a proven no-go — but a CMC adaptation is *itself*
 beyond A1–A6. (3) The renormalized, order-reduced kernel might have better

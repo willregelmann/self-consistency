@@ -80,7 +80,7 @@ additional repairable gaps noted in its proof. An earlier claim that the Planck 
 emerges from the convergence analysis as the natural validity boundary is withdrawn
 pending a corrected contraction estimate (Section~\ref{sec:planck}).
 
-\medskip\noindent The perturbative contraction estimate requires a mass gap and therefore applies only to massive fields; extension to massless fields such as the photon and gluon is an open problem (Section~\ref{sec:open}). It also requires a compact Cauchy surface, so it does not cover Minkowski space or asymptotically flat backgrounds (Section~\ref{sec:open}).
+\medskip\noindent The perturbative contraction estimate is permanently Sketch at the stated generality: the binding obstruction (Gap~M3) is mass-independent --- the non-local response kernel is a Lorentzian Green operator with causal-past support, not a spatial elliptic resolvent, and this distinction does not depend on field mass --- so the same Gap~(M3) obstruction applies equally to massless fields such as the photon and gluon (Section~\ref{sec:open}). The estimate also requires a compact Cauchy surface, so it does not cover Minkowski space or asymptotically flat backgrounds (Section~\ref{sec:open}).
 
 %======================================================================
 \section{The self-consistency map}
@@ -334,12 +334,16 @@ operator-norm side: fixing the single Sobolev reference scale $\mu^2\sim R$ that
 $\kappa$ chain consistent forces the local-part scale to $\hbar R/(4\pi)^2$. (M1) and (M4)
 must therefore be repaired jointly.
 
-\smallskip\noindent\textit{Remark on the massless case.} The mass gap
-$m > 0$ is essential in two places: it ensures exponential decay of the
-non-local kernel~(Step~4), and it controls the infrared behavior of the
-local coefficients~(Step~3). For massless or conformally coupled fields, the
-non-local kernel decays only algebraically, the Hilbert--Schmidt bound may
-diverge, and the argument breaks down. The massless case remains open.
+\smallskip\noindent\textit{Remark on the massless case.} The binding
+obstruction (Gap~M3) is mass-independent: the non-local response kernel is
+a Green operator of the Lorentzian hyperbolic operator $(\Box_g + m^2 + \xi R)$
+with causal-past support $J^-(x)$, and no controlled reduction to a spatial
+$H^s(\Sigma)$ operator exists within (A1)--(A6) regardless of whether $m > 0$
+or $m = 0$. The algebraic-decay and Hilbert--Schmidt arguments that appear in
+the massive Sketch are downstream of the spatial-operator assumption that
+Gap~(M3) already identifies as illegitimate; they do not constitute an
+independent infrared obstruction. The massless case therefore fails for the
+same structural reason as the massive case, and remains open on the same terms.
 
 \smallskip\noindent\textit{Remark on the K\"all\'en--Lehmann approach.}
 On Minkowski spacetime, the bound can alternatively be established via the
@@ -714,12 +718,15 @@ the deformation existence argument behind (A1) should be attributed and verified
 precisely.
 
 \item \textbf{Extension to massless fields.}
-Lemma~\ref{lem:kernel_bound} sketches the $H^s \to H^{s-2}$ bound for massive fields
-via the Hadamard decomposition: the mass gap $m > 0$ is invoked for exponential decay of
-the non-local kernel and for infrared control of the local coefficients. Extending
-the bound to massless or conformally coupled fields requires new IR control, since the
-non-local kernel decays only algebraically when $m = 0$ and the Hilbert--Schmidt bound
-may diverge.
+The binding obstruction for the massless extension is Gap~(M3), not an
+independent infrared failure. Gap~(M3) is mass-independent: the non-local
+response kernel is a Lorentzian Green operator with causal-past support
+regardless of whether $m > 0$, and the algebraic-decay and Hilbert--Schmidt
+arguments that appear in the massive Sketch are downstream of the spatial-operator
+assumption Gap~(M3) already identifies as illegitimate. Closing the massless
+extension therefore requires discharging (M3) first; any remaining IR issues
+(e.g.\ algebraic kernel decay when $m = 0$) would be a secondary obstacle, not
+the present bottleneck.
 
 \item \textbf{Uniform stress-energy bound (A3).} The Pinamonti--Siemssen
 result~\cite{pinamonti_siemssen} establishes this for FRW spacetimes. Extension to general
