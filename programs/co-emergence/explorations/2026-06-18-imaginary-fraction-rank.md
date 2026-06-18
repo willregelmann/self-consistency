@@ -107,10 +107,15 @@ Holding `N` fixed and varying the subsystem rank `min(d_1, d_2)` leaves
 | 64 | (16,4) | 4 | 0.378 ± 0.024 |
 | 64 | (2,2,2,2,2,2) | 2 | 0.382 ± 0.029 |
 
-Ranks differing by up to a factor of 4 at fixed `N` agree to `< 0.005` —
-within the seed spread. Rank has no independent effect; `im_frac` is a function
-of the *global* spectrum `{p_sigma}`, and the bipartition used to define
-"rank" never enters (*).
+Structurally, rank independence follows directly from eq:im_frac_reduction: the
+bipartition `min(d_1, d_2)` is not an argument of the functional — only the
+global Born spectrum `{p_sigma}` and `theta` appear. The numerical table
+confirms this: at fixed `N`, rows with the same total dimension agree within
+seed spread (max spread ~0.006 at N=64). The small systematic trend visible at
+N=64 — (8,8)=0.376 vs (2,2,2,2,2,2)=0.382 — is a `Sigma_alpha` artifact of
+the `alphas=[0.4]*len(dims)` driver, which increases the total coupling with
+the number of tensor factors; a control run at `alpha=0` gives byte-identical
+values across all rank structures at fixed `N`.
 
 ## N dependence and the large-N limit
 
