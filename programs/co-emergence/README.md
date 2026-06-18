@@ -22,7 +22,7 @@ Mass, Lorentzian signature, local time, and local Hilbert space are four aspects
 
 The paper leads with proved results, then develops the interpretive framework:
 
-- **Section 3 (Lorentzian phases and the entropy excess):** The mathematical core. The Lorentzian self-consistency map produces complex phases locked to magnitudes in the fixed-point wavefunction (~25–34% imaginary content depending on subsystem rank, stable through N=256), absent in the Riemannian case. The phase-induced lemma proves a purity decrease for all subsystem ranks and S_Lor > S_Riem for rank-2 subsystems (Rigorous), for any magnitude profile that is not multiplicatively separable across the bipartition; the general-rank von Neumann excess fails for extreme entry ratios and survives only as a bounded-ratio conjecture. A finite toy model confirms composition, Born rule, and imaginary subsystem coherences through N=16, with the full 68% entropy excess arising entirely from phase structure.
+- **Section 3 (Lorentzian phases and the entropy excess):** The mathematical core. The Lorentzian self-consistency map produces complex phases locked to magnitudes in the fixed-point wavefunction (~25–40% imaginary content, set by θ, the spread of h, the system size N, and the alignment convention — *not* by subsystem rank — via an exact reduction to the magnitude spectrum; stable through N=256), absent in the Riemannian case. The phase-induced lemma proves a purity decrease for all subsystem ranks and S_Lor > S_Riem for rank-2 subsystems (Rigorous), for any magnitude profile that is not multiplicatively separable across the bipartition; the general-rank von Neumann excess fails for extreme entry ratios and survives only as a bounded-ratio conjecture. A finite toy model confirms composition, Born rule, and imaginary subsystem coherences through N=16, with the full 68% entropy excess arising entirely from phase structure.
 
 - **Section 4 (The co-emergence thesis):** The interpretive framework. Mass requires Lorentzian signature (Wigner); signature provides local time; local time enables local Hilbert space (Page-Wootters); Hilbert space closes the loop via stress-energy. The mass assumption is weakened: the conformal trace anomaly generates effective mass for non-conformally coupled fields (Conjecture 2).
 
@@ -42,7 +42,7 @@ The paper leads with proved results, then develops the interpretive framework:
 | Phase-induced purity decrease (all ranks) | **Rigorous** | Lemma in paper / general-rank exploration |
 | Interference metric I_S = S(Re ρ) − S(ρ): zero iff ρ is real (in the smooth-structure basis) | **Rigorous** | Prop. in paper §3 |
 | Toy model: composition, Born rule, interference (N=4–16) | **Rigorous** (numerical) | Toy model exploration |
-| ψ* imaginary content ~25–34% (rank-dependent), stable through N=256 | **Rigorous** (numerical) | Scaling/mixed-dims studies |
+| ψ* imaginary fraction = exact functional of Born spectrum and θ (eq. im_frac_reduction); ~25–40% (N-, h-, θ-, alignment-dependent, *not* rank-dependent), → analytic large-N limit, below Haar baseline | **Rigorous** (reduction) / **Rigorous** (numerical) | Imaginary-fraction exploration (2026-06-18) / scaling & mixed-dims studies |
 | S_Lor/S_Riem ≈ 1.68, entirely from phases | **Rigorous** (numerical) | Scaling study |
 | vN entropy excess (general rank) | **Refuted** in general (3×3 counterexample, extreme entry ratios); survives as bounded-entry-ratio Conjecture | General-rank exploration (100k+ moderate-ratio tests, 0 violations) |
 | Level 2 is signature-blind (massive) | Sketch (underlying Banach contraction demoted 2026-06) | B1 exploration |
@@ -61,7 +61,7 @@ The paper leads with proved results, then develops the interpretive framework:
 
 4. **Level 1 measure.** Natural measure on Sm(M) without metric input.
 
-5. **Analytical open questions.** Why does imaginary fraction → 0.25? Why S_Lor/S_Riem ≈ 1.68? General rank proof of entropy excess lemma.
+5. **Analytical open questions.** Why S_Lor/S_Riem ≈ 1.68? General rank proof of entropy excess lemma. (The imaginary fraction → 0.25 question is resolved: it numerically converges to ≈0.25 (opt-align) as N → ∞ with h ~ U[0.5,1.5]; the max-align large-N limit ≈0.40 is analytic via eq:im_frac_reduction.)
 
 ## Build
 
