@@ -23,9 +23,9 @@ Compute `SINCE` from the window (e.g. `date -u -d '7 days ago' +%FT%TZ`), then:
    - Open PRs: `gh pr list --state open --json number,title,labels,headRefOid,createdAt`
    - Per label count, open issues: `agent-ready`, `stuck`, `needs-human`, `thread-proposal` (`gh issue list --state open --label <L> --json number,title`)
 3. **Throughput (window):** `gh pr list --state merged --limit 50 --json number,title,mergedAt,labels` then filter `mergedAt >= SINCE`.
-4. **Metrics:** latest comment on the **Metrics dashboard** issue (`gh issue list --state open --search 'in:title "Metrics dashboard"'` → newest comment) and the most recent two `metrics/*.json` files.
-5. **Quorum verdicts (for T3):** scan recent merged + open agent-PR comments for `<!-- quorum:verdict <accept|revise|reject> -->` markers over the trailing 20.
-6. **Per program:** for each of `co-emergence`, `fixed-point-existence`, `gaussian-gravitational-decoherence`, `signature-change-boundary`, read `programs/<p>/OBJECTIVES.md` (milestone statuses) and the merged PRs in the window touching `programs/<p>/`.
+4. **Metrics (last recorded, NOT current):** read the newest comment on the **Metrics dashboard** issue (`gh issue list --state open --search 'in:title "Metrics dashboard"'` → newest comment) and the latest `metrics/*.json`. This is the last *weekly* snapshot and may be up to 6 days stale — note its date. Do **not** quote its PR counts as current: compute current totals (merged agent-PRs, demotions, promotions, demotion rate) from the live merge list in Step 1.3, and use the snapshot only for the rigor distribution and as a trend baseline.
+5. **Quorum verdicts (for T3):** collect markers across the last ~10 merged agent-PRs plus all open agent-PRs, then take the trailing 20. Per-PR query that works (`scan` returns empty — use `capture`): `gh pr view <N> --json comments --jq '[.comments[].body | capture("quorum:verdict (?<v>accept|revise|reject)")?.v] | map(select(.!=null))'`. Tally accept vs revise/reject.
+6. **Per program** (`co-emergence`, `fixed-point-existence`, `gaussian-gravitational-decoherence`, `signature-change-boundary`): infer movement from the window's merged-PR **titles** first — they carry milestone IDs (`CE-2`, `FPE-4`, `GGD-2`, `SCB-6`). Read a `programs/<p>/OBJECTIVES.md` only to resolve a status the titles leave unclear; do not read all four by default.
 
 ## Step 2: Diagnose failures (do not just count them)
 
