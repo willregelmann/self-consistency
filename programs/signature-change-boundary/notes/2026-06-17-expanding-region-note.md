@@ -443,10 +443,10 @@ this note:
 ## Relation to existing work
 
 The flat-slice lineage of the seed note (Ellis and collaborators; Hayward;
-Dray–Ellis–Hellaby–Manogue junction conditions; Kossowski–Kriele degenerate
-geodesics) applies here as well, and remains **exploratory until verified** —
-none may enter a `thebibliography` without strict verification (author/title/
-journal/year + claim support), per METHODOLOGY citation discipline. The
+Dray–Manogue–Tucker junction conditions; Kossowski–Kriele degenerate
+geodesics) applies here as well; these references were **paper-grade verified**
+under SCB-4 (#135) and are recorded as formal entries in the seed note's
+References section. The
 expanding case additionally touches **signature-change cosmology** and the
 **no-boundary** literature (Halliwell–Hartle-type integration-contour analyses
 for an expanding no-boundary region are the natural comparison for the §2
