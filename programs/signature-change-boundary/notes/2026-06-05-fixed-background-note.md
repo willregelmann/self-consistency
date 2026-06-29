@@ -179,4 +179,24 @@ The result is narrow, and the following are deliberately *not* asserted.
 
 ## Relation to existing work
 
-The construction sits in the lineage of the signature-change literature (Ellis and collaborators; Hayward), the degenerate-metric junction conditions of Dray–Ellis–Hellaby–Manogue, and the degenerate-metric geodesic analyses of Kossowski–Kriele. The techniques used here — geodesic completeness to a degenerate surface, Frobenius analysis at the resulting singular point, junction data at $\Sigma$ — are standard in that body of work, and no novelty is claimed for them. What this note isolates is the *combination*: that geometry, geodesics, field, and stress–energy are simultaneously consistent on this background through one mechanism, and the sector-asymmetric crossing picture that results. Specific matching and traversability conditions, and whether the present results reproduce or extend the literature's, should be checked against the original sources.
+The construction sits in the lineage of the classical signature-change literature. The cosmological signature-change solutions of Ellis, Sumeruk, Coule and Hellaby [1], and Ellis's covariant treatment [2], established the setting. The junction/matching data at a degenerate surface $\Sigma$ — in particular the *no-surface-layer* condition (continuity of the field and of the canonical momentum $\sqrt{|g|}\,g^{00}\partial_0\phi$, with no distributional shell) that §5 here reproduces automatically through Fuchsian regularity — were developed by Hayward [3] and, for the scalar field specifically, by Dray, Manogue and Tucker [4]. That matching condition is not uncontested: Hellaby and Dray [5] showed that standard conservation laws can fail across a classical signature change, so the no-layer reading adopted here is the Dray–Manogue–Tucker position rather than a universally agreed result (cf. §9.2, §9.4). The geodesic behaviour at the degenerate surface — completeness to, and transverse extendability across, the type-change hypersurface — is the subject of the degenerate-metric analyses of Kossowski and Kriele [6,7].
+
+The techniques used here — geodesic completeness to a degenerate surface, junction data at $\Sigma$, and the treatment of a free scalar field across the signature change — are standard in that body of work, and no novelty is claimed for them. (The Frobenius/Bessel reduction of §5 is a convenience of presentation; the underlying scalar-field-across-$\Sigma$ problem and its no-surface-layer matching are those of [4], reached there by distributional rather than series methods.) What this note isolates is the *combination*: that geometry, geodesics, field, and stress–energy are simultaneously consistent on this background through one mechanism (§8), and the sector-asymmetric crossing picture that results. Whether the present results reproduce or extend the matching and traversability conditions of [3]–[5] is noted where relevant and otherwise left to the original sources.
+
+### References
+
+The following entries were verified (author, title, journal, volume, page, year, and content-match to the technique attributed) per METHODOLOGY §Citation Discipline, paper-grade tier, during the SCB-4 citation-verification pass (issue #135).
+
+[1] G. F. R. Ellis, A. Sumeruk, D. Coule, and C. Hellaby, "Change of signature in classical relativity," *Classical and Quantum Gravity* **9**, 1535 (1992). DOI: 10.1088/0264-9381/9/6/011.
+
+[2] G. F. R. Ellis, "Covariant change of signature in classical relativity," *General Relativity and Gravitation* **24**, 1047 (1992). DOI: 10.1007/BF00756946.
+
+[3] S. A. Hayward, "Signature change in general relativity," *Classical and Quantum Gravity* **9**, 1851 (1992); Erratum, *ibid.* **9**, 2543 (1992). DOI: 10.1088/0264-9381/9/8/007.
+
+[4] T. Dray, C. A. Manogue, and R. W. Tucker, "The scalar field equation in the presence of signature change," *Physical Review D* **48**, 2587 (1993). DOI: 10.1103/PhysRevD.48.2587; arXiv:gr-qc/9303002.
+
+[5] C. Hellaby and T. Dray, "Failure of standard conservation laws at a classical change of signature," *Physical Review D* **49**, 5096 (1994). DOI: 10.1103/PhysRevD.49.5096; arXiv:gr-qc/9404001.
+
+[6] M. Kossowski and M. Kriele, "Smooth and discontinuous signature type change in general relativity," *Classical and Quantum Gravity* **10**, 2363 (1993). DOI: 10.1088/0264-9381/10/11/019.
+
+[7] M. Kossowski and M. Kriele, "Transverse, type-changing, pseudo-Riemannian metrics and the extendability of geodesics," *Proceedings of the Royal Society of London A* **444**, 297 (1994). DOI: 10.1098/rspa.1994.0019.
