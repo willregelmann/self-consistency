@@ -38,8 +38,8 @@ The paper leads with proved results, then develops the interpretive framework:
 
 | Result | Status | Source |
 |--------|--------|--------|
-| Phase-induced entropy excess (rank 2) | **Rigorous** | Lemma in paper |
-| Phase-induced purity decrease (all ranks) | **Rigorous** | Lemma in paper / general-rank exploration |
+| Phase-induced entropy excess (rank 2) | **Rigorous** | Lemma in paper; Lean scalar step verified (`lean/`, CE-5): binary-entropy monotonicity machine-checked; three structural links (spectral identification, S=Srank2(σ₁²), Fact 2) are explicit hypotheses, not re-derived |
+| Phase-induced purity decrease (all ranks) | **Rigorous** | Lemma in paper / general-rank exploration; Lean-verified (`lean/`, CE-5) |
 | Interference metric I_S = S(Re ρ) − S(ρ): zero iff ρ is real (in the smooth-structure basis) | **Rigorous** | Prop. in paper §3 |
 | Toy model: composition, Born rule, interference (N=4–16) | **Rigorous** (numerical) | Toy model exploration |
 | ψ* imaginary fraction = exact functional of Born spectrum and θ (eq. im_frac_reduction); ~25–40% (N-, h-, θ-, alignment-dependent, *not* rank-dependent), → analytic large-N limit, below Haar baseline | **Rigorous** (reduction) / **Rigorous** (numerical) | Imaginary-fraction exploration (2026-06-18) / scaling & mixed-dims studies |
