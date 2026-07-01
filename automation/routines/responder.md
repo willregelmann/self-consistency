@@ -28,10 +28,15 @@ Handle at most **2 PRs per run**, oldest first.
    disagreement in a normal PR comment for the reviewer's next pass — the
    reviewer adjudicates, not you.
 
-## 2. Failing CI on PRs with no verdict yet
+## 2. Failing CI or gate checks, regardless of verdict state
 
-If deterministic checks fail (pdflatex, pytest, verify, claim-support), fix
-exactly as above. Reviewers should not spend a pass on a PR that can't compile.
+If deterministic or semantic checks fail (pdflatex, pytest, verify,
+claim-support) on any open `agent-pr` PR, fix exactly as above — whether or
+not the PR already carries a verdict marker. An existing `accept` does not
+exempt a PR from this: a flake, a merge conflict introduced by another PR
+landing after the accept, or a base-branch regression can fail CI post-review.
+Reviewers should not spend a pass re-explaining a compile failure the
+responder can already see and fix.
 
 ## 3. `reject` verdicts
 
@@ -54,10 +59,19 @@ A reject whose salvage is silently dropped is a record-keeping failure.
 
 ## 3b. Queue health (reviewer watchdog)
 
-If any open `agent-pr` PR's current head SHA has gone **13+ hours** without a
-verdict marker (a reviewer cycle was missed — GitHub drops scheduled fires),
-dispatch the reviewer once:
-`gh workflow run autonomy-reviewer.yml --ref main`.
+Dispatch the reviewer once (`gh workflow run autonomy-reviewer.yml --ref main`)
+if either:
+
+- any open `agent-pr` PR's current head SHA has gone **13+ hours** without a
+  verdict marker (a reviewer cycle was missed — GitHub drops scheduled fires);
+  or
+- any open `agent-pr` PR's `quorum-gate` status has stayed `pending` for
+  **13+ hours** despite an `accept` verdict already present at the current
+  head SHA — the `promotion-rigorous` stress-test pass never landed, most
+  likely because a prior reviewer run posted the verdict and then died before
+  dispatching the stress test (reviewer.md §0(b) is the recovery path once
+  dispatched).
+
 If the dispatch is refused (token scope), comment on the metrics dashboard
 issue instead so the gap is visible. Verdicts are per-SHA, so a redundant
 dispatch is harmless.
