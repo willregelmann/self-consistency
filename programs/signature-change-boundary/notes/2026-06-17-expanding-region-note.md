@@ -442,11 +442,14 @@ this note:
 
 ## Relation to existing work
 
-The flat-slice lineage of the seed note (Ellis and collaborators; Hayward;
-Dray–Manogue–Tucker junction conditions; Kossowski–Kriele degenerate
-geodesics) applies here as well; these references were **paper-grade verified**
-under SCB-4 (#135) and are recorded as formal entries in the seed note's
-References section. The
+The flat-slice lineage of the seed note (Ellis and collaborators; the
+*competing* junction conditions of Dray–Manogue–Tucker — momentum continuity —
+and Hayward — momentum vanishing, the two sides of a published dispute; see
+the seed note's corrected Relation-to-existing-work section; Kossowski–Kriele
+degenerate geodesics) applies here as well; these references were
+**paper-grade verified** under SCB-4 (#135), with the Hayward attribution
+corrected in the July 2026 red-team audit, and are recorded as formal entries
+in the seed note's References section. The
 expanding case additionally touches **signature-change cosmology** and the
 **no-boundary** literature (Halliwell–Hartle-type integration-contour analyses
 for an expanding no-boundary region are the natural comparison for the §2
