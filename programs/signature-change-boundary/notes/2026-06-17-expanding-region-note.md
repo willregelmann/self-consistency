@@ -207,8 +207,12 @@ $\tau=\int\sqrt{-\lambda-a^2|\vec u|^2}\,dx^0$ with the (now $a$-weighted) cone
 condition $|\vec u|^2<-\lambda/a^2$, $\vec u=d\vec x/dx^0$; the integrand is
 bounded by $\sqrt{-\lambda}\to0$ over a finite interval, so $\tau<\infty$ — the
 same convergence as the seed note, with $a(0)>0$ merely rescaling the cone. As
-before, the *only* way to make $\tau$ diverge is $\lambda\to-\infty$ (curvature
-blow-up), not signature change.
+before, the *only* way to make $\tau$ diverge is $\lambda\to-\infty$ sufficiently
+fast — a divergence of the prescribed profile, not anything forced by signature
+change. (The "(curvature blow-up)" parenthetical in an earlier draft is false:
+$\lambda\to-\infty$ drives $\mathcal{H}=a'/(a\sqrt{-\lambda})\to 0$, suppressing
+rather than amplifying the curvature; and if $a\equiv$ const the geometry is flat
+for every $\lambda(x^0)$, as the seed note's §4 correction records.)
 
 The new physical content is **Hubble redshift**: the peculiar velocity
 $v_{\rm phys}^2=a^2|\dot{\vec x}|^2/\dot u^2=(|\vec p|^2/a^2)/(1+|\vec p|^2/a^2)$
