@@ -24,19 +24,25 @@ name: autonomy-routine
 # valid Copilot license"). Buying a seat for the machine account was
 # considered and deferred (cost); the accepted tradeoff is that Copilot
 # tasks are created and their content authored under the experimenter's own
-# account instead, via COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN — see
+# account instead, via COPILOT_TASK_API_PAT — see
 # EXPERIMENT.md log, 2026-07-12, and AUTONOMY.md's quorum-gate /
 # constitution-guard amendments the same day, which already removed the
 # gates that depended on a machine-account-only identity for authority
 # purposes. This workflow no longer checks out the repo or configures git
 # locally: the Copilot task clones and operates on the repo itself,
-# remotely, under COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN's identity. There
+# remotely, under COPILOT_TASK_API_PAT's identity. There
 # is no local git/gh operation left for AUTONOMY_BOT_PAT to authenticate, so
-# it is no longer used by this file. COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN
-# is an environment secret scoped to the "copilot" GitHub Environment (no
-# protection rules on it), not a plain repo secret, so this job declares
-# `environment: copilot` to read it -- confirmed necessary by a live test
-# that otherwise saw it as empty.
+# it is no longer used by this file.
+#
+# CREDENTIAL NOTE: the MCP-config page's "Agents secret"
+# (COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN, used to grant Copilot cloud
+# agent sessions write-tool access via MCP) turned out NOT to be a real
+# GitHub Actions secret -- it lives in a separate Copilot-internal store that
+# `secrets.*` in a workflow cannot read (confirmed empty even after trying
+# `environment: copilot`, which also turned out to hold zero actual secrets).
+# COPILOT_TASK_API_PAT is a second, genuine repo-level Actions secret
+# (same willregelmann identity, same license) created specifically so this
+# workflow can call the Agent Tasks API.
 #
 # Model IDs for the Agent Tasks API do not match the Claude Code CLI's IDs
 # (e.g. `claude-opus-4-8` 400s; the available ceiling is `claude-opus-4.6`).
@@ -65,10 +71,9 @@ jobs:
     name: ${{ inputs.role }}
     if: ${{ vars.AUTONOMY_ENABLED == 'true' }}
     runs-on: ubuntu-latest
-    environment: copilot
     timeout-minutes: 45
     env:
-      GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+      GH_TOKEN: ${{ secrets.COPILOT_TASK_API_PAT }}
       ROLE: ${{ inputs.role }}
       MODEL: ${{ inputs.model }}
       REPO: ${{ github.repository }}
@@ -77,7 +82,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "${GH_TOKEN:-}" ]; then
-            echo "::error::Missing COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN(secret) — cannot run the ${ROLE} routine."
+            echo "::error::Missing COPILOT_TASK_API_PAT(secret) — cannot run the ${ROLE} routine."
             exit 1
           fi
           ACTUAL=$(gh api user --jq .login)
