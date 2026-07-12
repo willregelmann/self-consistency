@@ -8,10 +8,14 @@ name: quorum-gate
 #     (pending until a verdict exists — so the context is never "missing");
 #   - issue_comment events re-evaluate when the reviewer posts a verdict
 #     marker, flipping the status without requiring a push.
-# Verdict markers are honored only from the machine account (repo variable
-# AUTONOMY_BOT) -- the experimenter's trusted-verdict-source status was
-# removed 2026-07-12 (full-autonomy amendment; see EXPERIMENT.md log). No
-# identity outside the machine account can post a live verdict any more.
+# Verdict markers are honored from ANY commenter -- the machine-account-only
+# trust check was removed 2026-07-12 (full-autonomy amendment, same date as
+# the experimenter's removal; see EXPERIMENT.md log). Accepted risk,
+# explicitly: any GitHub account can post an honored verdict on any open
+# agent-pr by pasting the marker text with the correct head SHA (both are
+# public). This is a deliberate tradeoff, not an oversight -- see the
+# EXPERIMENT.md log entry for the reasoning and the mitigation considered
+# (GitHub interaction limits) and not applied.
 # Statuses are per-SHA, so a push automatically invalidates stale verdicts.
 # RESEARCH-CONTENT GUARD: the quorum requirement is keyed on the `agent-pr`
 # label, which the worker applies to its own PR. To stop a machine-account PR
@@ -80,19 +84,14 @@ jobs:
               exit 0 ;;
           esac
 
-          # Markers count only from the machine account, must be the sole
-          # content of a line, and fenced code blocks are stripped first --
-          # so quoting the marker format in prose or in a ```example``` (e.g.
-          # a responder comment explaining what the reviewer should post)
-          # can't be mistaken for a live verdict. All routines share the
-          # machine-account identity, so this isn't a spoofing defense
-          # against outsiders (the login check already handles that) -- it
-          # closes the narrower gap where a routine's own comment
-          # accidentally contains the marker string.
+          # Markers count from any commenter (see header note -- no author
+          # check any more), must be the sole content of a line, and fenced
+          # code blocks are stripped first -- so quoting the marker format in
+          # prose or in a ```example``` (e.g. a responder comment explaining
+          # what the reviewer should post) can't be mistaken for a live
+          # verdict.
           COMMENTS=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
-            | jq -r --arg bot "${BOT:-__unset__}" \
-              '.[] | select(.user.login == $bot) | .body
-               | gsub("```[\\s\\S]*?```"; "")')
+            | jq -r '.[] | .body | gsub("```[\\s\\S]*?```"; "")')
 
           VERDICT=$(echo "$COMMENTS" \
             | grep -oE "^[[:space:]]*<!-- quorum:verdict (accept|revise|reject) sha=$SHA -->[[:space:]]*$" \
