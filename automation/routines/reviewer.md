@@ -13,8 +13,16 @@ can produce. You operate under `AUTONOMY.md`.
 1. Read `AGENTS.md`, `METHODOLOGY.md`, `AUTONOMY.md`.
 2. `gh pr list --state open --label agent-pr --json number,title,headRefOid,labels`
 3. For each PR, list its comments and find `<!-- quorum:verdict ... sha=... -->`
-   markers. A PR needs review iff it has **no verdict marker whose `sha` equals
-   the current head SHA**.
+   and `<!-- quorum:stress-test ... sha=... -->` markers. A PR needs review iff
+   **either**:
+   - (a) it has **no verdict marker whose `sha` equals the current head SHA**, or
+   - (b) it is labeled `promotion-rigorous`, has an `accept` verdict at the
+     current head SHA, but **no stress-test marker at that same SHA** — the
+     stress pass is still owed and `quorum-gate` will sit `pending` forever
+     otherwise (this happens if a prior run posted the verdict and then died
+     before dispatching the stress test). Case (b) does not require redoing
+     the two-pass review — the accept already stands for this SHA. Skip
+     straight to §3.
 
 Review at most **2 PRs per run** as the base cost bound, oldest first — **plus**
 any further PR whose only missing required check is the quorum verdict (every
@@ -76,8 +84,13 @@ Post its full report as a second comment ending with:
 <!-- quorum:stress-test pass sha=<head-sha> -->
 ```
 
-(or `fail`). A `fail` should normally be accompanied by verdict `revise` or
-`reject` with the failure as a finding.
+(or `fail`). A `fail` **must** be accompanied by a `revise` or `reject`
+verdict marker for the same SHA, with the failure as a finding — an accept
+must never stand against a failed stress test. If you arrived here via
+§0(b) (a valid prior accept, stress pass still owed) and the stress test
+comes back `fail`, post the new `revise`/`reject` verdict yourself before
+finishing this PR; this is not "copying a verdict forward," it is a new
+verdict grounded in the stress-test finding.
 
 ## Hard rules
 

@@ -20,15 +20,21 @@ and the repo:
 
 ## 1. Backpressure check
 
-Count open PRs labeled `agent-pr` whose `quorum-gate` status is `pending` (no
-verdict yet). **If ≥ 3, exit without working** — the reviewer is the
+Count open PRs labeled `agent-pr` whose `quorum-gate` status is `pending` —
+this includes both a PR with no verdict yet and a `promotion-rigorous` PR
+with an accept verdict still awaiting its stress-test marker (see
+reviewer.md §0(b)). **If ≥ 3, exit without working** — the reviewer is the
 bottleneck, not work generation. Log nothing; exiting silently is correct.
 
 ## 2. Claim an issue (lock protocol)
 
 Candidates: open issues labeled `agent-ready`, NOT labeled `stuck` or
 `needs-human`, and unassigned. Also reclaim: issues assigned to the machine
-account with no branch commits in 7+ days (unassign, then treat as candidate).
+account with no branch commits in 7+ days — unassign **and restore
+`agent-ready`** (it was cleared at claim time), then treat as a candidate.
+Restoring the label matters even if this run picks a different issue:
+candidate enumeration requires the label, so a reclaim that only unassigns
+leaves the issue invisible to every future run.
 
 If no candidates: exit silently.
 
