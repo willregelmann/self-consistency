@@ -2,40 +2,42 @@ name: autonomy-routine
 
 # Reusable runner for the seven autonomous routines (AUTONOMY.md). Each role's
 # scheduled caller (autonomy-<role>.yml) invokes this with its role + model.
-# Behavior lives in automation/routines/<role>.md; this file only establishes
-# the machine-account identity and starts a Copilot cloud agent task on the
-# role's pointer prompt via the Agent Tasks REST API.
+# Behavior lives in automation/routines/<role>.md; this file only starts a
+# Copilot cloud agent task on the role's pointer prompt via the Agent Tasks
+# REST API and waits for it to finish.
 #
-# WHY THIS EXISTS: the original deployment ran the routines as claude.ai
-# scheduled remote agents, which authenticate GitHub with the *account's*
-# global connector — i.e. the experimenter's admin login. That voided every
-# authority boundary in AUTONOMY.md (write-not-admin, no self-verdict, no
-# protected-path self-approval). A GitHub Actions runner authenticates with a
-# credential we control (AUTONOMY_BOT_PAT), restoring the machine-account
-# identity by construction. See EXPERIMENT.md log (2026-06-09).
+# WHY THE MACHINE-ACCOUNT DESIGN EXISTS: the original deployment ran the
+# routines as claude.ai scheduled remote agents, which authenticate GitHub
+# with the *account's* global connector — i.e. the experimenter's admin
+# login. That voided every authority boundary in AUTONOMY.md (write-not-
+# admin, no self-verdict, no protected-path self-approval). Moving to GitHub
+# Actions with a credential we control (AUTONOMY_BOT_PAT, machine account
+# will-physagent) restored that identity by construction. See EXPERIMENT.md
+# log (2026-06-09).
 #
 # COMPUTE MIGRATION (2026-07-12): the actual reasoning step moved from a
-# headless Claude Code CLI session to a GitHub Copilot cloud agent task,
-# started and polled via the Agent Tasks REST API
-# (agents/repos/{owner}/{repo}/tasks). Everything else about the identity and
-# kill-switch model is unchanged. Two things specific to this API, learned by
-# direct testing before this migration:
-#   - The agent tasks API only accepts user-to-server tokens (PATs, OAuth
-#     tokens) — NOT the default GITHUB_TOKEN. AUTONOMY_BOT_PAT already
-#     satisfies this, so no new credential was introduced.
-#   - Model IDs for this API do not match the Claude Code CLI's IDs (e.g.
-#     `claude-opus-4-8` 400s; the available ID is `claude-opus-4.6`). Model
-#     defaults in each autonomy-<role>.yml caller were updated accordingly.
+# headless Claude Code CLI session to a GitHub Copilot cloud agent task.
+# THIS CHANGED WHICH IDENTITY AUTHORS ROUTINE CONTENT, DELIBERATELY AND
+# LOGGED — not an accident of the kind the 2026-06-05 incident was. Copilot
+# licenses are per-user; the machine account (will-physagent) does not have
+# one, confirmed by testing (the Agent Tasks API 403s: "This API requires a
+# valid Copilot license"). Buying a seat for the machine account was
+# considered and deferred (cost); the accepted tradeoff is that Copilot
+# tasks are created and their content authored under the experimenter's own
+# account instead, via COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN — see
+# EXPERIMENT.md log, 2026-07-12, and AUTONOMY.md's quorum-gate /
+# constitution-guard amendments the same day, which already removed the
+# gates that depended on a machine-account-only identity for authority
+# purposes. This workflow no longer checks out the repo or configures git
+# locally: the Copilot task clones and operates on the repo itself,
+# remotely, under COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN's identity. There
+# is no local git/gh operation left for AUTONOMY_BOT_PAT to authenticate, so
+# it is no longer used by this file.
 #
-# IDENTITY: every git/gh operation, including the task-creation call itself,
-# authenticates as the machine account via AUTONOMY_BOT_PAT, NOT the default
-# GITHUB_TOKEN (whose actor is github-actions[bot] — neither the machine
-# account nor the experimenter, and whose PRs would not trigger the
-# required-check workflows). checkout runs with persist-credentials:false so
-# the default token's git credential cannot shadow the PAT. A hard identity
-# guard refuses to run the routine if the effective login is not the
-# AUTONOMY_BOT variable value — the exact check whose absence caused the
-# 2026-06-05 incident.
+# Model IDs for the Agent Tasks API do not match the Claude Code CLI's IDs
+# (e.g. `claude-opus-4-8` 400s; the available ceiling is `claude-opus-4.6`).
+# Model defaults in each autonomy-<role>.yml caller are being updated to
+# Agent-Tasks-API-compatible IDs role by role as each is migrated.
 #
 # KILL SWITCH: the job is gated on the repo variable AUTONOMY_ENABLED == 'true'.
 # Unset or any other value => every routine run skips. Flip that one variable to
@@ -61,42 +63,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
-      GH_TOKEN: ${{ secrets.AUTONOMY_BOT_PAT }}
+      GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
       ROLE: ${{ inputs.role }}
       MODEL: ${{ inputs.model }}
-      AUTONOMY_BOT: ${{ vars.AUTONOMY_BOT }}
       REPO: ${{ github.repository }}
     steps:
-      - name: Preflight — required secrets and variables present
+      - name: Preflight — required secret present; log the effective identity
         run: |
           set -euo pipefail
-          missing=
-          [ -z "${GH_TOKEN:-}" ] && missing="$missing AUTONOMY_BOT_PAT(secret)"
-          [ -z "${AUTONOMY_BOT:-}" ] && missing="$missing AUTONOMY_BOT(var)"
-          if [ -n "$missing" ]; then
-            echo "::error::Missing required configuration:$missing — cannot run the ${ROLE} routine."
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::Missing COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN(secret) — cannot run the ${ROLE} routine."
             exit 1
           fi
-
-      - name: Check out repo (do not persist the default-token credential)
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Configure git/gh as the machine account, and GUARD the identity
-        run: |
-          set -euo pipefail
-          gh auth setup-git
-          git config --global user.name "${AUTONOMY_BOT}"
-          git config --global user.email "${AUTONOMY_BOT}@users.noreply.github.com"
           ACTUAL=$(gh api user --jq .login)
-          echo "Effective GitHub identity: ${ACTUAL} (expected: ${AUTONOMY_BOT})"
-          if [ "${ACTUAL}" != "${AUTONOMY_BOT}" ]; then
-            echo "::error::Routine would run as '${ACTUAL}', not the machine account '${AUTONOMY_BOT}'."
-            echo "::error::Refusing to act. This is the identity guard the claude.ai deployment lacked (2026-06-05 incident)."
-            exit 1
-          fi
+          echo "${ROLE}: this run's Copilot task will be created and its content authored as GitHub identity '${ACTUAL}'. This is the deliberate, logged 2026-07-12 tradeoff (see AUTONOMY.md and EXPERIMENT.md) — not an unguarded accident. It is expected to be the experimenter's own account, not a dedicated machine account, until the machine account has its own Copilot seat."
 
       - name: Start Copilot cloud agent task and wait for completion
         run: |
