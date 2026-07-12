@@ -237,6 +237,7 @@ two-point function as the complete specification of a Gaussian noise source
 (Assumption~\ref{ass:gaussian}).
 
 \subsection{Physical interpretation}
+\label{sec:physical_interpretation}
 
 The noise is not a quantum vacuum fluctuation of matter fields. It is the statistical
 variance of the mass distribution arising from the superposition: the mass is in two
@@ -281,7 +282,7 @@ The stochastic Newtonian potential at branch location $\mathbf{x}_{L,R}$ is:
 \begin{equation}
 \delta\Phi(\mathbf{x}) = -\frac{G}{c^2}\int \frac{\xi_{00}(\mathbf{x}')}{|\mathbf{x}-\mathbf{x}'|}\,d^3x'
 \end{equation}
-The branch-differential stochastic force $\delta V_\Delta(t) \equiv m[\delta\Phi(\mathbf{x}_L,t) - \delta\Phi(\mathbf{x}_R,t)]$ dephases the off-diagonal element of the density matrix. Averaging over stochastic realizations~\cite{hu_verdaguer}:
+The branch-differential stochastic potential-energy difference $\delta V_\Delta(t) \equiv m[\delta\Phi(\mathbf{x}_L,t) - \delta\Phi(\mathbf{x}_R,t)]$ dephases the off-diagonal element of the density matrix. Averaging over stochastic realizations~\cite{hu_verdaguer}:
 \begin{equation}
 |\rho_{LR}(t)| = |\rho_{LR}(0)|\exp\!\left(-\frac{1}{2\hbar^2}\int_0^t\!\!\int_0^t
 C_V(t'-t'')\,dt'\,dt''\right)
@@ -321,7 +322,9 @@ visibility a standard many-shot interferometer measures (\S\ref{sec:predictions}
 refocusability under a branch-swap echo is an additional discriminant from
 Di\'osi--Penrose. What remains genuinely open is only the metaphysical question of whether
 ensemble-averaged dephasing ``is'' single-system decoherence; the predicted observable does
-not depend on that choice, so no postulate beyond the framework's axioms is required.
+not depend on that choice, so no postulate beyond the framework's physical identification
+of the noise with the superposition's own mass distribution
+(\S\ref{sec:physical_interpretation}) is required.
 \end{remark}
 
 \subsection{Per-realization coherence and the ensemble observable}
@@ -333,7 +336,7 @@ Remark~\ref{rem:dephasing} at the operational level.
 
 \textbf{Single realization.} Fix one realization of the noise field $\xi_{00}$. For a
 stationary superposition the kernel is static (eq.~\eqref{eq:N0000_static}), so the realized
-branch-differential force is a single time-independent constant,
+branch-differential potential-energy difference is a single time-independent constant,
 \begin{equation}
 \delta V_\Delta(t) = v, \qquad
 v \equiv m\!\left[\delta\Phi(\mathbf{x}_L) - \delta\Phi(\mathbf{x}_R)\right],
@@ -375,14 +378,21 @@ independent of the first.
 
 \textbf{The observable this predicts.} A standard free-evolution (Ramsey-type, no echo)
 interferometer estimates the fringe visibility by averaging over many shots, each an
-independent preparation of the superposition and hence an independent draw of $v$. For that
-protocol the measured visibility equals the ensemble average~\eqref{eq:ensemble_recovers},
-so the profile discriminant of \S\ref{sec:predictions} (maximum fractional-coherence
-difference $0.22$) is the quantity a real free-evolution interferometer measures: the
-predicted observable is well-defined. The identification of the shot ensemble with the
-stochastic ensemble is the operational reading already built into
-eq.~\eqref{eq:decoherence_integral} (an average over realizations); it introduces no
-postulate beyond the framework's axioms. Because the suppression is refocusable, a control
+independent preparation of the superposition and hence an independent draw of $v$. Each
+preparation creates the superposition anew; because $v$ is the branch-differential
+potential-energy difference sourced by the superposition's own mass distribution
+(\S\ref{sec:physical_interpretation}; eq.~\eqref{eq:N0000}), each fresh preparation
+redraws $v$ from its Gaussian distribution---in contrast to a frozen external field, which
+would fix $v$ identically across shots and is a distinct model the framework does not
+adopt. For that protocol the measured visibility equals the ensemble
+average~\eqref{eq:ensemble_recovers}, so the profile discriminant of
+\S\ref{sec:predictions} (maximum fractional-coherence difference $0.22$) is the quantity a
+real free-evolution interferometer measures: the predicted observable is well-defined. The
+identification of the shot ensemble with the stochastic ensemble is the operational reading
+already built into eq.~\eqref{eq:decoherence_integral} (an average over realizations); it
+rests on the framework's physical identification of the noise as the statistical variance of
+the superposition's own mass distribution (\S\ref{sec:physical_interpretation}), not on a
+new axiom. Because the suppression is refocusable, a control
 run with a branch-swap echo furnishes an \emph{additional}, sign-definite discriminant from
 Di\'osi--Penrose---it restores the Einstein--Langevin coherence but leaves genuine
 Di\'osi--Penrose decoherence suppressed---subject to the caveat that an echo also refocuses
