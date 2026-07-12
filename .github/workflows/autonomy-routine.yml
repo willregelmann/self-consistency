@@ -32,7 +32,11 @@ name: autonomy-routine
 # locally: the Copilot task clones and operates on the repo itself,
 # remotely, under COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN's identity. There
 # is no local git/gh operation left for AUTONOMY_BOT_PAT to authenticate, so
-# it is no longer used by this file.
+# it is no longer used by this file. COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN
+# is an environment secret scoped to the "copilot" GitHub Environment (no
+# protection rules on it), not a plain repo secret, so this job declares
+# `environment: copilot` to read it -- confirmed necessary by a live test
+# that otherwise saw it as empty.
 #
 # Model IDs for the Agent Tasks API do not match the Claude Code CLI's IDs
 # (e.g. `claude-opus-4-8` 400s; the available ceiling is `claude-opus-4.6`).
@@ -61,6 +65,7 @@ jobs:
     name: ${{ inputs.role }}
     if: ${{ vars.AUTONOMY_ENABLED == 'true' }}
     runs-on: ubuntu-latest
+    environment: copilot
     timeout-minutes: 45
     env:
       GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
