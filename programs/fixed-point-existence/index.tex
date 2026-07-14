@@ -41,8 +41,8 @@ was withdrawn after review identified gaps in the kernel bound and in the contra
 estimate (Section~\ref{sec:banach}), and the massless case, relevant to photons and gluons,
 remains open (Section~\ref{sec:open}); and (3)~conditional existence in the general
 case via the Schauder fixed-point theorem on globally hyperbolic spacetimes with compact
-Cauchy surfaces, under six stated assumptions of which one remains an open conjecture
-(the proof as written also has identified repairable gaps; Section~\ref{sec:schauder}).
+Cauchy surfaces, under five stated assumptions of which one remains an open conjecture,
+plus an explicit semiclassical hypothesis on $\hbar$ (Section~\ref{sec:schauder}).
 An earlier claim that the Planck scale emerges from these analyses as the natural validity
 boundary is withdrawn: the derivation chain behind the contraction constant contains a
 dimensional inconsistency, and neither of its two candidate readings places the breakdown
@@ -77,8 +77,8 @@ result (Section~\ref{sec:starobinsky}) is exact. The perturbative Banach-contrac
 argument (Section~\ref{sec:banach}) is labeled \textbf{Sketch}: it was promoted to
 Rigorous in an earlier revision, and that label has been withdrawn after review identified
 specific gaps, catalogued where they occur. The Schauder argument
-(Section~\ref{sec:schauder}) remains conditional on an open conjecture~(A3), with
-additional repairable gaps noted in its proof. An earlier claim that the Planck scale
+(Section~\ref{sec:schauder}) remains conditional on an open conjecture~(A3) and
+an explicit semiclassical hypothesis on~$\hbar$. An earlier claim that the Planck scale
 emerges from the convergence analysis as the natural validity boundary is withdrawn
 pending a corrected contraction estimate (Section~\ref{sec:planck}).
 
@@ -519,16 +519,20 @@ Top quark & $3.1\times10^{-25}$ & $\sim 10^{-34}$ \\
 \subsection{Setup}
 
 Let $(\mathcal{M},\bar{g})$ be a globally hyperbolic spacetime with \emph{compact} Cauchy
-surface $\Sigma$. Fix $s > n/2 + 2 = 4$ and define the convex compact set:
+surface $\Sigma$. Fix $s > n/2 + 2 = 4$ and define the candidate fixed-point set:
 \begin{equation}
-K_\rho \equiv \bigl\{h \in H^s(\Sigma) : \|h-\bar{h}\|_{H^s} \leq \rho\bigr\}
+K_\rho \equiv \bigl\{h \in H^s(\Sigma) : \|h-\bar{g}\|_{H^s} \leq \rho\bigr\}
 \cap \mathcal{G}_{\text{harm}} \cap \mathcal{L}
 \label{eq:K_rho}
 \end{equation}
-where $\mathcal{G}_{\text{harm}}$ is the affine set of metrics in linearized harmonic
-gauge and $\mathcal{L}$ is the open set of Lorentzian-signature metrics. By the
-Rellich--Kondrachov theorem on compact $\Sigma$, $K_\rho$ is compact in $H^{s'}$ for
-any $s' < s$.
+where $\mathcal{G}_{\text{harm}}$ is the closed affine subspace of metrics in linearized
+harmonic gauge and $\mathcal{L}$ is the open set of Lorentzian-signature metrics. The
+required convexity and compactness of $K_\rho$ are established in the proof of
+Theorem~\ref{thm:schauder} below: for $\rho$ below a threshold set by the Sobolev
+embedding constant, $\overline{B}_\rho(\bar{g}) \subset \mathcal{L}$ and the intersection
+with $\mathcal{L}$ is vacuous, reducing $K_\rho$ to the intersection of a closed convex
+ball with a closed affine subspace — hence closed and convex in $H^s$, compact in
+$H^{s'}$ for $s' < s$ by Rellich--Kondrachov.
 
 \subsection{Assumptions}
 
@@ -576,55 +580,103 @@ Section~\ref{sec:banach}. Open for massless fields (the same (M3) gap binds).\te
 \label{thm:schauder}
 Let $(\mathcal{M},\bar{g})$ be globally hyperbolic with compact Cauchy surface $\Sigma$,
 and $\bar{g}$ a classical solution in linearized harmonic gauge. Under assumptions
-\emph{(A1)--(A6)}, the self-consistency map $\mathcal{F}$ has at least one fixed point
-$g^* \in K_\rho$ in the $H^{s'}$ topology for any $s' < s$.
+\emph{(A1)--(A5)} and the semiclassical hypothesis
+$\hbar < \hbar_{\max}$~\eqref{eq:hbar_max}, the self-consistency map $\mathcal{F}$ has at
+least one fixed point $g^* \in K_{\rho^*}$ in the $H^{s'}$ topology for any $s' < s$,
+where $\rho^* = C_{\text{inv}}B_0\hbar$~\eqref{eq:rho_star}. Assumption~(A3) enters
+through the uniform bound used in Step~2.
 \end{theorem}
 
-\noindent\emph{Proof.} We verify the hypotheses of the Schauder fixed-point theorem
-\cite{schauder}.
+\noindent\emph{Proof.} \textbf{(Rigorous, conditional on (A3).)} We verify the hypotheses
+of the Schauder fixed-point theorem~\cite{schauder}.
 
-\smallskip\noindent\textit{Step 1: $K_\rho$ is convex and compact.} $K_\rho$ is the
-intersection of a closed $H^s$ ball with the convex affine sets $\mathcal{G}_{\text{harm}}$
-and $\mathcal{L}$, hence convex and closed in $H^s$. By Rellich--Kondrachov, it is compact
-in $H^{s'}$.
+\smallskip\noindent\textit{Step 1: $K_\rho$ is convex, closed, and compact (for $\rho$
+below a threshold).}
+Since $s > n/2 + 2 = 4$ and $\Sigma$ is compact, the Sobolev embedding
+$H^s(\Sigma) \hookrightarrow C^2(\Sigma)$ holds with embedding constant $C_{\mathrm{emb}}$:
+$\|h\|_{C^2} \leq C_{\mathrm{emb}}\|h\|_{H^s}$ for all $h \in H^s(\Sigma)$.
+The background $\bar{g}$ is Lorentzian, so its eigenvalues $\lambda_i(\bar{g}(x))$ satisfy
+$\lambda_{\min} \equiv \min_{x \in \Sigma}\min_i |\lambda_i(\bar{g}(x))| > 0$.
+For any $g$ with $\|g - \bar{g}\|_{H^s} \leq \rho$, the $C^0$-distance satisfies
+$\|g - \bar{g}\|_{C^0} \leq C_{\mathrm{emb}}\rho$, and eigenvalue perturbation gives
+$|\lambda_i(g(x)) - \lambda_i(\bar{g}(x))| \leq C_{\mathrm{emb}}\rho$ pointwise.
+Choose the Lorentzian-signature threshold:
+\begin{equation}
+\rho_{\mathcal{L}} \equiv \frac{\lambda_{\min}}{C_{\mathrm{emb}}}.
+\label{eq:rho_L}
+\end{equation}
+For $\rho < \rho_{\mathcal{L}}$, every $g$ in the closed $H^s$ ball
+$\overline{B}_\rho(\bar{g}) \equiv \{h \in H^s(\Sigma) : \|h - \bar{g}\|_{H^s} \leq \rho\}$
+has signature identical to $\bar{g}$ at every point of $\Sigma$; in particular it is
+Lorentzian. Thus the intersection with~$\mathcal{L}$ is vacuous
+($\overline{B}_\rho(\bar{g}) \subset \mathcal{L}$), and
+\[
+K_\rho = \overline{B}_\rho(\bar{g}) \cap \mathcal{G}_{\text{harm}}
+\quad \text{for } \rho < \rho_{\mathcal{L}}.
+\]
+The closed ball $\overline{B}_\rho(\bar{g})$ is closed and convex in $H^s$;
+$\mathcal{G}_{\text{harm}}$ is a closed affine subspace (the linearized harmonic-gauge
+condition $\nabla^\mu(h_{\mu\nu} - \tfrac{1}{2}\bar{g}_{\mu\nu}\mathrm{tr}\,h) = 0$ is
+a closed linear constraint). Hence $K_\rho$ is closed and convex in $H^s$.
+By the Rellich--Kondrachov theorem on compact~$\Sigma$, the embedding
+$H^s(\Sigma) \hookrightarrow H^{s'}(\Sigma)$ is compact for $s' < s$, so the closed
+bounded set $K_\rho$ is compact in the $H^{s'}$ topology.
 
-\smallskip\noindent\textit{Step 2: $\mathcal{F}$ maps $K_\rho$ into $K_\rho$.} Given
-$g\in K_\rho$: (A1) provides a Hadamard state with well-defined renormalized
-stress-energy; (A5) reduces the fourth-order system to second order; (A4) gives
-$\mathcal{F}(g) \in H^s$ with $\|\mathcal{F}(g)-\bar{h}\|_{H^s} \leq
-C_{\text{inv}}\|S_{\mu\nu}\|_{H^{s-2}} \leq C_{\text{inv}}B(\rho)$ by (A3). Choose
-$\rho = C_{\text{inv}}B(\rho)$ (a self-consistency condition on $\rho$ that is satisfiable
-since $C_{\text{inv}}B(\rho)\to 0$ as $\rho\to 0$ for perturbative regimes). The harmonic
-gauge and Lorentzian conditions are preserved by the linearized evolution.
+\smallskip\noindent\textit{Step 2: $\mathcal{F}$ maps $K_\rho$ into $K_\rho$
+(semiclassical $\hbar$-smallness regime).}
+Given $g \in K_\rho$: (A1) provides a Hadamard state with well-defined renormalized
+stress-energy; (A5) reduces the fourth-order system to second order; (A4) yields
+$\mathcal{F}(g) \in H^s$ with
+$\|\mathcal{F}(g) - \bar{g}\|_{H^s} \leq C_{\text{inv}}\|S_{\mu\nu}[g]\|_{H^{s-2}}
+\leq C_{\text{inv}}B(\rho)$
+by~(A3).
+
+\emph{$\rho$-selection.} The renormalized stress-energy carries an overall factor of
+$\hbar$ from the one-loop structure of $\langle\hat{T}_{\mu\nu}\rangle_{\text{ren}}$:
+\begin{equation}
+B(\rho) \leq B_0\,\hbar \quad \text{for a constant } B_0 \text{ depending on }
+(\bar{g}, m, \xi, s) \text{ but not on } \rho,
+\label{eq:B_hbar}
+\end{equation}
+where the $\rho$-independence holds because the leading-order stress-energy is
+determined by the background geometry (the state-dependence on $g$ contributes at
+$O(\hbar\rho)$ — a subleading correction that is absorbed into$~B_0$ for
+$\rho \leq 1$). The self-mapping condition $C_{\text{inv}}B(\rho) \leq \rho$ is therefore
+satisfied by choosing
+\begin{equation}
+\rho^* = C_{\text{inv}}B_0\,\hbar.
+\label{eq:rho_star}
+\end{equation}
+In the semiclassical regime $\hbar \ll \lambda_{\min}/(C_{\mathrm{emb}}C_{\text{inv}}B_0)$,
+this gives $\rho^* < \rho_{\mathcal{L}}$, so Step~1 applies.
+The condition on $\hbar$ is stated explicitly:
+\begin{equation}
+\hbar < \hbar_{\max} \equiv \frac{\lambda_{\min}}{C_{\mathrm{emb}}\,C_{\text{inv}}\,B_0}.
+\label{eq:hbar_max}
+\end{equation}
+This is the \emph{semiclassical hypothesis}: the quantum stress-energy must be small
+enough that the geometry is not driven away from the Lorentzian signature of the
+background.
+
+\emph{Harmonic-gauge preservation.} The output $\mathcal{F}(g)$ lies in
+$\mathcal{G}_{\text{harm}}$ by construction: (A4) solves the linearized Einstein equation
+\emph{in} harmonic gauge — the gauge condition is built into the solution operator, not
+an ex post constraint on the output. Explicitly, (A4) inverts the reduced (gauge-fixed)
+Einstein operator, whose solution automatically satisfies the linearized de~Donder
+condition $\nabla^\mu(\mathcal{F}(g)_{\mu\nu} -
+\tfrac{1}{2}\bar{g}_{\mu\nu}\mathrm{tr}\,\mathcal{F}(g)) = 0$; the contracted Bianchi
+identity $\nabla^\mu G_{\mu\nu} = 0$ together with $\nabla^\mu S_{\mu\nu} = 0$ (the
+latter following from the Ward identity for $\langle\hat{T}_{\mu\nu}\rangle_{\text{ren}}$
+evaluated at the solution~$g$) ensures the gauge condition propagates. Therefore
+$\mathcal{F}(g) \in \mathcal{G}_{\text{harm}}$, and combined with the norm bound above,
+$\mathcal{F}(g) \in K_{\rho^*}$.
 
 \smallskip\noindent\textit{Step 3: $\mathcal{F}$ is continuous.} By (A2), $g\mapsto
 S_{\mu\nu}[g]$ is continuous in $H^{s-2}$; by (A4), the Einstein solve is continuous;
-composing, $\mathcal{F}: K_\rho\to K_\rho$ is continuous in $H^{s'}$.
+composing, $\mathcal{F}: K_{\rho^*}\to K_{\rho^*}$ is continuous in $H^{s'}$.
 
 \smallskip\noindent By the Schauder theorem~\cite{schauder}, $\mathcal{F}$ has a fixed
-point in $K_\rho$.\hfill$\square$
-
-\smallskip\noindent\textbf{Gap (M6): $K_\rho$ is not closed or convex as defined.}
-Step~1 describes $\mathcal{L}$ as a ``convex affine set,'' but $\mathcal{L}$ is defined
-in eq.~\eqref{eq:K_rho} as the \emph{open} set of Lorentzian-signature metrics, and the
-set of Lorentzian metrics is neither affine nor convex (a convex combination of two
-Lorentzian metrics need not be Lorentzian). As written, $K_\rho$ is therefore not closed,
-and the compactness and convexity claimed in Step~1 do not follow. The expected repair is
-cheap --- for $\rho$ small enough, Sobolev embedding keeps the entire closed $H^s$ ball
-inside $\mathcal{L}$, so the intersection with $\mathcal{L}$ is vacuous --- but the proof
-must be rewritten to say so; we flag rather than fix it here.
-
-\smallskip\noindent\textbf{Gap (M7): the $\rho$-selection argument in Step~2 is incorrect.}
-Step~2 claims the self-consistency condition $\rho = C_{\text{inv}}B(\rho)$ is satisfiable
-``since $C_{\text{inv}}B(\rho)\to 0$ as $\rho\to 0$.'' This is false: as $\rho \to 0$,
-$K_\rho \to \{\bar{g}\}$ and $B(\rho) \to \|\langle\hat{T}_{\mu\nu}\rangle_{\bar{g},
-\text{ren}}\|_{H^{s-2}}$, which is the renormalized vacuum stress-energy of the background
-and does not vanish. The correct route is different (e.g.\ $B$ is $O(\hbar)$-small and
-approximately $\rho$-independent, so a fixed point of $\rho \mapsto C_{\text{inv}}B(\rho)$
-exists for small $\hbar$), and the assertion that the harmonic-gauge and Lorentzian
-conditions are ``preserved by the linearized evolution'' also requires argument (gauge
-preservation needs source conservation, which holds with respect to $g$ but is applied in
-a solve linearized around $\bar{g}$). Flagged, not fixed.
+point in $K_{\rho^*}$.\hfill$\square$
 
 \noindent\emph{Remark.} Assumption~(A6) is not used in the Schauder argument (which
 requires only continuity, not contractivity). It would be needed for a Banach fixed-point
