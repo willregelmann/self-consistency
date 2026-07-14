@@ -997,32 +997,37 @@ These are identical.
 Let $\gamma \in \mathbb{R}$ (i.e., $\theta = 0$) and $h \in
 \mathbb{R}^N$. Then:
 \begin{enumerate}
-\item[(a)] \textbf{(Rigorous.)} The real subspace $\mathbb{R}^N$ is invariant
-under the self-consistency map $F$, and every conditional density matrix
-of a real fixed point has real entries: $\mathrm{Im}(\rho_{S|c}) = 0$
-for all~$c$.
+\item[(a)] \textbf{(Rigorous.)} The self-consistency map $F$ sends all of
+$\mathbb{C}^N$ into $\mathbb{R}^N_{>0}$. Consequently \emph{every} fixed
+point of $F$ --- regardless of uniqueness --- is real-valued, and every
+conditional density matrix of a fixed point has real entries:
+$\mathrm{Im}(\rho_{S|c}) = 0$ for all~$c$.
 \item[(b)] \textbf{(Sketch.)} The fixed point $\psi^*$ is unique in
-$(\mathbb{C}^N, \|\cdot\|_2)$, hence real-valued.
+$(\mathbb{C}^N, \|\cdot\|_2)$.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
 \emph{Part~(a).} The curvature $R_\sigma(\psi) = h_\sigma + \sum_j \alpha_j M_j(\sigma_j) +
-\beta\,|\psi_\sigma|^2$ depends on $\psi$ only through $|\psi_\sigma|^2$,
-so $R_\sigma(\psi) \in \mathbb{R}$ for all $\psi$. With $\gamma \in
-\mathbb{R}$, the self-consistency map $F(\psi)_\sigma = e^{\gamma
-R_\sigma} / \|e^{\gamma R}\|_2$ sends $\mathbb{R}^N$ to $\mathbb{R}^N$.
-The real subspace is therefore invariant under $F$. Any fixed point in
-$\mathbb{R}^N$ then gives real conditional slices
-$\mu_{S|c}(s) = \psi^*_{(c,s)} \in \mathbb{R}$,
-so $\rho_{S|c} = |\mu_{S|c}\rangle\langle\mu_{S|c}| /
+\beta\,|\psi_\sigma|^2$ depends on $\psi$ only through $|\psi_\sigma|^2 \in
+\mathbb{R}_{\ge 0}$, so $R_\sigma(\psi) \in \mathbb{R}$ for \emph{every}
+$\psi \in \mathbb{C}^N$, not merely for real $\psi$. With $\gamma \in
+\mathbb{R}$, this gives $e^{\gamma R_\sigma(\psi)} \in \mathbb{R}_{>0}$ for
+every $\psi \in \mathbb{C}^N$, so the self-consistency map
+$F(\psi)_\sigma = e^{\gamma R_\sigma(\psi)} / \|e^{\gamma R(\psi)}\|_2$
+sends all of $\mathbb{C}^N$ into $\mathbb{R}^N_{>0}$ --- the real
+subspace is not merely invariant, it is the image of $F$ on its entire
+domain. Hence any fixed point $\psi^* = F(\psi^*)$ automatically lies in
+$\mathbb{R}^N_{>0}$, whether or not $\psi^*$ is unique. This gives real
+conditional slices $\mu_{S|c}(s) = \psi^*_{(c,s)} \in \mathbb{R}$, so
+$\rho_{S|c} = |\mu_{S|c}\rangle\langle\mu_{S|c}| /
 \langle\mu_{S|c}|\mu_{S|c}\rangle$ is a real outer product divided by a
 real scalar.
 
-\emph{Part~(b) (Sketch).} Uniqueness of the fixed point in $\mathbb{C}^N$
-would imply that it lies in $\mathbb{R}^N$ (since $\mathbb{R}^N$ is
-$F$-invariant and hence contains at least one fixed point by Brouwer).
-The companion paper~\cite{fixed_point} establishes a Banach contraction for
+\emph{Part~(b) (Sketch).} Existence of a fixed point of $F$ is not in
+question here (Part~(a) shows any such fixed point is automatically real);
+what remains open is \emph{uniqueness} in $\mathbb{C}^N$. The companion
+paper~\cite{fixed_point} establishes a Banach contraction for
 the \emph{field-theoretic} semiclassical Einstein equation (Sketch,
 permanently at this generality; Section~\ref{sec:level2}), but this
 argument does not directly apply to the finite-dimensional map $F$ on
