@@ -51,6 +51,13 @@ one disposition, with a comment stating the reasoning:
   with the rationale. Closed proposals are records, not failures — never
   delete them.
 
+Literature silence is never sufficient grounds for Park or Close on its own —
+per METHODOLOGY's "What This Program Produces," "no one has proven this" is
+exactly the kind of open territory Promote is for. Park or Close on a
+mathematical or structural obstruction (a missing prerequisite result, a
+scope mismatch with the framework's axioms), never on "the literature
+doesn't have this yet" alone.
+
 Caps and mechanics: at most **2 promotes per run**, so the milestone set grows
 slower than the worker burns it down and T4's denominator stays meaningful. A
 weekly run with at least one promote produces a governance PR (labels and

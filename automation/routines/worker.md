@@ -63,7 +63,11 @@ candidate.
 4. Do the work per METHODOLOGY: coherent commits, every result labeled
    (Rigorous)/(Sketch)/(Conjecture), no new postulates beyond the framework's
    axioms (if one seems required: stop, comment, apply `needs-human` to the
-   issue, unassign, exit).
+   issue, unassign, exit). Literature silence on the question — "no existing
+   paper proves this" — is not itself a blocker; per METHODOLOGY's "What This
+   Program Produces," it's scoping information. Attempt the derivation within
+   the axioms and label the result honestly (Sketch is fine, gaps named)
+   rather than treating absence of precedent as grounds to fail the attempt.
 5. Verify locally before opening the PR: `pdflatex` compiles the touched
    paper(s); `pytest -q` passes if you touched tests/numerics;
    `python tools/verify_citations.py programs/<program>/index.tex` resolves if
