@@ -993,29 +993,50 @@ These are identical.
 \end{proof}
 
 \begin{proposition}[Riemannian conditioning is classical]
-\textbf{(Rigorous.)}
 \label{prop:riem_classical}
 Let $\gamma \in \mathbb{R}$ (i.e., $\theta = 0$) and $h \in
-\mathbb{R}^N$. Then the self-consistency fixed point $\psi^*$ is
-real-valued, and every conditional density matrix $\rho_{S|c}$ has
-real entries. In particular, $\mathrm{Im}(\rho_{S|c}) = 0$ for all~$c$.
+\mathbb{R}^N$. Then:
+\begin{enumerate}
+\item[(a)] \textbf{(Rigorous.)} The self-consistency map $F$ sends all of
+$\mathbb{C}^N$ into $\mathbb{R}^N_{>0}$. Consequently \emph{every} fixed
+point of $F$ --- regardless of uniqueness --- is real-valued, and every
+conditional density matrix of a fixed point has real entries:
+$\mathrm{Im}(\rho_{S|c}) = 0$ for all~$c$.
+\item[(b)] \textbf{(Sketch.)} The fixed point $\psi^*$ is unique in
+$(\mathbb{C}^N, \|\cdot\|_2)$.
+\end{enumerate}
 \end{proposition}
 
 \begin{proof}
-The curvature $R_\sigma(\psi) = h_\sigma + \sum_j \alpha_j M_j(\sigma_j) +
-\beta\,|\psi_\sigma|^2$ depends on $\psi$ only through $|\psi_\sigma|^2$,
-so $R_\sigma(\psi) \in \mathbb{R}$ for all $\psi$. With $\gamma \in
-\mathbb{R}$, the self-consistency map $F(\psi)_\sigma = e^{\gamma
-R_\sigma} / \|e^{\gamma R}\|_2$ sends $\mathbb{R}^N$ to $\mathbb{R}^N$.
-The real subspace is therefore invariant under $F$. Since the Banach
-contraction (Section~\ref{sec:level2}) guarantees a unique fixed point in
-$(\mathbb{C}^N, \|\cdot\|_2)$ viewed as a complete metric space, and the iteration starting from any real initial condition remains
-real, the fixed point $\psi^* \in \mathbb{R}^N$.
-
-Each conditional slice $\mu_{S|c}(s) = \psi^*_{(c,s)} \in \mathbb{R}$,
-so $\rho_{S|c} = |\mu_{S|c}\rangle\langle\mu_{S|c}| /
+\emph{Part~(a).} The curvature $R_\sigma(\psi) = h_\sigma + \sum_j \alpha_j M_j(\sigma_j) +
+\beta\,|\psi_\sigma|^2$ depends on $\psi$ only through $|\psi_\sigma|^2 \in
+\mathbb{R}_{\ge 0}$, so $R_\sigma(\psi) \in \mathbb{R}$ for \emph{every}
+$\psi \in \mathbb{C}^N$, not merely for real $\psi$. With $\gamma \in
+\mathbb{R}$, this gives $e^{\gamma R_\sigma(\psi)} \in \mathbb{R}_{>0}$ for
+every $\psi \in \mathbb{C}^N$, so the self-consistency map
+$F(\psi)_\sigma = e^{\gamma R_\sigma(\psi)} / \|e^{\gamma R(\psi)}\|_2$
+sends all of $\mathbb{C}^N$ into $\mathbb{R}^N_{>0}$ --- the real
+subspace is not merely invariant, it is the image of $F$ on its entire
+domain. Hence any fixed point $\psi^* = F(\psi^*)$ automatically lies in
+$\mathbb{R}^N_{>0}$, whether or not $\psi^*$ is unique. This gives real
+conditional slices $\mu_{S|c}(s) = \psi^*_{(c,s)} \in \mathbb{R}$, so
+$\rho_{S|c} = |\mu_{S|c}\rangle\langle\mu_{S|c}| /
 \langle\mu_{S|c}|\mu_{S|c}\rangle$ is a real outer product divided by a
 real scalar.
+
+\emph{Part~(b) (Sketch).} Existence of a fixed point of $F$ is not in
+question here (Part~(a) shows any such fixed point is automatically real);
+what remains open is \emph{uniqueness} in $\mathbb{C}^N$. The companion
+paper~\cite{fixed_point} establishes a Banach contraction for
+the \emph{field-theoretic} semiclassical Einstein equation (Sketch,
+permanently at this generality; Section~\ref{sec:level2}), but this
+argument does not directly apply to the finite-dimensional map $F$ on
+$\mathbb{C}^N$ used here. An independent contraction argument for $F$
+on $(\mathbb{C}^N, \|\cdot\|_2)$ --- for instance by bounding
+$\|DF\|_{\mathrm{op}} < 1$ uniformly --- remains open. The numerical
+evidence (all tested cases converge to the same fixed point regardless of
+initial condition) strongly supports uniqueness, but a proof is not yet
+available.
 \end{proof}
 
 \begin{proposition}[Lorentzian conditioning produces quantum coherences]
@@ -1733,8 +1754,9 @@ full hierarchy.
 The companion paper~\cite{fixed_point} studies eq.~\eqref{eq:sce} as a
 fixed-point condition in its own right. Within the present hierarchy,
 this is the Level~2 constraint evaluated on a single smooth structure.
-The Banach contraction result ($\kappa \ll 1$ for sub-Planckian
-curvatures; Sketch) is the perturbative stability of the fixed point at this
+The Banach contraction result (Sketch; permanently at this generality due to
+the structural M3 obstruction --- see Section~\ref{sec:level2}) is the
+perturbative stability of the fixed point at this
 level. The Schauder existence result (conditional on one open assumption,
 a uniform stress-energy bound)
 is non-perturbative existence.
