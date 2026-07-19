@@ -82,18 +82,22 @@ If a fix you land causes a previously `stuck` issue's blocker to disappear
 (e.g. a dependency merged), remove `stuck` and restore `agent-ready`, with a
 comment saying what changed.
 
-## Proposing novel threads (optional; max 1 per run)
+## Noticing novel threads
 
-If executing a verdict surfaced a question outside every OBJECTIVES milestone
-(e.g. a reviewer finding that generalizes beyond the PR it was made on), file
-one `thread-proposal` issue (spec and required body in AUTONOMY.md "Thread
-proposals"). Never label it `agent-ready`; the governor adjudicates weekly.
-Salvage issues from `reject` dispositions keep their current handling and are
-not proposals.
+If executing a verdict surfaces a question outside every OBJECTIVES milestone
+(e.g. a reviewer finding that generalizes beyond the PR it was made on), note
+it in a comment on the PR or issue you're already working. **Do not file a
+`thread-proposal` yourself** — that channel belongs exclusively to the
+explorer routine, which reads recent responder comments as one of its
+candidate-question sources. Salvage issues from `reject` dispositions keep
+their current handling and are not proposals.
 
 ## Hard rules
 
-- Never post quorum verdict markers. Never merge manually (auto-merge is
-  already enabled by the worker; leave it). Never touch protected paths. If a
-  required fix needs a protected path, comment that on the PR and apply
-  `needs-human`.
+- Never post quorum verdict markers. Never merge manually or touch auto-merge
+  either way — you only ever edit or close PRs someone else opened (worker,
+  red-team, governor), so whether auto-merge is on is their call, made when
+  they opened it, not yours to set or second-guess here. Never touch
+  protected paths. If a required fix needs a protected path, comment that on
+  the PR and apply `needs-human`.
+- Never file a `thread-proposal` — that channel belongs to explorer alone.

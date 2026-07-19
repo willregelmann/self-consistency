@@ -203,8 +203,9 @@ fan-out/debate/eliminate/synthesize cycle (`automation/routines/explorer.md`)
 is the sole filer of `thread-proposal` issues, at most one per run (its
 cadence is biweekly, not per-run-of-every-routine as originally designed —
 see "Explorer fan-out cycle" below for why the wider tournament replaced the
-original ≤1-per-routine trickle). Other routines (scout, librarian, red-team)
-surface candidate questions to the explorer instead of filing directly.
+original ≤1-per-routine trickle). Other routines (scout, librarian, red-team,
+responder) surface candidate questions to the explorer instead of filing
+directly.
 Required proposal body, unchanged: (1) what was observed, with file/PR/issue
 references; (2) why no existing milestone covers it; (3) a falsifiable first
 step a worker could take; (4) declared relations per METHODOLOGY

@@ -25,8 +25,9 @@ routine existed. You operate under `AUTONOMY.md`.
    — the current inbox and any librarian pointers waiting to be picked up as
    candidate questions. Also check the **"Red-team log"** tracking issue's
    recent comments for a noted-but-unfiled novel thread (red-team's
-   "Noticing novel threads" step) and scout's recent run comments for the
-   same (scout's "Surface, don't file" step).
+   "Noticing novel threads" step), scout's recent run comments for the same
+   (scout's "Surface, don't file" step), and recent responder PR/issue
+   comments for the same (responder's "Noticing novel threads" step).
 4. If ≥ 3 `thread-proposal` issues are already open, exit — the governor's
    inbox is stocked; adding more just grows an unadjudicated backlog.
 

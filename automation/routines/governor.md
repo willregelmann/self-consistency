@@ -106,6 +106,11 @@ In the SAME PR as the exploration (monthly), or in the weekly promote PR:
 - Labels: `agent-pr` + `governance`. PR description must @-mention the
   experimenter (`@willregelmann`) — a non-blocking notification, not an
   approval request.
+- Enable auto-merge: `gh pr merge <N> --auto --squash`. Do this every time —
+  `worker.md` has always had this step and `red-team.md` didn't, which let a
+  fully quorum-approved, all-green demotion PR (#162) sit unmerged for five
+  days undetected (see EXPERIMENT.md log, 2026-07-19). A governance PR is no
+  different: once quorum accepts it, nothing else will merge it for you.
 - For `stuck` issues the debate resolved: comment with the new direction and
   restore `agent-ready`, or close with the reason.
 
@@ -130,3 +135,6 @@ Tags are cheap history, not victory laps — when in doubt, don't.
 - Never promote more than 2 thread-proposals per run, and never promote a
   proposal that would require a new postulate (that is a `needs-human`
   escalation, not a milestone).
+- Never leave a governance PR you opened without auto-merge enabled — no
+  other routine watches for "quorum-approved but nobody turned auto-merge
+  on."
