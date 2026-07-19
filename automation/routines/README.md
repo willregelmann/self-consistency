@@ -63,10 +63,17 @@ flowchart LR
 | red-team | every 3 days 08:00 | opus | `red-team.md` |
 | scout | weekly Mon 03:00 | sonnet | `scout.md` |
 | librarian | weekly Tue 03:00 | sonnet | `librarian.md` |
+| explorer | biweekly (every two weeks) | opus | `explorer.md` |
 | governor | weekly Sun 05:00 (light pass); full pass 1st of month | opus | `governor.md` |
 
 Model is repo-var-driven, not pinned in these files — see "Shared deployment
 configuration" below; the column above shows the current default only.
+
+**explorer's cadence is not yet a live cron** — see "Deployed instances"
+below; the routine definition (`explorer.md`) is ready but its scheduled
+caller workflow is drafted, not merged, pending the experimenter's
+admin-merge (gate-workflow files stay outside what any routine, or this
+document's author, can land unilaterally).
 
 Cadence rationale: responder (04:00) runs before reviewer (05:00) runs before
 worker (06:00) — fixes land, get re-reviewed, then new work starts against an
@@ -90,7 +97,46 @@ drifts from the workflow files, this file is wrong — fix it.
 | red-team | `autonomy-red-team.yml` | `0 8 */3 * *` | claude-opus-4.6 |
 | scout | `autonomy-scout.yml` | `0 3 * * 1` | claude-sonnet-5 |
 | librarian | `autonomy-librarian.yml` | `0 3 * * 2` | claude-sonnet-5 |
+| explorer | `autonomy-explorer.yml` (**drafted, not merged**) | `0 4 * * 1` + even-ISO-week gate (see draft) | claude-opus-4.6 |
 | governor | `autonomy-governor.yml` | `0 5 * * 0` | claude-opus-4.6 |
+
+`autonomy-explorer.yml` doesn't exist in `.github/workflows/` yet — cron has
+no native "every two weeks" primitive, so the draft fires weekly and gates on
+ISO week parity in a pre-step. Draft, for the experimenter to review and
+admin-merge:
+
+```yaml
+name: autonomy-explorer
+
+on:
+  schedule:
+    - cron: "0 4 * * 1"  # Mondays 04:00 UTC; see week-parity gate below
+  workflow_dispatch:
+
+jobs:
+  week-check:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.parity.outputs.run }}
+    steps:
+      - id: parity
+        run: |
+          WEEK=$(date -u +%V)
+          if [ $(( 10#$WEEK % 2 )) -eq 0 ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  run:
+    needs: week-check
+    if: needs.week-check.outputs.run == 'true'
+    uses: ./.github/workflows/autonomy-routine.yml
+    with:
+      role: explorer
+      model: ${{ vars.MODEL_EXPLORER || 'claude-opus-4.6' }}
+    secrets: inherit
+```
 
 Model IDs for the Agent Tasks API do not match the old Claude Code CLI's IDs
 (confirmed by direct testing: `claude-opus-4-8` 400s — "model not found";

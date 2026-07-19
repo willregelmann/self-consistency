@@ -189,6 +189,17 @@ The `TeammateIdle` hook runs when a teammate is about to go idle. Exit code 2 ke
 
 The output of a team debate is an Exploration (see below). Position files and the synthesis are committed to the program's `explorations/` directory as a dated artifact. The positions themselves are part of the record — not just the synthesis — because a position that lost the debate may become relevant again if the synthesis's conclusion is later challenged.
 
+This default (every position committed permanently) fits a small debate — 2-3
+positions on one pre-defined question. A wider speculative tournament (more
+candidate attempts than that, most expected to fail) doesn't need every
+attempt to earn permanent, first-class status to satisfy "never delete a
+losing position" — a lighter record (where the attempt lived, why it died)
+can carry that obligation instead. Under autonomous mode, this is exactly
+what the `explorer` routine's scratch tier does; see AUTONOMY.md's
+"Explorations under autonomy" section for the mechanism. Outside autonomous
+mode, the same principle applies by judgment: scale the record to the size
+of the fan-out, not the other way around.
+
 ## Explorations
 
 Some work reshapes the research direction rather than advancing a specific result. This work does not fit the branch-per-issue contribution model. Call it an **Exploration**.
